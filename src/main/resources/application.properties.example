@@ -1,0 +1,18 @@
+# Copiar este archivo como application.properties (o application-local.properties)
+# y completar con los datos reales. application.properties NO se sube al repo si tiene credenciales.
+
+spring.application.name=sistema-alquiler-vehiculos
+
+# Conexion a PostgreSQL
+spring.datasource.url=jdbc:postgresql://localhost:5432/alquiler_vehiculos
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+
+# Hibernate/JPA
+# update: en desarrollo, para que cree/actualice las tablas automaticamente segun las entidades.
+# Mas adelante, cuando el modelo este estable, conviene migrar a scripts de migracion (Flyway) en vez de "update".
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+server.port=8080
