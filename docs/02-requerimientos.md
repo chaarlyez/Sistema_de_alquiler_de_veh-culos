@@ -304,13 +304,14 @@ pagos/facturación).
 
 ## 9. Qué falta validar antes de pasar a la Fase 3
 
-- [ ] ¿Los 45 requerimientos funcionales reflejan correctamente cada historia de usuario, o falta/sobra alguno?
-- [ ] ¿Las reglas de negocio (sección 4) coinciden con cómo opera realmente la empresa? RN12, RN13 y
-      RN14 ya no son un supuesto arbitrario — se definieron investigando cómo operan Localiza,
-      Avis, Enterprise y sistemas de gestión de flotas reales (ver justificación y fuentes debajo
-      de RN14) — pero siguen siendo una decisión tomada por mí, no confirmada todavía por la
-      empresa/usuario del proyecto. RN09 (toda reserva nace PENDIENTE) y RN05 (fórmula del monto)
-      ya estaban confirmados conceptualmente.
-- [ ] ¿Los requerimientos no funcionales (rendimiento, disponibilidad de datos, etc.) son razonables para el contexto del MVP, o hay alguno de más/de menos?
-- [ ] ¿Están de acuerdo con los criterios de aceptación formales elegidos (sección 6), o hay otro caso crítico que convenga agregar?
-- [ ] ¿Los precios de referencia del Anexo (sección 8) son razonables, o prefieren otros valores para los datos de ejemplo de la Fase 6?
+- [x] ¿Los 45 requerimientos funcionales reflejan correctamente cada historia de usuario, o falta/sobra alguno? → **Sí, confirmado** (revisados historia por historia en una pasada de detalle previa).
+- [x] ¿Las reglas de negocio (sección 4) coinciden con cómo opera realmente la empresa? → **Sí,
+      confirmado.** RN12, RN13 y RN14 quedan aceptadas tal como se definieron (investigando cómo
+      operan Localiza, Avis, Enterprise y sistemas de gestión de flotas reales — ver justificación
+      y fuentes debajo de RN14). RN09 y RN05 ya estaban confirmados conceptualmente.
+- [x] ¿Los requerimientos no funcionales son razonables para el contexto del MVP? → **Sí, confirmado.**
+- [x] ¿Están de acuerdo con los criterios de aceptación formales elegidos (sección 6)? → **Sí, confirmado.**
+- [x] ¿Los precios de referencia del Anexo (sección 8) son razonables? → **Sí, confirmado.**
+
+**Fase 2 cerrada.** Se pasa a la Fase 3 (Diagramas UML: casos de uso, clases, secuencia,
+actividades) con la skill `engineering:system-design`.
