@@ -191,7 +191,7 @@ razonamiento del stack). No se van a usar en este proyecto: `engineering:inciden
 
 ## 9. Estado actual
 
-Fase: **1 — Épicas y Stories, CERRADA** ✅ (ver `docs/00-roadmap.md` para el detalle de las 6 fases).
+Fase: **2 — Requerimientos, EN CURSO** 🟡 (ver `docs/00-roadmap.md` para el detalle de las 6 fases).
 
 Hecho:
 - Definido el stack y las convenciones técnicas (este archivo) — se van a aplicar recién en la
@@ -202,8 +202,16 @@ Hecho:
 - `docs/01-epicas-historias-usuario.md`, **validado y cerrado por el usuario**: problema, objetivo,
   2 actores (Empleado sin login; Cliente sin cuenta, con formulario público de reserva), **5
   épicas** (Vehículos, Clientes, Reservas, Alquileres, Autogestión de Reservas del Cliente) con
-  sus historias de usuario y criterios de aceptación. Se evaluó y descartó manejar autenticación
+  sus 21 historias de usuario, puntos de historia (estimación Fibonacci), dependencias entre
+  historias y un diagrama Mermaid de user story map. Se evaluó y descartó manejar autenticación
   en el MVP — el cliente reserva directamente completando datos básicos obligatorios, sin cuenta.
+- Corregida inconsistencia de versión de Java en `pom.xml` (quedó en 17, alineado con la sección 4
+  de este archivo) — feedback del profesor sobre la Fase 1.
+- `docs/02-requerimientos.md` **en borrador, pendiente de validación con el usuario** (no cerrada
+  todavía): 41 requerimientos funcionales (uno o más por historia), 9 no funcionales, 11 reglas de
+  negocio, 8 restricciones, criterios de aceptación formales (Given/When/Then) para los casos más
+  críticos, y matriz de trazabilidad historia↔requerimiento.
 
-Próximo paso: arrancar la **Fase 2 (Requerimientos)** — requerimientos funcionales y no
-funcionales, reglas de negocio y criterios de aceptación formales — en `docs/02-requerimientos.md`.
+Próximo paso: validar `docs/02-requerimientos.md` con el usuario (ver su sección 8, "Qué falta
+validar") y, una vez cerrada, arrancar la **Fase 3 (Diagramas UML)** con la skill
+`engineering:system-design`.
