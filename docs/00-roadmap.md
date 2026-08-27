@@ -5,8 +5,8 @@ al cerrar cada fase.
 
 | # | Fase | Actividades principales | Entregable | Estado |
 |---|---|---|---|---|
-| 1 | Épica y Stories | Definir problema, objetivo, usuarios y funcionalidades principales. Crear épicas y dividirlas en historias de usuario. | Épicas + Historias de usuario | 🟡 En curso |
-| 2 | Requerimientos | Identificar y documentar requerimientos funcionales y no funcionales. Definir reglas de negocio y criterios de aceptación. | Documento de requerimientos | ⬜ Pendiente |
+| 1 | Épica y Stories | Definir problema, objetivo, usuarios y funcionalidades principales. Crear épicas y dividirlas en historias de usuario. | Épicas + Historias de usuario | ✅ Cerrada |
+| 2 | Requerimientos | Identificar y documentar requerimientos funcionales y no funcionales. Definir reglas de negocio y criterios de aceptación. | Documento de requerimientos | 🟡 En curso |
 | 3 | Diagramas UML | Modelar el sistema a partir de los requerimientos. Casos de uso, clases, secuencia, actividades. | Diagramas UML | ⬜ Pendiente |
 | 4 | Base de datos | Identificar entidades, atributos y relaciones. Modelo conceptual, lógico y físico. Script SQL. | Modelo ER/UML + Script de BD | ⬜ Pendiente |
 | 5 | Mockup / Prototipo | Diseñar interfaces principales y flujo de navegación. Validar experiencia antes de programar. | Mockup/prototipo navegable | ⬜ Pendiente |
@@ -27,7 +27,7 @@ al cerrar cada fase.
 docs/
 ├── 00-roadmap.md                      (este archivo)
 ├── 01-epicas-historias-usuario.md     (Fase 1)
-├── 02-requerimientos.md               (Fase 2 - pendiente)
+├── 02-requerimientos.md               (Fase 2 - en curso)
 ├── 03-uml/                            (Fase 3 - pendiente)
 ├── 04-base-de-datos/                  (Fase 4 - pendiente)
 └── 05-mockups/                        (Fase 5 - pendiente)
