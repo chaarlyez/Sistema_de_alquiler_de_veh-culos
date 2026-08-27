@@ -191,7 +191,7 @@ razonamiento del stack). No se van a usar en este proyecto: `engineering:inciden
 
 ## 9. Estado actual
 
-Fase: **2 — Requerimientos, EN CURSO** 🟡 (ver `docs/00-roadmap.md` para el detalle de las 6 fases).
+Fase: **2 — Requerimientos, CERRADA** ✅ (ver `docs/00-roadmap.md` para el detalle de las 6 fases).
 
 Hecho:
 - Definido el stack y las convenciones técnicas (este archivo) — se van a aplicar recién en la
@@ -207,11 +207,14 @@ Hecho:
   en el MVP — el cliente reserva directamente completando datos básicos obligatorios, sin cuenta.
 - Corregida inconsistencia de versión de Java en `pom.xml` (quedó en 17, alineado con la sección 4
   de este archivo) — feedback del profesor sobre la Fase 1.
-- `docs/02-requerimientos.md` **en borrador, pendiente de validación con el usuario** (no cerrada
-  todavía): 41 requerimientos funcionales (uno o más por historia), 9 no funcionales, 11 reglas de
-  negocio, 8 restricciones, criterios de aceptación formales (Given/When/Then) para los casos más
-  críticos, y matriz de trazabilidad historia↔requerimiento.
+- `docs/02-requerimientos.md`, **validado y cerrado por el usuario**: 45 requerimientos
+  funcionales (uno o más por historia), 8 no funcionales, 14 reglas de negocio, 8 restricciones,
+  criterios de aceptación formales (Given/When/Then) para los casos más críticos, matriz de
+  trazabilidad historia↔requerimiento, y un anexo de precios de referencia (investigación de
+  mercado real, no vinculante) para datos de ejemplo de la Fase 6. Tres reglas de negocio clave
+  (solapamiento de fechas, cálculo de días efectivos con tolerancia, bloqueo por alquiler activo)
+  se definieron investigando cómo operan empresas reales de alquiler (Localiza, Avis, Enterprise)
+  en vez de asumirlas arbitrariamente.
 
-Próximo paso: validar `docs/02-requerimientos.md` con el usuario (ver su sección 8, "Qué falta
-validar") y, una vez cerrada, arrancar la **Fase 3 (Diagramas UML)** con la skill
-`engineering:system-design`.
+Próximo paso: arrancar la **Fase 3 (Diagramas UML)** — casos de uso, clases, secuencia,
+actividades, en `docs/03-uml/` — con la skill `engineering:system-design`.
