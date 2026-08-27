@@ -127,15 +127,36 @@ autenticación, roles, notificaciones, reportes, multi-sucursal).
 | **RN09** | Toda reserva nace en estado PENDIENTE, salvo que se confirme explícitamente (US3.5) pasando a CONFIRMADA. |
 | **RN10** | En el formulario público (E5), si el documento ingresado coincide con un Cliente ya existente, se reutiliza ese registro; si no existe, se crea uno nuevo automáticamente con los datos provistos. |
 | **RN11** | Un alquiler sin reserva previa ocupa la disponibilidad del vehículo igual que uno originado en una reserva (el vehículo pasa a "Alquilado" en ambos casos). |
-| **RN12** | **Fórmula de solapamiento de fechas**: dos rangos `[inicioA, finA]` y `[inicioB, finB]` se consideran solapados si `inicioA <= finB` y `finA >= inicioB`. Ambas fechas límite son inclusive: el vehículo se considera ocupado también en el día de `fechaFin`. |
-| **RN13** | **Cálculo de días efectivos**: se calculan como la diferencia en días de calendario entre la fecha de inicio real y la fecha de fin real de un alquiler (ej.: retiro el día 1, devolución el día 4 → 3 días efectivos). El MVP no factura por horas ni fracciones de día; si se necesita en el futuro, es una extensión fuera de alcance. |
+| **RN12** | **Fórmula de solapamiento de fechas (reservas)**: dos rangos `[inicioA, finA]` y `[inicioB, finB]` se consideran solapados si `inicioA <= finB` y `finA >= inicioB`. Ambas fechas límite son inclusive: el vehículo se considera reservado también en el día de `fechaFin`. Aplica a `Reserva.fechaInicio`/`fechaFin`, que son de granularidad **día** (no hora) — es el mismo criterio "por día" que usan los motores de reserva de autos (DiscoverCars, agencias online) para mostrar disponibilidad antes de la confirmación. |
+| **RN13** | **Cálculo de días efectivos (facturación de un alquiler)**: se cuentan en períodos de 24 horas desde el momento exacto de retiro (`Alquiler.fechaInicioReal`), con una **tolerancia de 1 hora** sobre la devolución antes de contar un día adicional; superada la tolerancia, se cobra el día completo siguiente (no se factura por fracciones de hora — el modelo no tiene tarifa horaria, solo `pricePerDay`). Ej.: retiro el día 1 a las 10:00, devolución el día 4 a las 10:40 → 3 días efectivos (dentro de tolerancia); devolución a las 12:00 → 4 días efectivos. Para que esta regla sea aplicable, `Alquiler.fechaInicioReal`/`fechaFinReal` deben guardar **fecha y hora** (no solo fecha) — a tener en cuenta en la Fase 4. |
 | **RN14** | Mientras un vehículo tenga un alquiler en estado ACTIVO (es decir, sin fecha de devolución real todavía registrada), no se le puede crear ninguna reserva nueva, sin importar el rango de fechas solicitado — no hay una fecha de fin conocida contra la cual verificar solapamiento. |
 
-> ⚠️ **RN12, RN13 y RN14 son supuestos propios (no vinieron explícitos de la Fase 1)**, agregados
-> para poder programar la Fase 6 sin ambigüedad. En particular RN14 resuelve una inconsistencia
-> real que tenía la Fase 1: US1.5 (búsqueda de disponibilidad) ya excluía vehículos con reserva
-> *o alquiler* solapado, pero el criterio de aceptación de US3.2 (crear reserva) solo mencionaba
-> solapamiento contra *otra reserva*. Revisar con atención antes de cerrar esta fase.
+> **RN12, RN13 y RN14 se definieron investigando cómo operan empresas reales de alquiler de
+> vehículos** (no son solo un supuesto arbitrario), adaptado al nivel junior/MVP del proyecto:
+> - **RN13** combina la práctica de **Localiza** (períodos de 24 h desde el retiro, con 1 hora de
+>   tolerancia — la referencia regional más cercana, ya que opera en Argentina) con la de
+>   **Avis/Enterprise** (superada la tolerancia, se cobra el día completo siguiente en vez de
+>   fraccionar por hora — Avis: cargo de día completo pasados ~90 min; Enterprise: pasadas 2½ h).
+>   Se descartó el esquema de Localiza de facturar por hora extra (1/5 de la tarifa diaria por
+>   hora, hasta 5 horas) porque exigiría agregar una tarifa horaria al modelo de datos, que hoy
+>   no existe (`Vehicle` solo tiene `pricePerDay`) — más complejidad de la que pide el nivel junior
+>   del proyecto (`CLAUDE.md` sección 1).
+> - **RN14** coincide con cómo operan los sistemas de gestión de flotas reales: el motor de
+>   reservas asigna disponibilidad en base al estado real y confirmado de cada vehículo, no a
+>   fechas de devolución estimadas, justamente para evitar dobles reservas. Los sistemas
+>   profesionales además agregan un "buffer" de preparación/limpieza entre la devolución y la
+>   próxima reserva — **eso queda fuera del alcance del MVP** (no hay una épica ni historia para
+>   eso en la Fase 1 cerrada); si la empresa lo necesita, sería una épica nueva a evaluar más
+>   adelante, no algo para agregar ahora por decisión unilateral.
+> - **RN12** sigue la lógica "por día" (sin horas) que usan los motores de reserva de autos al
+>   mostrar disponibilidad — coherente con que `Reserva` (a diferencia de `Alquiler`) es sobre
+>   fechas, no sobre momentos exactos.
+>
+> Fuentes consultadas: [Localiza — preguntas frecuentes](https://www.localiza.com/argentina/es-ar/preguntas-frecuentes/reserva-de-autos),
+> [Enterprise — política de devoluciones tardías](https://www.enterprise.com/en/car-rental-faqs/us-reservations/late-returns-policy.html),
+> [AutoSlash — grace periods de la industria](https://blog.autoslash.com/the-fee-detective-and-the-grace-of-rental-car-companies/),
+> [DiscoverCars — cómo se cuentan los días de alquiler](https://www.discovercars.com/help/articles/planning-your-trip-vehicle-info/rental-policies-rules/how-do-you-count-rental-days),
+> [Oxmaint — turnaround y buffers en gestión de flotas](https://oxmaint.com/industries/fleet-management/rental-car-fleet-maintenance-turnaround-guide-2026).
 
 ---
 
@@ -208,11 +229,15 @@ tests de la Fase 6.
 - When se intenta iniciar un nuevo alquiler sobre ese mismo vehículo
 - Then el sistema rechaza la operación
 
-**RF38 — cálculo del monto**
+**RF38 — cálculo del monto (RN13: períodos de 24 h + 1 hora de tolerancia)**
 - Given un vehículo con precio por día de $10.000
-- And un alquiler iniciado el día 1 y finalizado el día 4 (3 días efectivos, RN13)
+- And un alquiler retirado el día 1 a las 10:00 y devuelto el día 4 a las 10:40 (dentro de la hora de tolerancia)
 - When se finaliza el alquiler
-- Then el monto total calculado es $30.000
+- Then los días efectivos son 3 y el monto total calculado es $30.000
+- Given el mismo alquiler retirado el día 1 a las 10:00
+- And devuelto el día 4 a las 12:00 (1h20 tarde, supera la tolerancia de 1 hora)
+- When se finaliza el alquiler
+- Then los días efectivos son 4 (se cobra el día adicional completo) y el monto total calculado es $40.000
 
 **RF44 — reutilización de cliente en reserva pública**
 - Given ya existe un Cliente con documento "30111222"
@@ -255,13 +280,37 @@ menos una historia — no hay RF "huérfano" ni historia sin requerimiento forma
 
 ---
 
-## 8. Qué falta validar antes de pasar a la Fase 3
+## 8. Anexo: precios de referencia (investigación de mercado, no vinculante)
+
+`pricePerDay` (RF01) sigue siendo un campo libre que carga el Empleado por vehículo — el sistema
+**no fija precios**. Esta tabla es solo una referencia de mercado real (Argentina, ene. 2026) útil
+para cargar datos de ejemplo/semilla en la Fase 6 (demos, tests, capturas de pantalla), para que no
+queden vehículos con precios irreales tipo "$100".
+
+| Categoría de vehículo | Precio de referencia / día (ARS) | Ejemplo |
+|---|---|---|
+| Económico | $70.000 – $90.000 | Fiat Cronos, Toyota Yaris |
+| SUV mediano | ~$110.000 | — |
+| SUV / camioneta grande | $70.000 – $80.000 *(rango de fuente distinta a la anterior; tomar como orientativo, no como techo/piso exacto)* | — |
+| Pick-up mediana | ~$200.000 | Toyota Hilux, Ford Ranger |
+
+Fuentes: [Infobae — cuánto cuesta alquilar un auto](https://www.infobae.com/economia/2026/01/09/cuanto-cuesta-alquilar-un-auto-para-las-vacaciones-y-que-opciones-hay-en-el-mercado/),
+[Sitios Argentina — precio del alquiler de autos](https://www.sitiosargentina.com.ar/precio-del-alquiler-de-autos-para-tus-vacaciones-en-argentina/).
+
+No incluye depósito de garantía ni combustible/peajes — quedan fuera del MVP (RE04, sin
+pagos/facturación).
+
+---
+
+## 9. Qué falta validar antes de pasar a la Fase 3
 
 - [ ] ¿Los 45 requerimientos funcionales reflejan correctamente cada historia de usuario, o falta/sobra alguno?
-- [ ] ¿Las reglas de negocio (sección 4) coinciden con cómo opera realmente la empresa? En particular:
-      - **RN14**: ¿un vehículo con un alquiler ACTIVO debe bloquear *cualquier* reserva nueva (como quedó definido), o la empresa maneja de otra forma la superposición entre un alquiler en curso y una reserva futura (ej. si el alquiler tiene una fecha de devolución *estimada* aunque no confirmada)?
-      - **RN12**: ¿las fechas límite de una reserva/alquiler son inclusive (el vehículo está ocupado también el día de `fechaFin`), como se asumió?
-      - **RN13**: ¿el cálculo de "días efectivos" por diferencia de días de calendario (sin fracciones de hora) es aceptable para el MVP, o la empresa cobra por hora en el día de devolución?
-      - RN09 (toda reserva nace PENDIENTE) y RN05 (fórmula del monto) — ya confirmados conceptualmente, sin cambios en esta revisión.
+- [ ] ¿Las reglas de negocio (sección 4) coinciden con cómo opera realmente la empresa? RN12, RN13 y
+      RN14 ya no son un supuesto arbitrario — se definieron investigando cómo operan Localiza,
+      Avis, Enterprise y sistemas de gestión de flotas reales (ver justificación y fuentes debajo
+      de RN14) — pero siguen siendo una decisión tomada por mí, no confirmada todavía por la
+      empresa/usuario del proyecto. RN09 (toda reserva nace PENDIENTE) y RN05 (fórmula del monto)
+      ya estaban confirmados conceptualmente.
 - [ ] ¿Los requerimientos no funcionales (rendimiento, disponibilidad de datos, etc.) son razonables para el contexto del MVP, o hay alguno de más/de menos?
 - [ ] ¿Están de acuerdo con los criterios de aceptación formales elegidos (sección 6), o hay otro caso crítico que convenga agregar?
+- [ ] ¿Los precios de referencia del Anexo (sección 8) son razonables, o prefieren otros valores para los datos de ejemplo de la Fase 6?
