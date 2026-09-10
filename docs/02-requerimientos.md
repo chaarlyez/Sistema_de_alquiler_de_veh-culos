@@ -314,4 +314,4 @@ pagos/facturación).
 - [x] ¿Los precios de referencia del Anexo (sección 8) son razonables? → **Sí, confirmado.**
 
 **Fase 2 cerrada.** Se pasa a la Fase 3 (Diagramas UML: casos de uso, clases, secuencia,
-actividades) con la skill `engineering:system-design`.
+actividades)
