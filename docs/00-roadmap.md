@@ -28,8 +28,11 @@ docs/
 ├── 00-roadmap.md                      (este archivo)
 ├── 01-epicas-historias-usuario.md     (Fase 1)
 ├── 02-requerimientos.md               (Fase 2)
-├── 03-uml/                            (Fase 3 - en curso)
-│   └── 00-asignacion.md               (división del trabajo en 3 partes)
+├── 03-uml/                            (Fase 3 - en curso, 3 partes con borrador, pendiente validación)
+│   ├── 00-asignacion.md               (división del trabajo en 3 partes)
+│   ├── 01-johann-tafur-vehiculos-clientes.md
+│   ├── 02-reservas-chaarlyez.md
+│   └── 03-alquileres-mariocardona970546.md
 ├── 04-base-de-datos/                  (Fase 4 - pendiente)
 └── 05-mockups/                        (Fase 5 - pendiente)
 ```
@@ -39,8 +42,11 @@ docs/
 La Fase 3 se dividió en 3 partes, una por integrante del equipo, agrupando las épicas de la Fase 1.
 Ver el detalle de alcance y entregables de cada parte en `docs/03-uml/00-asignacion.md`.
 
-| Parte | Integrante | Épicas |
-|---|---|---|
-| 1 | Johann-Tafur | E1 Vehículos + E2 Clientes |
-| 2 | chaarlyez | E3 Reservas + E5 Autogestión de Reservas del Cliente |
-| 3 | mariocardona970546 | E4 Alquileres + integración final del diagrama de clases |
+| Parte | Integrante | Épicas | Estado |
+|---|---|---|---|
+| 1 | Johann-Tafur | E1 Vehículos + E2 Clientes | 🔶 Borrador, pendiente de validación |
+| 2 | chaarlyez | E3 Reservas + E5 Autogestión de Reservas del Cliente | 🔶 Borrador, pendiente de validación |
+| 3 | mariocardona970546 | E4 Alquileres + integración final del diagrama de clases | 🔶 Borrador, pendiente de validación |
+
+Cuando las 3 partes estén validadas por el usuario, se marca la Fase 3 como ✅ Cerrada en la tabla
+de arriba.

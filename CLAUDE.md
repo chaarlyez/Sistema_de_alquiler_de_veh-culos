@@ -219,7 +219,15 @@ Hecho:
   (E1 Vehículos + E2 Clientes), chaarlyez (E3 Reservas + E5 Autogestión) y mariocardona970546
   (E4 Alquileres + integración final del diagrama de clases). Detalle de alcance y entregables de
   cada parte en `docs/03-uml/00-asignacion.md`.
+- Las 3 partes de la Fase 3 tienen ya un primer borrador: `01-johann-tafur-vehiculos-clientes.md`,
+  `02-reservas-chaarlyez.md` y `03-alquileres-mariocardona970546.md` (esta última incluye, además
+  de la clase `Alquiler`, la **integración final del diagrama de clases** combinando los aportes
+  de las 3 partes en un solo modelo). Nota: la skill `engineering:system-design` sugerida en la
+  sección 8 no estaba disponible en la sesión donde se armó la parte 3 — se hizo a mano con
+  diagramas Mermaid embebidos en los `.md`, decisión tomada con el usuario (Mario /
+  mariocardona970546).
 
-Próximo paso: cada integrante arma sus diagramas UML (casos de uso, clases, secuencia,
-actividades) para su parte asignada en `docs/03-uml/`, con la skill `engineering:system-design`;
-al final se integra el diagrama de clases general.
+Próximo paso: **pendiente de validación del usuario** para cada una de las 3 partes (ver la
+sección "Qué falta validar" al final de cada archivo). Una vez validadas las 3, se cierra
+formalmente la Fase 3 en este archivo y en `docs/00-roadmap.md`, y se arranca la Fase 4 (Base de
+datos).
