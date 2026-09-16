@@ -191,7 +191,7 @@ razonamiento del stack). No se van a usar en este proyecto: `engineering:inciden
 
 ## 9. Estado actual
 
-Fase: **3 — Diagramas UML, EN CURSO** 🔶 (ver `docs/00-roadmap.md` para el detalle de las 6 fases).
+Fase: **3 — Diagramas UML, CERRADA** ✅ (ver `docs/00-roadmap.md` para el detalle de las 6 fases).
 
 Hecho:
 - Definido el stack y las convenciones técnicas (este archivo) — se van a aplicar recién en la
@@ -219,15 +219,18 @@ Hecho:
   (E1 Vehículos + E2 Clientes), chaarlyez (E3 Reservas + E5 Autogestión) y mariocardona970546
   (E4 Alquileres + integración final del diagrama de clases). Detalle de alcance y entregables de
   cada parte en `docs/03-uml/00-asignacion.md`.
-- Las 3 partes de la Fase 3 tienen ya un primer borrador: `01-johann-tafur-vehiculos-clientes.md`,
-  `02-reservas-chaarlyez.md` y `03-alquileres-mariocardona970546.md` (esta última incluye, además
-  de la clase `Alquiler`, la **integración final del diagrama de clases** combinando los aportes
-  de las 3 partes en un solo modelo). Nota: la skill `engineering:system-design` sugerida en la
-  sección 8 no estaba disponible en la sesión donde se armó la parte 3 — se hizo a mano con
-  diagramas Mermaid embebidos en los `.md`, decisión tomada con el usuario (Mario /
-  mariocardona970546).
+- Las 3 partes de la Fase 3, **validadas y cerradas por el usuario**: `01-johann-tafur-vehiculos-
+  clientes.md` (E1+E2: casos de uso, clases `Vehiculo`/`Cliente`, secuencia, estados y
+  actividades), `02-reservas-chaarlyez.md` (E3+E5: casos de uso, clase `Reserva`, secuencia de
+  reserva por empleado y reserva pública, actividades de validación de solapamiento) y
+  `03-alquileres-mariocardona970546.md` (E4: casos de uso, clase `Alquiler`, secuencia y
+  actividades de inicio/fin de alquiler, más la **integración final del diagrama de clases**
+  combinando los aportes de las 3 partes en un solo modelo). `04-revision-integracion.md` deja
+  registrada la revisión de coherencia entre las 3 (atributos, relaciones, multiplicidades y
+  referencias cruzadas de casos de uso) sin contradicciones encontradas. Nota: la skill
+  `engineering:system-design` sugerida en la sección 8 no estaba disponible en ninguna de las
+  sesiones donde se armó esta fase — se hizo a mano con diagramas Mermaid embebidos en los `.md`.
 
-Próximo paso: **pendiente de validación del usuario** para cada una de las 3 partes (ver la
-sección "Qué falta validar" al final de cada archivo). Una vez validadas las 3, se cierra
-formalmente la Fase 3 en este archivo y en `docs/00-roadmap.md`, y se arranca la Fase 4 (Base de
-datos).
+Próximo paso: arrancar la **Fase 4 (Base de datos)** — modelo conceptual, lógico y físico, script
+SQL, en `docs/04-base-de-datos/` — a partir del diagrama de clases integrado de
+`docs/03-uml/03-alquileres-mariocardona970546.md` sección 3.
