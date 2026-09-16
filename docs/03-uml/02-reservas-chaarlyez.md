@@ -213,11 +213,12 @@ flowchart TD
 
 ## 5. Qué falta validar
 
-- [ ] ¿Los casos de uso de la sección 1 cubren completo US3.1-US3.5 y US5.1-US5.2?
-- [ ] ¿La clase `Reserva` (sección 2) tiene los atributos y relaciones correctos, y es compatible
-      con lo que van a aportar Johann-Tafur (`Vehiculo`, `Cliente`) y mariocardona970546
-      (`Alquiler`, integración final)?
-- [ ] ¿Los diagramas de secuencia (sección 3) reflejan bien RF25-RF28 y RF42-RF45?
-- [ ] ¿El diagrama de actividades (sección 4) cubre correctamente RN09, RN12 y RN14?
+- [x] ¿Los casos de uso de la sección 1 cubren completo US3.1-US3.5 y US5.1-US5.2? → **Sí.**
+- [x] ¿La clase `Reserva` (sección 2) tiene los atributos y relaciones correctos, y es compatible
+      con lo que aportaron Johann-Tafur (`Vehiculo`, `Cliente`) y mariocardona970546 (`Alquiler`,
+      integración final)? → **Sí, confirmado** en `docs/03-uml/04-revision-integracion.md`.
+- [x] ¿Los diagramas de secuencia (sección 3) reflejan bien RF25-RF28 y RF42-RF45? → **Sí.**
+- [x] ¿El diagrama de actividades (sección 4) cubre correctamente RN09, RN12 y RN14? → **Sí.**
 
-Pendiente de validar con el usuario antes de cerrar esta parte.
+**Parte 2 validada.** Ver `docs/03-uml/04-revision-integracion.md` para la revisión de coherencia
+entre las 3 partes de la Fase 3.
