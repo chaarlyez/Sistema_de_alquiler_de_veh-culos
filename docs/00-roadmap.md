@@ -7,7 +7,7 @@ al cerrar cada fase.
 |---|---|---|---|---|
 | 1 | Épica y Stories | Definir problema, objetivo, usuarios y funcionalidades principales. Crear épicas y dividirlas en historias de usuario. | Épicas + Historias de usuario | ✅ Cerrada |
 | 2 | Requerimientos | Identificar y documentar requerimientos funcionales y no funcionales. Definir reglas de negocio y criterios de aceptación. | Documento de requerimientos | ✅ Cerrada |
-| 3 | Diagramas UML | Modelar el sistema a partir de los requerimientos. Casos de uso, clases, secuencia, actividades. | Diagramas UML | ⬜ Pendiente |
+| 3 | Diagramas UML | Modelar el sistema a partir de los requerimientos. Casos de uso, clases, secuencia, actividades. | Diagramas UML | 🔶 En curso |
 | 4 | Base de datos | Identificar entidades, atributos y relaciones. Modelo conceptual, lógico y físico. Script SQL. | Modelo ER/UML + Script de BD | ⬜ Pendiente |
 | 5 | Mockup / Prototipo | Diseñar interfaces principales y flujo de navegación. Validar experiencia antes de programar. | Mockup/prototipo navegable | ⬜ Pendiente |
 | 6 | Programa funcional | Seleccionar tecnologías, desarrollar funcionalidades prioritarias, integrar frontend, backend y BD, pruebas. | MVP funcional | ⬜ Pendiente |
@@ -28,7 +28,19 @@ docs/
 ├── 00-roadmap.md                      (este archivo)
 ├── 01-epicas-historias-usuario.md     (Fase 1)
 ├── 02-requerimientos.md               (Fase 2)
-├── 03-uml/                            (Fase 3 - pendiente)
+├── 03-uml/                            (Fase 3 - en curso)
+│   └── 00-asignacion.md               (división del trabajo en 3 partes)
 ├── 04-base-de-datos/                  (Fase 4 - pendiente)
 └── 05-mockups/                        (Fase 5 - pendiente)
 ```
+
+## Fase 3 — división del trabajo
+
+La Fase 3 se dividió en 3 partes, una por integrante del equipo, agrupando las épicas de la Fase 1.
+Ver el detalle de alcance y entregables de cada parte en `docs/03-uml/00-asignacion.md`.
+
+| Parte | Integrante | Épicas |
+|---|---|---|
+| 1 | Johann-Tafur | E1 Vehículos + E2 Clientes |
+| 2 | chaarlyez | E3 Reservas + E5 Autogestión de Reservas del Cliente |
+| 3 | mariocardona970546 | E4 Alquileres + integración final del diagrama de clases |
