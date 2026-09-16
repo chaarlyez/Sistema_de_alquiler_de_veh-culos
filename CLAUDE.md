@@ -191,7 +191,7 @@ razonamiento del stack). No se van a usar en este proyecto: `engineering:inciden
 
 ## 9. Estado actual
 
-Fase: **2 — Requerimientos, CERRADA** ✅ (ver `docs/00-roadmap.md` para el detalle de las 6 fases).
+Fase: **3 — Diagramas UML, EN CURSO** 🔶 (ver `docs/00-roadmap.md` para el detalle de las 6 fases).
 
 Hecho:
 - Definido el stack y las convenciones técnicas (este archivo) — se van a aplicar recién en la
@@ -215,6 +215,11 @@ Hecho:
   (solapamiento de fechas, cálculo de días efectivos con tolerancia, bloqueo por alquiler activo)
   se definieron investigando cómo operan empresas reales de alquiler (Localiza, Avis, Enterprise)
   en vez de asumirlas arbitrariamente.
+- Fase 3 dividida en 3 partes entre el equipo, agrupando las épicas de la Fase 1: Johann-Tafur
+  (E1 Vehículos + E2 Clientes), chaarlyez (E3 Reservas + E5 Autogestión) y mariocardona970546
+  (E4 Alquileres + integración final del diagrama de clases). Detalle de alcance y entregables de
+  cada parte en `docs/03-uml/00-asignacion.md`.
 
-Próximo paso: arrancar la **Fase 3 (Diagramas UML)** — casos de uso, clases, secuencia,
-actividades, en `docs/03-uml/` — con la skill `engineering:system-design`.
+Próximo paso: cada integrante arma sus diagramas UML (casos de uso, clases, secuencia,
+actividades) para su parte asignada en `docs/03-uml/`, con la skill `engineering:system-design`;
+al final se integra el diagrama de clases general.
