@@ -36,6 +36,7 @@ docs/
 │   └── 04-revision-integracion.md     (revisión de coherencia entre las 3 partes)
 ├── 04-base-de-datos/                  (Fase 4 - en curso)
 │   ├── 00-asignacion.md               (división del trabajo en 3 partes)
+│   ├── 01-johann-tafur-vehiculos-clientes.md
 │   ├── 02-reservas-chaarlyez.md
 │   └── 03-alquileres-mariocardona970546.md
 └── 05-mockups/                        (Fase 5 - pendiente)
@@ -67,11 +68,12 @@ de alcance y entregables de cada parte en `docs/04-base-de-datos/00-asignacion.m
 
 | Parte | Integrante | Tablas | Estado |
 |---|---|---|---|
-| 1 | Johann-Tafur | `vehicles` + `customers` | ⬜ Pendiente |
+| 1 | Johann-Tafur | `vehicles` + `customers` | ✅ Validada |
 | 2 | chaarlyez | `reservations` | ✅ Validada (falta revisión cruzada final) |
 | 3 | mariocardona970546 | `rentals` + integración final del script SQL y diagrama ER | ✅ Tabla `rentals` validada (integración final pendiente) |
 
-Falta que Johann-Tafur suba su parte. Cuando estén las 3, se hace la revisión de coherencia cruzada
-(FKs, tipos, nombres) y mariocardona970546 arma la integración final del script SQL y el ER
-completo, antes de cerrar formalmente la Fase 4 — mismo criterio que la Fase 3
-(`docs/03-uml/04-revision-integracion.md`).
+Las 3 partes ya están entregadas. Falta que mariocardona970546 arme la integración final del script
+SQL único y el diagrama ER completo (sección 5 de `03-alquileres-mariocardona970546.md`, que
+quedó pendiente justamente hasta que Johann-Tafur subiera `vehicles`/`customers`), y la revisión de
+coherencia cruzada (FKs, tipos, nombres) antes de cerrar formalmente la Fase 4 — mismo criterio que
+la Fase 3 (`docs/03-uml/04-revision-integracion.md`).

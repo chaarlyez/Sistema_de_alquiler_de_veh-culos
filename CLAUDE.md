@@ -244,7 +244,12 @@ Hecho:
   completo y el diagrama ER (tarea propia de esta parte) queda pendiente hasta que Johann-Tafur
   suba `vehicles`/`customers` — no se inventaron sus columnas para no repetir el error de la Fase 3
   (asumir alcance de otra parte).
+- Parte 1 (Johann-Tafur) entregada: `docs/04-base-de-datos/01-johann-tafur-vehiculos-clientes.md`
+  con el modelo lógico, constraints (`UNIQUE` en `license_plate` y `document_number`) y script SQL
+  de `vehicles`/`customers`, verificado consistente con las FKs ya asumidas por `reservations` y
+  `rentals` (mismo tipo `BIGINT`/`REFERENCES ...(id)`).
 
-Próximo paso: falta que Johann-Tafur entregue su parte de la **Fase 4 (Base de datos)** —
-`vehicles` + `customers`. Cuando esté, mariocardona970546 arma la integración final del script SQL
-y el diagrama ER completo, y se hace la revisión de coherencia cruzada entre las 3 partes.
+Las 3 partes de la Fase 4 están entregadas. Próximo paso: mariocardona970546 arma la integración
+final del script SQL único (4 tablas en orden `vehicles`, `customers` → `reservations` →
+`rentals`) y el diagrama ER completo (sección 5 de `03-alquileres-mariocardona970546.md`), y se
+hace la revisión de coherencia cruzada entre las 3 partes antes de cerrar formalmente la Fase 4.
