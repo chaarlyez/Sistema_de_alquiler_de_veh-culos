@@ -19,7 +19,7 @@ FK.
 | `id` | `BIGSERIAL` | `PRIMARY KEY` | `Alquiler.id` |
 | `vehicle_id` | `BIGINT` | `NOT NULL`, `REFERENCES vehicles(id)` | relación `Vehiculo 1 — 0..* Alquiler` |
 | `customer_id` | `BIGINT` | `NOT NULL`, `REFERENCES customers(id)` | relación `Cliente 1 — 0..* Alquiler` |
-| `reservation_id` | `BIGINT` | `NULL`, `REFERENCES reservations(id)` | relación `Reserva 0..1 — 0..1 Alquiler` (RN04: alquiler directo sin reserva) |
+| `reservation_id` | `BIGINT` | `NULL`, `UNIQUE`, `REFERENCES reservations(id)` | relación `Reserva 0..1 — 0..1 Alquiler` (RN04: alquiler directo sin reserva) |
 | `actual_start_date` | `TIMESTAMP` | `NOT NULL` | `Alquiler.fechaInicioReal` |
 | `actual_end_date` | `TIMESTAMP` | `NULL` (se completa recién al finalizar) | `Alquiler.fechaFinReal` |
 | `status` | `VARCHAR(20)` | `NOT NULL DEFAULT 'ACTIVE'`, `CHECK (status IN ('ACTIVE','FINISHED'))` | `Alquiler.estado` (`EstadoAlquiler`) |
@@ -32,7 +32,10 @@ Notas de diseño:
   exacto, no solo el día (mismo criterio ya documentado en la Fase 3, sección 2 de
   `03-alquileres-mariocardona970546.md`).
 - `reservation_id` es la única FK opcional (`NULL` permitido) de las 4 tablas: RN04 dice
-  explícitamente que un alquiler puede ser directo, sin reserva de origen.
+  explícitamente que un alquiler puede ser directo, sin reserva de origen. Además lleva `UNIQUE`:
+  la multiplicidad `Reserva 0..1 — 0..1 Alquiler` del diagrama de clases integrado (Fase 3, sección
+  3) exige que una reserva derive en **como máximo un** alquiler, no en varios — sin `UNIQUE`, nada
+  impediría que dos alquileres distintos referenciaran la misma reserva.
 - `actual_end_date` y `total_amount` nacen en `NULL` porque un alquiler recién creado está
   `ACTIVE` (RF34) — ambos se completan cuando el empleado registra la devolución (RF37, RF38). No
   se usa `0` como valor por defecto de `total_amount` para no confundir "todavía no calculado" con
@@ -58,7 +61,7 @@ CREATE TABLE rentals (
     id                 BIGSERIAL PRIMARY KEY,
     vehicle_id         BIGINT NOT NULL REFERENCES vehicles(id),
     customer_id        BIGINT NOT NULL REFERENCES customers(id),
-    reservation_id     BIGINT REFERENCES reservations(id),
+    reservation_id     BIGINT UNIQUE REFERENCES reservations(id),
     actual_start_date  TIMESTAMP NOT NULL,
     actual_end_date    TIMESTAMP,
     status             VARCHAR(20) NOT NULL DEFAULT 'ACTIVE'
@@ -103,7 +106,7 @@ erDiagram
         bigint id PK
         bigint vehicle_id FK
         bigint customer_id FK
-        bigint reservation_id FK
+        bigint reservation_id FK, UK
         timestamp actual_start_date
         timestamp actual_end_date
         varchar status
