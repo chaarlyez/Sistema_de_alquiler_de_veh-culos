@@ -239,7 +239,12 @@ Hecho:
   Johann-Tafur (tablas `vehicles` + `customers`), chaarlyez (tabla `reservations`) y
   mariocardona970546 (tabla `rentals` + integración final del script SQL y diagrama ER). Detalle
   de alcance y entregables de cada parte en `docs/04-base-de-datos/00-asignacion.md`.
+- Parte 3 (mariocardona970546) entregada: `docs/04-base-de-datos/03-alquileres-mariocardona970546.md`
+  con el modelo lógico, constraints y script SQL de `rentals`. La integración final del script SQL
+  completo y el diagrama ER (tarea propia de esta parte) queda pendiente hasta que Johann-Tafur
+  suba `vehicles`/`customers` — no se inventaron sus columnas para no repetir el error de la Fase 3
+  (asumir alcance de otra parte).
 
-Próximo paso: cada integrante entrega su parte de la **Fase 4 (Base de datos)** — modelo lógico,
-constraints y script SQL de sus tablas — a partir del diagrama de clases integrado de
-`docs/03-uml/03-alquileres-mariocardona970546.md` sección 3.
+Próximo paso: falta que Johann-Tafur entregue su parte de la **Fase 4 (Base de datos)** —
+`vehicles` + `customers`. Cuando esté, mariocardona970546 arma la integración final del script SQL
+y el diagrama ER completo, y se hace la revisión de coherencia cruzada entre las 3 partes.
