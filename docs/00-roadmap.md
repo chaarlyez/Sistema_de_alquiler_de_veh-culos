@@ -51,5 +51,7 @@ Ver el detalle de alcance y entregables de cada parte en `docs/03-uml/00-asignac
 
 Las 3 partes fueron revisadas en conjunto por coherencia (atributos, relaciones, multiplicidades y
 referencias cruzadas entre casos de uso) — ver `docs/03-uml/04-revision-integracion.md`. Sin
-contradicciones encontradas. **Fase 3 cerrada.** Se pasa a la Fase 4 (Base de datos) en
+contradicciones encontradas. Las 3 partes tienen además su propio checklist de validación de
+contenido marcado y confirmado (ver sección 7 de `03-alquileres-mariocardona970546.md` para la
+última en cerrarse). **Fase 3 cerrada.** Se pasa a la Fase 4 (Base de datos) en
 `docs/04-base-de-datos/`.

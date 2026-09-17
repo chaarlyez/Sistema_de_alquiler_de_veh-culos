@@ -227,9 +227,13 @@ Hecho:
   actividades de inicio/fin de alquiler, más la **integración final del diagrama de clases**
   combinando los aportes de las 3 partes en un solo modelo). `04-revision-integracion.md` deja
   registrada la revisión de coherencia entre las 3 (atributos, relaciones, multiplicidades y
-  referencias cruzadas de casos de uso) sin contradicciones encontradas. Nota: la skill
-  `engineering:system-design` sugerida en la sección 8 no estaba disponible en ninguna de las
-  sesiones donde se armó esta fase — se hizo a mano con diagramas Mermaid embebidos en los `.md`.
+  referencias cruzadas de casos de uso) sin contradicciones encontradas. Nota: la Fase 3 se había
+  cerrado una primera vez (commits `d9d1e8d`, `e8c4377`, `1d4bc2a`) sin que la Parte 3 pasara su
+  propio checklist de validación (quedó reabierta brevemente hasta corregir eso); el checklist de
+  la sección 7 de `03-alquileres-mariocardona970546.md` ya está confirmado y la fase queda cerrada
+  de verdad. Nota aparte: la skill `engineering:system-design` sugerida en la sección 8 no estaba
+  disponible en ninguna de las sesiones donde se armó esta fase — se hizo a mano con diagramas
+  Mermaid embebidos en los `.md`.
 
 Próximo paso: arrancar la **Fase 4 (Base de datos)** — modelo conceptual, lógico y físico, script
 SQL, en `docs/04-base-de-datos/` — a partir del diagrama de clases integrado de
