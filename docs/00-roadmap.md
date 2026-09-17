@@ -35,7 +35,8 @@ docs/
 │   ├── 03-alquileres-mariocardona970546.md
 │   └── 04-revision-integracion.md     (revisión de coherencia entre las 3 partes)
 ├── 04-base-de-datos/                  (Fase 4 - en curso)
-│   └── 00-asignacion.md               (división del trabajo en 3 partes)
+│   ├── 00-asignacion.md               (división del trabajo en 3 partes)
+│   └── 02-reservas-chaarlyez.md
 └── 05-mockups/                        (Fase 5 - pendiente)
 ```
 
@@ -66,5 +67,5 @@ de alcance y entregables de cada parte en `docs/04-base-de-datos/00-asignacion.m
 | Parte | Integrante | Tablas | Estado |
 |---|---|---|---|
 | 1 | Johann-Tafur | `vehicles` + `customers` | ⬜ Pendiente |
-| 2 | chaarlyez | `reservations` | ⬜ Pendiente |
+| 2 | chaarlyez | `reservations` | 🔶 Entregada, falta validar |
 | 3 | mariocardona970546 | `rentals` + integración final del script SQL y diagrama ER | ⬜ Pendiente |
