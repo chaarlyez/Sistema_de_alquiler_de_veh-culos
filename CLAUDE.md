@@ -235,6 +235,11 @@ Hecho:
   disponible en ninguna de las sesiones donde se armó esta fase — se hizo a mano con diagramas
   Mermaid embebidos en los `.md`.
 
-Próximo paso: arrancar la **Fase 4 (Base de datos)** — modelo conceptual, lógico y físico, script
-SQL, en `docs/04-base-de-datos/` — a partir del diagrama de clases integrado de
+- Fase 4 dividida en 3 partes entre el equipo, misma agrupación de entidades que la Fase 3:
+  Johann-Tafur (tablas `vehicles` + `customers`), chaarlyez (tabla `reservations`) y
+  mariocardona970546 (tabla `rentals` + integración final del script SQL y diagrama ER). Detalle
+  de alcance y entregables de cada parte en `docs/04-base-de-datos/00-asignacion.md`.
+
+Próximo paso: cada integrante entrega su parte de la **Fase 4 (Base de datos)** — modelo lógico,
+constraints y script SQL de sus tablas — a partir del diagrama de clases integrado de
 `docs/03-uml/03-alquileres-mariocardona970546.md` sección 3.

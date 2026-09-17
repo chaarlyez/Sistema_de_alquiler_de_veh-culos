@@ -8,7 +8,7 @@ al cerrar cada fase.
 | 1 | Épica y Stories | Definir problema, objetivo, usuarios y funcionalidades principales. Crear épicas y dividirlas en historias de usuario. | Épicas + Historias de usuario | ✅ Cerrada |
 | 2 | Requerimientos | Identificar y documentar requerimientos funcionales y no funcionales. Definir reglas de negocio y criterios de aceptación. | Documento de requerimientos | ✅ Cerrada |
 | 3 | Diagramas UML | Modelar el sistema a partir de los requerimientos. Casos de uso, clases, secuencia, actividades. | Diagramas UML | ✅ Cerrada |
-| 4 | Base de datos | Identificar entidades, atributos y relaciones. Modelo conceptual, lógico y físico. Script SQL. | Modelo ER/UML + Script de BD | ⬜ Pendiente |
+| 4 | Base de datos | Identificar entidades, atributos y relaciones. Modelo conceptual, lógico y físico. Script SQL. | Modelo ER/UML + Script de BD | 🔶 En curso |
 | 5 | Mockup / Prototipo | Diseñar interfaces principales y flujo de navegación. Validar experiencia antes de programar. | Mockup/prototipo navegable | ⬜ Pendiente |
 | 6 | Programa funcional | Seleccionar tecnologías, desarrollar funcionalidades prioritarias, integrar frontend, backend y BD, pruebas. | MVP funcional | ⬜ Pendiente |
 
@@ -34,7 +34,8 @@ docs/
 │   ├── 02-reservas-chaarlyez.md
 │   ├── 03-alquileres-mariocardona970546.md
 │   └── 04-revision-integracion.md     (revisión de coherencia entre las 3 partes)
-├── 04-base-de-datos/                  (Fase 4 - pendiente)
+├── 04-base-de-datos/                  (Fase 4 - en curso)
+│   └── 00-asignacion.md               (división del trabajo en 3 partes)
 └── 05-mockups/                        (Fase 5 - pendiente)
 ```
 
@@ -55,3 +56,15 @@ contradicciones encontradas. Las 3 partes tienen además su propio checklist de 
 contenido marcado y confirmado (ver sección 7 de `03-alquileres-mariocardona970546.md` para la
 última en cerrarse). **Fase 3 cerrada.** Se pasa a la Fase 4 (Base de datos) en
 `docs/04-base-de-datos/`.
+
+## Fase 4 — división del trabajo
+
+Misma mecánica que la Fase 3: se divide en 3 partes, una por integrante, conservando la misma
+agrupación de entidades (quien modeló una clase en UML pasa esa clase a tabla acá). Ver el detalle
+de alcance y entregables de cada parte en `docs/04-base-de-datos/00-asignacion.md`.
+
+| Parte | Integrante | Tablas | Estado |
+|---|---|---|---|
+| 1 | Johann-Tafur | `vehicles` + `customers` | ⬜ Pendiente |
+| 2 | chaarlyez | `reservations` | ⬜ Pendiente |
+| 3 | mariocardona970546 | `rentals` + integración final del script SQL y diagrama ER | ⬜ Pendiente |
