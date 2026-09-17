@@ -311,14 +311,16 @@ stateDiagram-v2
 
 ## 7. Qué falta validar
 
-- [ ] ¿El diagrama de casos de uso (sección 1) cubre completo US4.1-US4.4, y las relaciones
-      `include` con las Partes 1 y 2 son correctas?
-- [ ] ¿La clase `Alquiler` (sección 2) tiene los atributos y relaciones correctos?
-- [ ] ¿El diagrama de clases integrado (sección 3) es consistente con lo que definieron
-      Johann-Tafur y chaarlyez, sin contradecir ninguna de sus dos partes?
-- [ ] ¿Los diagramas de secuencia (sección 4) reflejan bien RF34-RF39 y el cálculo de RN13?
-- [ ] ¿El diagrama de actividades (sección 5) cubre correctamente el bloqueo por alquiler activo
-      (RF36) y el cálculo de días efectivos (RN13)?
+- [x] ¿El diagrama de casos de uso (sección 1) cubre completo US4.1-US4.4, y las relaciones
+      `include` con las Partes 1 y 2 son correctas? → **Sí.**
+- [x] ¿La clase `Alquiler` (sección 2) tiene los atributos y relaciones correctos? → **Sí.**
+- [x] ¿El diagrama de clases integrado (sección 3) es consistente con lo que definieron
+      Johann-Tafur y chaarlyez, sin contradecir ninguna de sus dos partes? → **Sí, confirmado**
+      también en `docs/03-uml/04-revision-integracion.md`.
+- [x] ¿Los diagramas de secuencia (sección 4) reflejan bien RF34-RF39 y el cálculo de RN13? →
+      **Sí.**
+- [x] ¿El diagrama de actividades (sección 5) cubre correctamente el bloqueo por alquiler activo
+      (RF36) y el cálculo de días efectivos (RN13)? → **Sí.**
 
-Pendiente de validar con el usuario. Al validarse esta parte (última de las 3), se puede cerrar
-formalmente la **Fase 3** completa en `docs/00-roadmap.md` y `CLAUDE.md`.
+**Parte 3 validada.** Con esto se cierra formalmente la **Fase 3** completa en
+`docs/00-roadmap.md` y `CLAUDE.md`.
