@@ -67,5 +67,9 @@ de alcance y entregables de cada parte en `docs/04-base-de-datos/00-asignacion.m
 | Parte | Integrante | Tablas | Estado |
 |---|---|---|---|
 | 1 | Johann-Tafur | `vehicles` + `customers` | ⬜ Pendiente |
-| 2 | chaarlyez | `reservations` | 🔶 Entregada, falta validar |
+| 2 | chaarlyez | `reservations` | ✅ Validada (falta revisión cruzada final) |
 | 3 | mariocardona970546 | `rentals` + integración final del script SQL y diagrama ER | ⬜ Pendiente |
+
+Falta que Johann-Tafur y mariocardona970546 suban sus partes. Cuando estén las 3, se hace la
+revisión de coherencia cruzada (FKs, tipos, nombres) antes de cerrar formalmente la Fase 4 — mismo
+criterio que la Fase 3 (`docs/03-uml/04-revision-integracion.md`).

@@ -102,11 +102,16 @@ queda para la integración final de la Parte 3.
 
 ## 5. Qué falta validar
 
-- [ ] ¿Las columnas y tipos de `reservations` (sección 1) son correctos y suficientes para RF25?
-- [ ] ¿El `CHECK` de fechas y el `DEFAULT` de `status` (sección 2) reflejan bien RF26 y RN09?
-- [ ] ¿El índice sobre `(vehicle_id, start_date, end_date)` es el adecuado para soportar
-      eficientemente la validación de solapamiento de RN12?
+- [x] ¿Las columnas y tipos de `reservations` (sección 1) son correctos y suficientes para RF25?
+      → **Sí.**
+- [x] ¿El `CHECK` de fechas y el `DEFAULT` de `status` (sección 2) reflejan bien RF26 y RN09? →
+      **Sí.**
+- [x] ¿El índice sobre `(vehicle_id, start_date, end_date)` es el adecuado para soportar
+      eficientemente la validación de solapamiento de RN12? → **Sí.**
 - [ ] ¿Las FKs a `vehicles` y `customers` (sección 3) son consistentes con lo que entregue la
-      Parte 1?
+      Parte 1? → pendiente hasta que Johann-Tafur suba su parte; se confirma en la revisión de
+      coherencia final entre las 3 partes.
 
-Pendiente de validar con el usuario.
+**Contenido propio validado.** Queda pendiente solo la revisión de coherencia cruzada con las
+Partes 1 y 3 una vez que estén entregadas (mismo criterio que la Fase 3, ver
+`docs/03-uml/04-revision-integracion.md`).
