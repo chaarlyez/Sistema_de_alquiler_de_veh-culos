@@ -8,7 +8,7 @@ al cerrar cada fase.
 | 1 | Épica y Stories | Definir problema, objetivo, usuarios y funcionalidades principales. Crear épicas y dividirlas en historias de usuario. | Épicas + Historias de usuario | ✅ Cerrada |
 | 2 | Requerimientos | Identificar y documentar requerimientos funcionales y no funcionales. Definir reglas de negocio y criterios de aceptación. | Documento de requerimientos | ✅ Cerrada |
 | 3 | Diagramas UML | Modelar el sistema a partir de los requerimientos. Casos de uso, clases, secuencia, actividades. | Diagramas UML | ✅ Cerrada |
-| 4 | Base de datos | Identificar entidades, atributos y relaciones. Modelo conceptual, lógico y físico. Script SQL. | Modelo ER/UML + Script de BD | 🔶 En curso |
+| 4 | Base de datos | Identificar entidades, atributos y relaciones. Modelo conceptual, lógico y físico. Script SQL. | Modelo ER/UML + Script de BD | ✅ Cerrada |
 | 5 | Mockup / Prototipo | Diseñar interfaces principales y flujo de navegación. Validar experiencia antes de programar. | Mockup/prototipo navegable | ⬜ Pendiente |
 | 6 | Programa funcional | Seleccionar tecnologías, desarrollar funcionalidades prioritarias, integrar frontend, backend y BD, pruebas. | MVP funcional | ⬜ Pendiente |
 
@@ -34,11 +34,12 @@ docs/
 │   ├── 02-reservas-chaarlyez.md
 │   ├── 03-alquileres-mariocardona970546.md
 │   └── 04-revision-integracion.md     (revisión de coherencia entre las 3 partes)
-├── 04-base-de-datos/                  (Fase 4 - en curso)
+├── 04-base-de-datos/                  (Fase 4 - cerrada)
 │   ├── 00-asignacion.md               (división del trabajo en 3 partes)
 │   ├── 01-johann-tafur-vehiculos-clientes.md
 │   ├── 02-reservas-chaarlyez.md
-│   └── 03-alquileres-mariocardona970546.md
+│   ├── 03-alquileres-mariocardona970546.md
+│   └── 04-revision-integracion.md     (revisión de coherencia entre las 3 partes)
 └── 05-mockups/                        (Fase 5 - pendiente)
 ```
 
@@ -69,11 +70,12 @@ de alcance y entregables de cada parte en `docs/04-base-de-datos/00-asignacion.m
 | Parte | Integrante | Tablas | Estado |
 |---|---|---|---|
 | 1 | Johann-Tafur | `vehicles` + `customers` | ✅ Validada |
-| 2 | chaarlyez | `reservations` | ✅ Validada (falta revisión cruzada final) |
-| 3 | mariocardona970546 | `rentals` + integración final del script SQL y diagrama ER | ✅ Tabla `rentals` validada (integración final pendiente) |
+| 2 | chaarlyez | `reservations` | ✅ Validada |
+| 3 | mariocardona970546 | `rentals` + integración final del script SQL y diagrama ER | ✅ Validada |
 
-Las 3 partes ya están entregadas. Falta que mariocardona970546 arme la integración final del script
-SQL único y el diagrama ER completo (sección 5 de `03-alquileres-mariocardona970546.md`, que
-quedó pendiente justamente hasta que Johann-Tafur subiera `vehicles`/`customers`), y la revisión de
-coherencia cruzada (FKs, tipos, nombres) antes de cerrar formalmente la Fase 4 — mismo criterio que
-la Fase 3 (`docs/03-uml/04-revision-integracion.md`).
+Las 3 partes fueron revisadas en conjunto por coherencia (nombres, tipos, FKs, constraints) — ver
+`docs/04-base-de-datos/04-revision-integracion.md`. Sin contradicciones encontradas (una corrección
+menor sí se aplicó: se agregó `UNIQUE` a `rentals.reservation_id` para reflejar bien la
+multiplicidad `0..1`–`0..1` de RN04). La integración final del script SQL único y el diagrama ER
+completo del sistema está en la sección 5 de `03-alquileres-mariocardona970546.md`. **Fase 4
+cerrada.** Se pasa a la Fase 5 (Mockup/Prototipo) en `docs/05-mockups/`.

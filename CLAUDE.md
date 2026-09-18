@@ -191,7 +191,7 @@ razonamiento del stack). No se van a usar en este proyecto: `engineering:inciden
 
 ## 9. Estado actual
 
-Fase: **3 — Diagramas UML, CERRADA** ✅ (ver `docs/00-roadmap.md` para el detalle de las 6 fases).
+Fase: **4 — Base de datos, CERRADA** ✅ (ver `docs/00-roadmap.md` para el detalle de las 6 fases).
 
 Hecho:
 - Definido el stack y las convenciones técnicas (este archivo) — se van a aplicar recién en la
@@ -239,17 +239,16 @@ Hecho:
   Johann-Tafur (tablas `vehicles` + `customers`), chaarlyez (tabla `reservations`) y
   mariocardona970546 (tabla `rentals` + integración final del script SQL y diagrama ER). Detalle
   de alcance y entregables de cada parte en `docs/04-base-de-datos/00-asignacion.md`.
-- Parte 3 (mariocardona970546) entregada: `docs/04-base-de-datos/03-alquileres-mariocardona970546.md`
-  con el modelo lógico, constraints y script SQL de `rentals`. La integración final del script SQL
-  completo y el diagrama ER (tarea propia de esta parte) queda pendiente hasta que Johann-Tafur
-  suba `vehicles`/`customers` — no se inventaron sus columnas para no repetir el error de la Fase 3
-  (asumir alcance de otra parte).
-- Parte 1 (Johann-Tafur) entregada: `docs/04-base-de-datos/01-johann-tafur-vehiculos-clientes.md`
-  con el modelo lógico, constraints (`UNIQUE` en `license_plate` y `document_number`) y script SQL
-  de `vehicles`/`customers`, verificado consistente con las FKs ya asumidas por `reservations` y
-  `rentals` (mismo tipo `BIGINT`/`REFERENCES ...(id)`).
+- Las 3 partes de la Fase 4, **entregadas y validadas**: `01-johann-tafur-vehiculos-clientes.md`
+  (tablas `vehicles`/`customers`, con `UNIQUE` en `license_plate` y `document_number`),
+  `02-reservas-chaarlyez.md` (tabla `reservations`, con índice de solapamiento para RN12) y
+  `03-alquileres-mariocardona970546.md` (tabla `rentals`, más la **integración final**: script SQL
+  único de las 4 tablas en orden de dependencia de FK y el diagrama ER completo del sistema).
+  `04-revision-integracion.md` deja registrada la revisión de coherencia entre las 3 (nombres,
+  tipos, FKs, constraints) sin contradicciones bloqueantes — se aplicó una corrección menor
+  (`UNIQUE` en `rentals.reservation_id`, commit `ba21319`) para que la multiplicidad `0..1`–`0..1`
+  de RN04 quedara reflejada también a nivel de esquema, no solo en el diagrama de clases.
+  **Fase 4 cerrada.**
 
-Las 3 partes de la Fase 4 están entregadas. Próximo paso: mariocardona970546 arma la integración
-final del script SQL único (4 tablas en orden `vehicles`, `customers` → `reservations` →
-`rentals`) y el diagrama ER completo (sección 5 de `03-alquileres-mariocardona970546.md`), y se
-hace la revisión de coherencia cruzada entre las 3 partes antes de cerrar formalmente la Fase 4.
+Próximo paso: arrancar la **Fase 5 (Mockup/Prototipo)** — diseñar el formulario público de reserva
+del cliente (única UI que necesita el MVP, ver sección 4) a partir del modelo de datos ya cerrado.

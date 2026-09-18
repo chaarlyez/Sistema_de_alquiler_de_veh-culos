@@ -135,21 +135,128 @@ completas están en `01-johann-tafur-vehiculos-clientes.md` (pendiente de entreg
 
 ## 5. Integración final del script SQL y del diagrama ER
 
-**Pendiente.** Esta parte tiene asignada la integración final (ver
-`docs/04-base-de-datos/00-asignacion.md`), pero todavía no se puede armar de forma responsable:
-la Parte 1 (Johann-Tafur, tablas `vehicles` y `customers`) aún no entregó su archivo
-`01-johann-tafur-vehiculos-clientes.md`, y sin sus columnas exactas (tipos, longitudes de
-`VARCHAR`, nombre final de constraints) no hay forma de armar el script único de las 4 tablas ni el
-ER completo sin arriesgarse a inventar contenido que no es de esta parte — mismo error que ya pasó
-una vez en la Fase 3 (ver nota en memoria del proyecto) y que no conviene repetir.
+Con las 3 partes ya entregadas (`01-johann-tafur-vehiculos-clientes.md`,
+`02-reservas-chaarlyez.md` y esta parte), se arma acá el script único y el ER completo del
+sistema — misma mecánica que la integración del diagrama de clases en la Fase 3.
 
-En cuanto la Parte 1 suba su entrega, se agrega acá:
-- El script SQL único con las 4 `CREATE TABLE` en orden (`vehicles`, `customers` →
-  `reservations` → `rentals`).
-- El diagrama ER completo del sistema (reemplazando los placeholders de la sección 3 por las
-  columnas reales de `vehicles`/`customers`).
-- La revisión de coherencia cruzada entre las 3 partes (constraints, tipos y nombres de FK
-  consistentes), igual mecánica que `docs/03-uml/04-revision-integracion.md` en la Fase 3.
+### 5.1 Script SQL completo
+
+```sql
+-- 1) vehicles y customers (Parte 1 - Johann-Tafur) — sin FKs salientes, van primero.
+
+CREATE TABLE vehicles (
+    id             BIGSERIAL PRIMARY KEY,
+    license_plate  VARCHAR(10) NOT NULL UNIQUE,
+    brand          VARCHAR(50) NOT NULL,
+    model          VARCHAR(50) NOT NULL,
+    year           INT NOT NULL,
+    type           VARCHAR(30) NOT NULL,
+    status         VARCHAR(20) NOT NULL DEFAULT 'AVAILABLE'
+                   CHECK (status IN ('AVAILABLE', 'RENTED', 'MAINTENANCE')),
+    price_per_day  NUMERIC(10,2) NOT NULL
+);
+
+CREATE INDEX idx_vehicles_status ON vehicles (status);
+
+CREATE TABLE customers (
+    id               BIGSERIAL PRIMARY KEY,
+    first_name       VARCHAR(50) NOT NULL,
+    last_name        VARCHAR(50) NOT NULL,
+    document_number  VARCHAR(20) NOT NULL UNIQUE,
+    email            VARCHAR(100),
+    phone            VARCHAR(20)
+);
+
+CREATE INDEX idx_customers_last_name ON customers (last_name);
+
+-- 2) reservations (Parte 2 - chaarlyez) — depende de vehicles y customers.
+
+CREATE TABLE reservations (
+    id            BIGSERIAL PRIMARY KEY,
+    vehicle_id    BIGINT NOT NULL REFERENCES vehicles(id),
+    customer_id   BIGINT NOT NULL REFERENCES customers(id),
+    start_date    DATE NOT NULL,
+    end_date      DATE NOT NULL,
+    status        VARCHAR(20) NOT NULL DEFAULT 'PENDING'
+                  CHECK (status IN ('PENDING', 'CONFIRMED', 'CANCELLED')),
+    CONSTRAINT chk_reservations_dates CHECK (end_date > start_date)
+);
+
+CREATE INDEX idx_reservations_vehicle_dates ON reservations (vehicle_id, start_date, end_date);
+
+-- 3) rentals (Parte 3 - mariocardona970546) — depende de vehicles, customers y reservations.
+
+CREATE TABLE rentals (
+    id                 BIGSERIAL PRIMARY KEY,
+    vehicle_id         BIGINT NOT NULL REFERENCES vehicles(id),
+    customer_id        BIGINT NOT NULL REFERENCES customers(id),
+    reservation_id     BIGINT UNIQUE REFERENCES reservations(id),
+    actual_start_date  TIMESTAMP NOT NULL,
+    actual_end_date    TIMESTAMP,
+    status             VARCHAR(20) NOT NULL DEFAULT 'ACTIVE'
+                       CHECK (status IN ('ACTIVE', 'FINISHED')),
+    total_amount       NUMERIC(10,2)
+                       CHECK (total_amount IS NULL OR total_amount >= 0),
+    CONSTRAINT chk_rentals_dates CHECK (actual_end_date IS NULL OR actual_end_date > actual_start_date)
+);
+
+CREATE INDEX idx_rentals_vehicle_status ON rentals (vehicle_id, status);
+CREATE INDEX idx_rentals_customer ON rentals (customer_id);
+```
+
+### 5.2 Diagrama ER completo del sistema
+
+```mermaid
+erDiagram
+    VEHICLES ||--o{ RESERVATIONS : "es reservado en"
+    CUSTOMERS ||--o{ RESERVATIONS : "realiza"
+    VEHICLES ||--o{ RENTALS : "es alquilado en"
+    CUSTOMERS ||--o{ RENTALS : "retira"
+    RESERVATIONS |o--o| RENTALS : "origina"
+
+    VEHICLES {
+        bigint id PK
+        varchar license_plate UK
+        varchar brand
+        varchar model
+        int year
+        varchar type
+        varchar status
+        numeric price_per_day
+    }
+
+    CUSTOMERS {
+        bigint id PK
+        varchar first_name
+        varchar last_name
+        varchar document_number UK
+        varchar email
+        varchar phone
+    }
+
+    RESERVATIONS {
+        bigint id PK
+        bigint vehicle_id FK
+        bigint customer_id FK
+        date start_date
+        date end_date
+        varchar status
+    }
+
+    RENTALS {
+        bigint id PK
+        bigint vehicle_id FK
+        bigint customer_id FK
+        bigint reservation_id FK, UK
+        timestamp actual_start_date
+        timestamp actual_end_date
+        varchar status
+        numeric total_amount
+    }
+```
+
+Revisión de coherencia cruzada entre las 3 partes (nombres, tipos, constraints) en
+`docs/04-base-de-datos/04-revision-integracion.md` — sin contradicciones encontradas.
 
 ## 6. Qué falta validar
 
@@ -159,10 +266,9 @@ En cuanto la Parte 1 suba su entrega, se agrega acá:
       **Sí.**
 - [x] ¿Los índices son los adecuados para soportar RN14 (bloqueo por alquiler activo) y RF41
       (historial por cliente)? → **Sí.**
-- [ ] ¿Las FKs a `vehicles` y `customers` (sección 3) son consistentes con lo que entregue la
-      Parte 1? → pendiente hasta que Johann-Tafur suba su parte.
-- [ ] Integración final del script SQL y del diagrama ER completo (sección 5) → pendiente por el
-      mismo motivo.
+- [x] ¿Las FKs a `vehicles` y `customers` (sección 3) son consistentes con lo que entregó la
+      Parte 1? → **Sí**, confirmado en `04-revision-integracion.md`.
+- [x] Integración final del script SQL y del diagrama ER completo (sección 5) → **Hecha.**
 
-**Contenido propio (tabla `rentals`) validado.** Queda pendiente la integración final y la
-revisión de coherencia cruzada hasta que las Partes 1 y 2 estén ambas entregadas.
+**Parte 3 validada, con la integración final completa.** Con esto se cierra formalmente la
+**Fase 4** en `docs/00-roadmap.md` y `CLAUDE.md`.
