@@ -9,6 +9,16 @@ Ver la división completa de la Fase 3 en `docs/03-uml/00-asignacion.md`.
 ## 1. Diagrama de casos de uso
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#ffffff',
+  'primaryBorderColor': '#4a4a4a',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a',
+  'clusterBkg': '#eef6ff',
+  'clusterBorder': '#2a6fb0'
+}}}%%
 flowchart LR
     Empleado((Empleado))
 
@@ -38,6 +48,14 @@ flowchart LR
     Empleado --> UC8
     Empleado --> UC9
     Empleado --> UC10
+
+    style E1 fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    style E2 fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+
+    classDef actor fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef usecase fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    class Empleado actor
+    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10 usecase
 ```
 
 **Relaciones `<<include>>` con otras partes** (dependen de datos de Reserva/Alquiler, fuera del
@@ -56,6 +74,14 @@ El diagrama de clases es único para todo el sistema; esta parte aporta `Vehicul
 `Reserva` y `Alquiler` se muestran como referencia (los completan las otras partes al integrar).
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 classDiagram
     class Vehiculo {
         -Long id
@@ -92,11 +118,20 @@ classDiagram
         <<Parte 3 - mariocardona970546>>
     }
 
-    Vehiculo "1" -- "0..*" Reserva : tiene
-    Vehiculo "1" -- "0..*" Alquiler : tiene
-    Cliente "1" -- "0..*" Reserva : realiza
-    Cliente "1" -- "0..*" Alquiler : realiza
+    Vehiculo "1" --> "0..*" Reserva : tiene
+    Vehiculo "1" --> "0..*" Alquiler : tiene
+    Cliente "1" --> "0..*" Reserva : realiza
+    Cliente "1" --> "0..*" Alquiler : realiza
     Vehiculo --> EstadoVehiculo : estado
+
+    classDef own fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef enum fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+    classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class Vehiculo:::own
+    class Cliente:::own
+    class EstadoVehiculo:::enum
+    class Reserva:::other
+    class Alquiler:::other
 ```
 
 Notas:
@@ -108,6 +143,25 @@ Notas:
 ### 3.1 Registrar vehículo nuevo (US1.1 — RF01, RF02, RF03, RF04)
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
 sequenceDiagram
     actor Empleado
     participant Controlador
@@ -144,6 +198,25 @@ sequenceDiagram
 ### 3.2 Registrar cliente nuevo (US2.1 — RF16, RF17, RF18)
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
 sequenceDiagram
     actor Empleado
     participant Controlador
@@ -184,17 +257,39 @@ Las transiciones hacia/desde `ALQUILADO` las genera el flujo de Alquileres (Part
 acá solo para que el diagrama de estados quede completo.
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eafaf0',
+  'primaryBorderColor': '#2f9e5c',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 stateDiagram-v2
     [*] --> DISPONIBLE : alta de vehículo (RF04)
     DISPONIBLE --> MANTENIMIENTO : marcar mantenimiento (RF14, US1.6)
     MANTENIMIENTO --> DISPONIBLE : finalizar mantenimiento (RF14, US1.6)
     DISPONIBLE --> ALQUILADO : retiro de vehículo (Parte 3 - Alquileres)
     ALQUILADO --> DISPONIBLE : devolución de vehículo (Parte 3 - Alquileres)
+
+    classDef own fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class DISPONIBLE:::own
+    class MANTENIMIENTO:::own
+    class ALQUILADO:::other
 ```
 
 ### 4.2 Diagrama de actividades: marcar/desmarcar mantenimiento (US1.6 — RF14, RF15)
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 flowchart TD
     Start([Inicio]) --> A[Empleado selecciona un vehículo]
     A --> B{"¿Tiene un alquiler ACTIVO?"}
@@ -205,6 +300,15 @@ flowchart TD
     D -- No --> F["Sistema marca el vehículo como MANTENIMIENTO"]
     E --> Fin2([Fin])
     F --> Fin2
+
+    classDef startEnd fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    classDef reject fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
+    class Start,Fin1,Fin2 startEnd
+    class B,D decision
+    class A,E,F action
+    class C reject
 ```
 
 ## 5. Trazabilidad
