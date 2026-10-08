@@ -93,6 +93,16 @@ documento de US2.2/RF19).
 ## 3. Diagrama entidad-relación (porción de esta parte)
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a',
+  'attributeBackgroundColorOdd': '#f7f9fb',
+  'attributeBackgroundColorEven': '#ffffff'
+}}}%%
 erDiagram
     VEHICLES ||--o{ RESERVATIONS : "es reservado en"
     VEHICLES ||--o{ RENTALS : "es alquilado en"

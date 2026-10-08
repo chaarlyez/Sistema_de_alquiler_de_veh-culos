@@ -17,6 +17,14 @@ esta parte tiene asignada además de `Alquiler`).
 Actor **Empleado** únicamente — E4 no tiene interacción del actor Cliente (eso es E5, Parte 2).
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#ffffff',
+  'primaryBorderColor': '#4a4a4a',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 flowchart LR
     Empleado(["👤 Empleado"])
 
@@ -35,6 +43,13 @@ flowchart LR
 
     UC35(["Confirmar reserva<br/>Parte 2 - chaarlyez"])
     UC8(["Buscar cliente<br/>Parte 1 - Johann-Tafur"])
+
+    classDef actor fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef usecase fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class Empleado actor
+    class UC41,UC42,UC43,UC44 usecase
+    class UC35,UC8 other
 ```
 
 **Relaciones `include` con otras partes**:
@@ -49,6 +64,14 @@ flowchart LR
 ## 2. Aporte al diagrama de clases: `Alquiler`
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eafaf0',
+  'primaryBorderColor': '#2f9e5c',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 classDiagram
     class Alquiler {
         -Long id
@@ -80,6 +103,15 @@ classDiagram
     Alquiler "0..*" --> "1" Vehiculo : es alquilado en
     Alquiler "0..1" --> "0..1" Reserva : se origina de
     Alquiler --> EstadoAlquiler : estado
+
+    classDef own fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef enum fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+    classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class Alquiler:::own
+    class EstadoAlquiler:::enum
+    class Cliente:::other
+    class Vehiculo:::other
+    class Reserva:::other
 ```
 
 Notas:
@@ -100,6 +132,14 @@ Tarea propia de esta parte (ver `docs/03-uml/00-asignacion.md`): juntar los apor
 contradecir ninguno de los tres.
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#ffffff',
+  'primaryBorderColor': '#4a4a4a',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 classDiagram
     class Vehiculo {
         -Long id
@@ -164,6 +204,18 @@ classDiagram
     Vehiculo ..> EstadoVehiculo : usa
     Reserva ..> EstadoReserva : usa
     Alquiler ..> EstadoAlquiler : usa
+
+    classDef parte1 fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef parte2 fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef parte3 fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef enum fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+    class Vehiculo:::parte1
+    class Cliente:::parte1
+    class Reserva:::parte2
+    class Alquiler:::parte3
+    class EstadoVehiculo:::enum
+    class EstadoReserva:::enum
+    class EstadoAlquiler:::enum
 ```
 
 **Decisiones tomadas al integrar** (para que Johann-Tafur y chaarlyez puedan revisarlas):
@@ -182,6 +234,25 @@ classDiagram
 ### 4.1 Iniciar alquiler / retiro de vehículo (US4.1 — RF34, RF35, RF36, RN04)
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
 sequenceDiagram
     actor Empleado
     participant Controlador
@@ -221,6 +292,25 @@ sequenceDiagram
 ### 4.2 Finalizar alquiler / devolución (US4.2 — RF37, RF38, RF39, RN05, RN13)
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
 sequenceDiagram
     actor Empleado
     participant Controlador
@@ -257,6 +347,14 @@ sequenceDiagram
 Cubre RF34-RF39, RN04, RN05, RN11, RN13.
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eafaf0',
+  'primaryBorderColor': '#2f9e5c',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 flowchart TD
     Start(["Inicio: Empleado quiere iniciar un alquiler"]) --> Origen{"¿Viene de una reserva o es directo?"}
     Origen -- "Desde reserva (RN04)" --> ValReserva{"¿La reserva está CONFIRMADA?"}
@@ -278,6 +376,15 @@ flowchart TD
     Monto --> Finalizar["Alquiler pasa a FINALIZADO"]
     Finalizar --> EstadoFinal["Vehículo pasa a DISPONIBLE o MANTENIMIENTO,<br/>según indique el Empleado (RF39)"]
     EstadoFinal --> Fin2(["Fin: alquiler finalizado y facturado"])
+
+    classDef startEnd fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    classDef reject fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
+    class Start,Fin1,Fin2 startEnd
+    class Origen,ValReserva,ValVehiculo decision
+    class Crear,Ocupar,Uso,Devolucion,Calcular,Monto,Finalizar,EstadoFinal action
+    class R1,R2 reject
 ```
 
 ### 5.2 Estados de `Alquiler` (complementa el diagrama de estados de `Vehiculo` de la Parte 1)
@@ -287,10 +394,23 @@ La Parte 1 (`01-johann-tafur-vehiculos-clientes.md`, sección 4.1) dejó marcada
 muestra el lado del `Alquiler` que las dispara.
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eafaf0',
+  'primaryBorderColor': '#2f9e5c',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 stateDiagram-v2
     [*] --> ACTIVO : iniciar alquiler (RF34) — dispara Vehiculo: DISPONIBLE/CONFIRMADA -> ALQUILADO
     ACTIVO --> FINALIZADO : finalizar alquiler (RF37) — dispara Vehiculo: ALQUILADO -> DISPONIBLE/MANTENIMIENTO
     FINALIZADO --> [*]
+
+    classDef active fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef done fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    class ACTIVO:::active
+    class FINALIZADO:::done
 ```
 
 ---

@@ -175,6 +175,16 @@ Las flechas punteadas cruzando columnas marcan las dependencias de lógica reuti
 sección 7 (no todas las dependencias de flujo están dibujadas, para no saturar el diagrama).
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#ffffff',
+  'primaryBorderColor': '#4a4a4a',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a',
+  'clusterBkg': '#eef6ff',
+  'clusterBorder': '#2a6fb0'
+}}}%%
 flowchart LR
     subgraph E1["E1 — Vehículos (16 pts)"]
         direction TB
@@ -236,6 +246,15 @@ flowchart LR
     US32 -.reutiliza.-> US52
     US41 -.expone chequeo.-> US14
     US41 -.expone chequeo.-> US16
+
+    style E1 fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    style E2 fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+    style E3 fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    style E5 fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    style E4 fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
+
+    classDef story fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    class US11,US12,US13,US15,US14,US16,US21,US22,US23,US24,US31,US32,US33,US35,US34,US51,US52,US41,US42,US43,US44 story
 ```
 
 ## 9. Qué falta validar antes de pasar a la Fase 2

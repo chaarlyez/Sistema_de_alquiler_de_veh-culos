@@ -60,6 +60,16 @@ CREATE INDEX idx_reservations_vehicle_dates ON reservations (vehicle_id, start_d
 ## 3. Diagrama entidad-relación (porción de esta parte)
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#fff4e0',
+  'primaryBorderColor': '#c97a1e',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a',
+  'attributeBackgroundColorOdd': '#f7f9fb',
+  'attributeBackgroundColorEven': '#ffffff'
+}}}%%
 erDiagram
     VEHICLES ||--o{ RESERVATIONS : "es reservado en"
     CUSTOMERS ||--o{ RESERVATIONS : "realiza"

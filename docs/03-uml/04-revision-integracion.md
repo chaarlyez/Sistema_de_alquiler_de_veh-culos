@@ -41,13 +41,16 @@ clases).
    `DISPONIBLE → ALQUILADO` y `ALQUILADO → DISPONIBLE` como disparadas por la Parte 3; la Parte 3
    las completa con su propio diagrama de estados de `Alquiler`, sin contradecir el de la Parte 1.
 
-## Observación menor (no bloqueante)
+## Observación menor (corregida)
 
-La Parte 1 dibuja las relaciones con línea no dirigida (`--`), mientras que la Parte 2 y la Parte 3
-usan flecha dirigida (`-->`). Es una diferencia cosmética de notación entre archivos individuales,
-sin impacto porque el diagrama de clases integrado (Parte 3, sección 3, que es el que cuenta como
-entregable único del sistema) usa flechas dirigidas de forma consistente en las 4 clases. No
-amerita pedir un cambio.
+La Parte 1 dibujaba las relaciones con línea no dirigida (`--`), mientras que la Parte 2 y la
+Parte 3 usan flecha dirigida (`-->`). En su momento se consideró una diferencia cosmética sin
+impacto, porque el diagrama de clases integrado (Parte 3, sección 3, que es el entregable único
+del sistema) ya usaba flechas dirigidas de forma consistente en las 4 clases. Una revisión
+posterior del instructor pidió homogeneizar también los diagramas individuales, así que se
+corrigió: las 4 relaciones de `01-johann-tafur-vehiculos-clientes.md` (sección 2) ahora usan
+`-->`, igual que el resto. Con esto, los 3 archivos individuales y el diagrama integrado usan la
+misma notación de extremo a extremo.
 
 ## Conclusión
 

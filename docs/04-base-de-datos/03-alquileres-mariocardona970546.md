@@ -85,6 +85,16 @@ retiro).
 ## 3. Diagrama entidad-relación (porción de esta parte)
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eafaf0',
+  'primaryBorderColor': '#2f9e5c',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a',
+  'attributeBackgroundColorOdd': '#f7f9fb',
+  'attributeBackgroundColorEven': '#ffffff'
+}}}%%
 erDiagram
     VEHICLES ||--o{ RENTALS : "es alquilado en"
     CUSTOMERS ||--o{ RENTALS : "retira"
@@ -207,6 +217,16 @@ CREATE INDEX idx_rentals_customer ON rentals (customer_id);
 ### 5.2 Diagrama ER completo del sistema
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a',
+  'attributeBackgroundColorOdd': '#f7f9fb',
+  'attributeBackgroundColorEven': '#ffffff'
+}}}%%
 erDiagram
     VEHICLES ||--o{ RESERVATIONS : "es reservado en"
     CUSTOMERS ||--o{ RESERVATIONS : "realiza"

@@ -18,6 +18,14 @@ disponibilidad` es un caso de uso compartido: lo incluyen tanto la reserva manua
 como la reserva pública del cliente (misma lógica, reutilizada — ver Fase 1, sección 7).
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#ffffff',
+  'primaryBorderColor': '#4a4a4a',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 flowchart LR
     Empleado(["👤 Empleado"])
     Cliente(["👤 Cliente"])
@@ -44,6 +52,13 @@ flowchart LR
     UC52 -.->|include| UC32
     UC52 -.->|include| UC51
     UC52 -.->|include| UC_CLI
+
+    classDef actor fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef usecase fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef shared fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+    class Empleado,Cliente actor
+    class UC31,UC33,UC34,UC35,UC51,UC52,UC_CLI usecase
+    class UC32 shared
 ```
 
 ---
@@ -51,6 +66,14 @@ flowchart LR
 ## 2. Aporte al diagrama de clases: `Reserva`
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 classDiagram
     class Reserva {
         -Long id
@@ -80,6 +103,14 @@ classDiagram
     Reserva "0..*" --> "1" Cliente : pertenece a
     Reserva "0..*" --> "1" Vehiculo : reserva
     Reserva --> EstadoReserva : estado
+
+    classDef own fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef enum fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+    classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class Reserva:::own
+    class EstadoReserva:::enum
+    class Cliente:::other
+    class Vehiculo:::other
 ```
 
 **Notas para la integración (Parte 3)**:
@@ -95,6 +126,25 @@ classDiagram
 ### 3.1 Crear reserva (Empleado) — US3.1, RF25-RF28
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
 sequenceDiagram
     actor Empleado
     participant API as Sistema (API Reservas)
@@ -125,6 +175,25 @@ sequenceDiagram
 ### 3.2 Crear reserva pública (Cliente, sin login) — US5.1, US5.2, RF42-RF45
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
 sequenceDiagram
     actor Cliente
     participant Form as Formulario público
@@ -174,6 +243,14 @@ Común a US3.1 (empleado) y US5.2 (cliente, vía formulario público) — es la 
 reutilizada, según lo documentado en `docs/01-epicas-historias-usuario.md` sección 7.
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 flowchart TD
     Start(["Inicio: solicitar reserva"]) --> Datos["Ingresar cliente, vehículo, fechaInicio, fechaFin"]
     Datos --> ValFechas{"fechaFin > fechaInicio? (RF26)"}
@@ -190,6 +267,15 @@ flowchart TD
     R4 --> Fin
     Solapa -- No --> Crear["Crear Reserva en estado PENDIENTE (RN09)"]
     Crear --> Fin
+
+    classDef startEnd fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    classDef reject fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
+    class Start,Fin startEnd
+    class ValFechas,ExisteCV,Activo,Solapa decision
+    class Datos,Crear action
+    class R1,R2,R3,R4 reject
 ```
 
 ### 4.2 Flujo de reutilización/alta de cliente en el formulario público (E5)
@@ -199,6 +285,14 @@ público (US5.2, RF44, RN10) — no aplica al flujo del empleado, que ya trabaja
 existente (E2, Parte 1).
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
 flowchart TD
     Start(["Cliente completa formulario:<br/>nombre, apellido, documento, email/teléfono"]) --> Buscar["Buscar Cliente por documento"]
     Buscar --> Existe{"¿Existe un Cliente<br/>con ese documento? (RN10)"}
@@ -207,6 +301,13 @@ flowchart TD
     Reusar --> Continuar["Continuar con validación de disponibilidad (4.1)"]
     Crear --> Continuar
     Continuar --> Fin(["Fin"])
+
+    classDef startEnd fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    class Start,Fin startEnd
+    class Existe decision
+    class Buscar,Reusar,Crear,Continuar action
 ```
 
 ---
