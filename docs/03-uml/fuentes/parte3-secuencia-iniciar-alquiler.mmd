@@ -1,0 +1,53 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
+sequenceDiagram
+    actor Empleado
+    participant Controlador
+    participant Servicio
+    participant Repositorio
+    participant BaseDeDatos as Base de Datos
+
+    Empleado->>Controlador: iniciar alquiler (cliente, vehiculo, reserva opcional)
+    Controlador->>Servicio: iniciarAlquiler(datos)
+    Servicio->>Repositorio: buscarVehiculo(vehiculoId)
+    Repositorio->>BaseDeDatos: SELECT vehiculo
+    BaseDeDatos-->>Repositorio: vehiculo
+    Repositorio-->>Servicio: vehiculo
+
+    alt vehículo ya está ALQUILADO (RF36)
+        Servicio-->>Controlador: error: vehículo no disponible
+        Controlador-->>Empleado: 409 Conflict
+    else vehículo disponible
+        opt viene de una reserva
+            Servicio->>Repositorio: buscarReserva(reservaId)
+            Repositorio->>BaseDeDatos: SELECT reserva
+            BaseDeDatos-->>Repositorio: reserva
+            Repositorio-->>Servicio: reserva (debe estar CONFIRMADA, RN04)
+        end
+        Servicio->>Repositorio: guardar(alquiler, estado = ACTIVO, fechaInicioReal = ahora)
+        Repositorio->>BaseDeDatos: INSERT alquiler
+        BaseDeDatos-->>Repositorio: alquiler creado
+        Repositorio-->>Servicio: alquiler
+        Servicio->>Repositorio: actualizarEstadoVehiculo(vehiculoId, ALQUILADO) (RF35, RN11)
+        Repositorio->>BaseDeDatos: UPDATE vehiculo SET estado = ALQUILADO
+        BaseDeDatos-->>Repositorio: ok
+        Servicio-->>Controlador: alquiler creado
+        Controlador-->>Empleado: 201 Created
+    end

@@ -1,0 +1,48 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eafaf0',
+  'primaryBorderColor': '#2f9e5c',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+classDiagram
+    class Alquiler {
+        -Long id
+        -LocalDateTime fechaInicioReal
+        -LocalDateTime fechaFinReal
+        -EstadoAlquiler estado
+        -BigDecimal montoTotal
+    }
+
+    class EstadoAlquiler {
+        <<enumeration>>
+        ACTIVO
+        FINALIZADO
+    }
+
+    class Cliente {
+        <<Parte 1 - Johann-Tafur>>
+    }
+
+    class Vehiculo {
+        <<Parte 1 - Johann-Tafur>>
+    }
+
+    class Reserva {
+        <<Parte 2 - chaarlyez>>
+    }
+
+    Alquiler "0..*" --> "1" Cliente : retira
+    Alquiler "0..*" --> "1" Vehiculo : es alquilado en
+    Alquiler "0..1" --> "0..1" Reserva : se origina de
+    Alquiler --> EstadoAlquiler : estado
+
+    classDef own fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef enum fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+    classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class Alquiler:::own
+    class EstadoAlquiler:::enum
+    class Cliente:::other
+    class Vehiculo:::other
+    class Reserva:::other

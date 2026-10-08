@@ -1,0 +1,33 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+flowchart TD
+    Start(["Inicio: solicitar reserva"]) --> Datos["Ingresar cliente, vehículo, fechaInicio, fechaFin"]
+    Datos --> ValFechas{"fechaFin > fechaInicio? (RF26)"}
+    ValFechas -- No --> R1["Rechazar: rango de fechas inválido"]
+    R1 --> Fin(["Fin"])
+    ValFechas -- Sí --> ExisteCV{"Cliente y Vehículo existen,<br/>Vehículo no dado de baja? (RF27)"}
+    ExisteCV -- No --> R2["Rechazar: cliente o vehículo inexistente"]
+    R2 --> Fin
+    ExisteCV -- Sí --> Activo{"¿Vehículo con alquiler ACTIVO? (RN14)"}
+    Activo -- Sí --> R3["Rechazar: vehículo con alquiler activo"]
+    R3 --> Fin
+    Activo -- No --> Solapa{"¿Solapa con otra reserva<br/>PENDIENTE/CONFIRMADA del vehículo? (RN12)"}
+    Solapa -- Sí --> R4["Rechazar: conflicto de fechas"]
+    R4 --> Fin
+    Solapa -- No --> Crear["Crear Reserva en estado PENDIENTE (RN09)"]
+    Crear --> Fin
+
+    classDef startEnd fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    classDef reject fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
+    class Start,Fin startEnd
+    class ValFechas,ExisteCV,Activo,Solapa decision
+    class Datos,Crear action
+    class R1,R2,R3,R4 reject

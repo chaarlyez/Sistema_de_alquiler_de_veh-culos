@@ -1,0 +1,27 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+flowchart TD
+    Start([Inicio]) --> A[Empleado selecciona un vehículo]
+    A --> B{"¿Tiene un alquiler ACTIVO?"}
+    B -- Sí --> C["Sistema rechaza la operación (RF15)"]
+    C --> Fin1([Fin])
+    B -- No --> D{"¿Estado actual es MANTENIMIENTO?"}
+    D -- Sí --> E["Sistema marca el vehículo como DISPONIBLE"]
+    D -- No --> F["Sistema marca el vehículo como MANTENIMIENTO"]
+    E --> Fin2([Fin])
+    F --> Fin2
+
+    classDef startEnd fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    classDef reject fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
+    class Start,Fin1,Fin2 startEnd
+    class B,D decision
+    class A,E,F action
+    class C reject

@@ -1,0 +1,17 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eafaf0',
+  'primaryBorderColor': '#2f9e5c',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+stateDiagram-v2
+    [*] --> ACTIVO : iniciar alquiler (RF34) — dispara Vehiculo: DISPONIBLE/CONFIRMADA -> ALQUILADO
+    ACTIVO --> FINALIZADO : finalizar alquiler (RF37) — dispara Vehiculo: ALQUILADO -> DISPONIBLE/MANTENIMIENTO
+    FINALIZADO --> [*]
+
+    classDef active fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef done fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    class ACTIVO:::active
+    class FINALIZADO:::done

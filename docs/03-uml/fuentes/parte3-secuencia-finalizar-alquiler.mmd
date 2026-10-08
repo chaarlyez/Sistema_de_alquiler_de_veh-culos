@@ -1,0 +1,44 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
+sequenceDiagram
+    actor Empleado
+    participant Controlador
+    participant Servicio
+    participant Repositorio
+    participant BaseDeDatos as Base de Datos
+
+    Empleado->>Controlador: finalizar alquiler (fechaFinReal, estadoVehiculoFinal)
+    Controlador->>Servicio: finalizarAlquiler(id, datos)
+    Servicio->>Repositorio: buscarAlquiler(id)
+    Repositorio->>BaseDeDatos: SELECT alquiler
+    BaseDeDatos-->>Repositorio: alquiler (ACTIVO)
+    Repositorio-->>Servicio: alquiler
+
+    Servicio->>Servicio: calcular días efectivos (RN13)<br/>períodos de 24h desde fechaInicioReal,<br/>1h de tolerancia antes de sumar un día más
+    Servicio->>Servicio: montoTotal = díasEfectivos × vehiculo.precioPorDia (RN05)
+
+    Servicio->>Repositorio: guardar(alquiler, estado = FINALIZADO, montoTotal)
+    Repositorio->>BaseDeDatos: UPDATE alquiler
+    BaseDeDatos-->>Repositorio: ok
+    Servicio->>Repositorio: actualizarEstadoVehiculo(vehiculoId, estadoVehiculoFinal) (RF39)
+    Repositorio->>BaseDeDatos: UPDATE vehiculo SET estado = DISPONIBLE|MANTENIMIENTO
+    BaseDeDatos-->>Repositorio: ok
+    Servicio-->>Controlador: alquiler finalizado (montoTotal, díasEfectivos)
+    Controlador-->>Empleado: 200 OK

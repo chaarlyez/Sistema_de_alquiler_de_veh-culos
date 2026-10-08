@@ -48,5 +48,8 @@ clases general.
 
 - Los tres diagramas de casos de uso individuales se pueden mantener separados por claridad, o
   combinarse en uno solo del sistema completo al cerrar la fase — a decidir al integrar.
+- **Fuentes editables**: cada diagrama tiene su archivo fuente editable (`.mmd`, sintaxis Mermaid)
+  versionado en `docs/03-uml/fuentes/`. Si se modifica un diagrama, se actualiza la fuente y el
+  bloque embebido en el `.md` en el mismo commit (ver `fuentes/README.md`).
 - Nivel junior: diagramas simples y legibles, sin notación UML avanzada innecesaria (ver
   `CLAUDE.md`, sección 1).

@@ -1,0 +1,38 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eafaf0',
+  'primaryBorderColor': '#2f9e5c',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+flowchart TD
+    Start(["Inicio: Empleado quiere iniciar un alquiler"]) --> Origen{"¿Viene de una reserva o es directo?"}
+    Origen -- "Desde reserva (RN04)" --> ValReserva{"¿La reserva está CONFIRMADA?"}
+    ValReserva -- No --> R1["Rechazar: la reserva debe estar confirmada"]
+    R1 --> Fin1(["Fin"])
+    ValReserva -- Sí --> ValVehiculo
+    Origen -- "Directo, sin reserva (RN04)" --> ValVehiculo
+
+    ValVehiculo{"¿El vehículo ya está ALQUILADO? (RF36)"}
+    ValVehiculo -- Sí --> R2["Rechazar: vehículo ya alquilado"]
+    R2 --> Fin1
+
+    ValVehiculo -- No --> Crear["Crear Alquiler ACTIVO<br/>fechaInicioReal = ahora"]
+    Crear --> Ocupar["Vehículo pasa a ALQUILADO (RF35, RN11)"]
+    Ocupar --> Uso["... el cliente usa el vehículo ..."]
+    Uso --> Devolucion["Empleado registra la devolución (fechaFinReal)"]
+    Devolucion --> Calcular["Calcular días efectivos:<br/>períodos de 24h desde fechaInicioReal,<br/>+1 día si se supera 1h de tolerancia (RN13)"]
+    Calcular --> Monto["montoTotal = díasEfectivos × precioPorDia (RN05)"]
+    Monto --> Finalizar["Alquiler pasa a FINALIZADO"]
+    Finalizar --> EstadoFinal["Vehículo pasa a DISPONIBLE o MANTENIMIENTO,<br/>según indique el Empleado (RF39)"]
+    EstadoFinal --> Fin2(["Fin: alquiler finalizado y facturado"])
+
+    classDef startEnd fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    classDef reject fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
+    class Start,Fin1,Fin2 startEnd
+    class Origen,ValReserva,ValVehiculo decision
+    class Crear,Ocupar,Uso,Devolucion,Calcular,Monto,Finalizar,EstadoFinal action
+    class R1,R2 reject

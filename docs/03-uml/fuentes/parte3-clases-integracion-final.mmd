@@ -1,0 +1,84 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#ffffff',
+  'primaryBorderColor': '#4a4a4a',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+classDiagram
+    class Vehiculo {
+        -Long id
+        -String patente
+        -String marca
+        -String modelo
+        -int anio
+        -String tipo
+        -EstadoVehiculo estado
+        -BigDecimal precioPorDia
+    }
+
+    class Cliente {
+        -Long id
+        -String nombre
+        -String apellido
+        -String documento
+        -String email
+        -String telefono
+    }
+
+    class Reserva {
+        -Long id
+        -LocalDate fechaInicio
+        -LocalDate fechaFin
+        -EstadoReserva estado
+    }
+
+    class Alquiler {
+        -Long id
+        -LocalDateTime fechaInicioReal
+        -LocalDateTime fechaFinReal
+        -EstadoAlquiler estado
+        -BigDecimal montoTotal
+    }
+
+    class EstadoVehiculo {
+        <<enumeration>>
+        DISPONIBLE
+        ALQUILADO
+        MANTENIMIENTO
+    }
+
+    class EstadoReserva {
+        <<enumeration>>
+        PENDIENTE
+        CONFIRMADA
+        CANCELADA
+    }
+
+    class EstadoAlquiler {
+        <<enumeration>>
+        ACTIVO
+        FINALIZADO
+    }
+
+    Cliente "1" --> "0..*" Reserva : realiza
+    Vehiculo "1" --> "0..*" Reserva : es reservado en
+    Cliente "1" --> "0..*" Alquiler : retira
+    Vehiculo "1" --> "0..*" Alquiler : es alquilado en
+    Reserva "0..1" --> "0..1" Alquiler : origina
+    Vehiculo ..> EstadoVehiculo : usa
+    Reserva ..> EstadoReserva : usa
+    Alquiler ..> EstadoAlquiler : usa
+
+    classDef parte1 fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef parte2 fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef parte3 fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef enum fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+    class Vehiculo:::parte1
+    class Cliente:::parte1
+    class Reserva:::parte2
+    class Alquiler:::parte3
+    class EstadoVehiculo:::enum
+    class EstadoReserva:::enum
+    class EstadoAlquiler:::enum

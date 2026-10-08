@@ -1,0 +1,33 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#ffffff',
+  'primaryBorderColor': '#4a4a4a',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+flowchart LR
+    Empleado(["👤 Empleado"])
+
+    UC41(["Iniciar alquiler (retiro)<br/>US4.1"])
+    UC42(["Finalizar alquiler (devolución)<br/>US4.2"])
+    UC43(["Listar alquileres<br/>US4.3"])
+    UC44(["Consultar historial de alquileres de un cliente<br/>US4.4"])
+
+    Empleado --> UC41
+    Empleado --> UC42
+    Empleado --> UC43
+    Empleado --> UC44
+
+    UC41 -.->|"include (si viene de reserva)"| UC35
+    UC44 -.->|include| UC8
+
+    UC35(["Confirmar reserva<br/>Parte 2 - chaarlyez"])
+    UC8(["Buscar cliente<br/>Parte 1 - Johann-Tafur"])
+
+    classDef actor fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef usecase fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class Empleado actor
+    class UC41,UC42,UC43,UC44 usecase
+    class UC35,UC8 other

@@ -234,6 +234,12 @@ Hecho:
   de verdad. Nota aparte: la skill `engineering:system-design` sugerida en la sección 8 no estaba
   disponible en ninguna de las sesiones donde se armó esta fase — se hizo a mano con diagramas
   Mermaid embebidos en los `.md`.
+- Corrección pedida por el instructor en la revisión del proyecto (*conservar fuentes editables*):
+  los 19 diagramas UML de la Fase 3 tienen ahora su archivo fuente editable (`.mmd`, Mermaid)
+  versionado en `docs/03-uml/fuentes/`, con un `README.md` que indexa cada fuente y explica cómo
+  editarla (los `.md` de las Partes 1 y 2 no se modificaron; solo la Parte 3 enlaza cada diagrama a
+  su fuente). **Regla a mantener**: si se
+  cambia un diagrama, se actualizan la fuente `.mmd` y el bloque embebido en el mismo commit.
 
 - Fase 4 dividida en 3 partes entre el equipo, misma agrupación de entidades que la Fase 3:
   Johann-Tafur (tablas `vehicles` + `customers`), chaarlyez (tabla `reservations`) y

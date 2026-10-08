@@ -1,0 +1,44 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
+sequenceDiagram
+    actor Empleado
+    participant API as Sistema (API Reservas)
+    participant SR as Servicio de Reservas
+    participant BD as Base de Datos
+
+    Empleado->>API: crear reserva (cliente, vehiculo, fechaInicio, fechaFin)
+    API->>SR: crearReserva(datos)
+    SR->>BD: buscar Cliente y Vehiculo por id
+    BD-->>SR: existen y Vehiculo no está dado de baja (RF27)
+    SR->>SR: validar fechaFin > fechaInicio (RF26)
+
+    alt fechas inválidas
+        SR-->>API: rechazar (rango de fechas inválido)
+        API-->>Empleado: 400 Bad Request
+    else fechas válidas
+        SR->>BD: ¿Vehiculo con alquiler ACTIVO? (RN14)
+        BD-->>SR: sin alquiler activo
+        SR->>BD: ¿solapa con reserva PENDIENTE/CONFIRMADA del vehículo? (RN12)
+        BD-->>SR: sin solapamiento
+        SR->>BD: guardar Reserva (estado = PENDIENTE, RN09)
+        BD-->>SR: Reserva guardada
+        SR-->>API: Reserva creada
+        API-->>Empleado: 201 Created (Reserva)
+    end

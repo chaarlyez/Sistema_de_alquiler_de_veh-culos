@@ -1,0 +1,58 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+classDiagram
+    class Vehiculo {
+        -Long id
+        -String patente
+        -String marca
+        -String modelo
+        -int anio
+        -String tipo
+        -EstadoVehiculo estado
+        -BigDecimal precioPorDia
+    }
+
+    class EstadoVehiculo {
+        <<enumeration>>
+        DISPONIBLE
+        ALQUILADO
+        MANTENIMIENTO
+    }
+
+    class Cliente {
+        -Long id
+        -String nombre
+        -String apellido
+        -String documento
+        -String email
+        -String telefono
+    }
+
+    class Reserva {
+        <<Parte 2 - chaarlyez>>
+    }
+
+    class Alquiler {
+        <<Parte 3 - mariocardona970546>>
+    }
+
+    Vehiculo "1" --> "0..*" Reserva : tiene
+    Vehiculo "1" --> "0..*" Alquiler : tiene
+    Cliente "1" --> "0..*" Reserva : realiza
+    Cliente "1" --> "0..*" Alquiler : realiza
+    Vehiculo --> EstadoVehiculo : estado
+
+    classDef own fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef enum fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+    classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class Vehiculo:::own
+    class Cliente:::own
+    class EstadoVehiculo:::enum
+    class Reserva:::other
+    class Alquiler:::other

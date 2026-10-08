@@ -1,0 +1,50 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
+sequenceDiagram
+    actor Empleado
+    participant Controlador
+    participant Servicio
+    participant Repositorio
+    participant BaseDeDatos as Base de Datos
+
+    Empleado->>Controlador: registrar vehículo (patente, marca, modelo, anio, tipo, precioPorDia)
+    Controlador->>Servicio: registrarVehiculo(datos)
+    Servicio->>Servicio: validar campos obligatorios (RF02)
+    alt faltan campos obligatorios
+        Servicio-->>Controlador: error: datos incompletos
+        Controlador-->>Empleado: 400 Bad Request
+    else campos completos
+        Servicio->>Repositorio: existePorPatente(patente)
+        Repositorio->>BaseDeDatos: SELECT ... WHERE patente = ?
+        BaseDeDatos-->>Repositorio: resultado
+        Repositorio-->>Servicio: existe true/false
+        alt patente ya registrada (RF03)
+            Servicio-->>Controlador: error: patente duplicada
+            Controlador-->>Empleado: 409 Conflict
+        else patente disponible
+            Servicio->>Servicio: asignar estado = DISPONIBLE (RF04)
+            Servicio->>Repositorio: guardar(vehiculo)
+            Repositorio->>BaseDeDatos: INSERT INTO vehiculos ...
+            BaseDeDatos-->>Repositorio: vehículo guardado (id)
+            Repositorio-->>Servicio: vehiculo
+            Servicio-->>Controlador: vehiculo creado
+            Controlador-->>Empleado: 201 Created
+        end
+    end

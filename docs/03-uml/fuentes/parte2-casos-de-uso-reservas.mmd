@@ -1,0 +1,41 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#ffffff',
+  'primaryBorderColor': '#4a4a4a',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+flowchart LR
+    Empleado(["👤 Empleado"])
+    Cliente(["👤 Cliente"])
+
+    UC31(["Crear reserva<br/>US3.1"])
+    UC33(["Listar reservas<br/>US3.3"])
+    UC34(["Cancelar reserva<br/>US3.4"])
+    UC35(["Confirmar reserva<br/>US3.5"])
+    UC32(["Validar disponibilidad<br/>US3.2 / RN12 / RN14"])
+
+    UC51(["Buscar vehículos disponibles<br/>US5.1 (público)"])
+    UC52(["Reservar vehículo<br/>US5.2 (público)"])
+    UC_CLI(["Reutilizar o crear cliente<br/>RF44 / RN10"])
+
+    Empleado --> UC31
+    Empleado --> UC33
+    Empleado --> UC34
+    Empleado --> UC35
+
+    Cliente --> UC51
+    Cliente --> UC52
+
+    UC31 -.->|include| UC32
+    UC52 -.->|include| UC32
+    UC52 -.->|include| UC51
+    UC52 -.->|include| UC_CLI
+
+    classDef actor fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef usecase fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef shared fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+    class Empleado,Cliente actor
+    class UC31,UC33,UC34,UC35,UC51,UC52,UC_CLI usecase
+    class UC32 shared

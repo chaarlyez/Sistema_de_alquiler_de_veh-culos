@@ -52,6 +52,8 @@ flowchart LR
     class UC35,UC8 other
 ```
 
+> Fuente editable: [`fuentes/parte3-casos-de-uso-alquileres.mmd`](fuentes/parte3-casos-de-uso-alquileres.mmd)
+
 **Relaciones `include` con otras partes**:
 
 | Caso de uso | Incluye | Condición / regla |
@@ -113,6 +115,8 @@ classDiagram
     class Vehiculo:::other
     class Reserva:::other
 ```
+
+> Fuente editable: [`fuentes/parte3-clases-alquiler.mmd`](fuentes/parte3-clases-alquiler.mmd)
 
 Notas:
 - `fechaInicioReal` / `fechaFinReal` son `LocalDateTime` (con hora), no `LocalDate` — a diferencia
@@ -218,6 +222,8 @@ classDiagram
     class EstadoAlquiler:::enum
 ```
 
+> Fuente editable: [`fuentes/parte3-clases-integracion-final.mmd`](fuentes/parte3-clases-integracion-final.mmd)
+
 **Decisiones tomadas al integrar** (para que Johann-Tafur y chaarlyez puedan revisarlas):
 
 | Decisión | Por qué |
@@ -289,6 +295,8 @@ sequenceDiagram
     end
 ```
 
+> Fuente editable: [`fuentes/parte3-secuencia-iniciar-alquiler.mmd`](fuentes/parte3-secuencia-iniciar-alquiler.mmd)
+
 ### 4.2 Finalizar alquiler / devolución (US4.2 — RF37, RF38, RF39, RN05, RN13)
 
 ```mermaid
@@ -337,6 +345,8 @@ sequenceDiagram
     Servicio-->>Controlador: alquiler finalizado (montoTotal, díasEfectivos)
     Controlador-->>Empleado: 200 OK
 ```
+
+> Fuente editable: [`fuentes/parte3-secuencia-finalizar-alquiler.mmd`](fuentes/parte3-secuencia-finalizar-alquiler.mmd)
 
 ---
 
@@ -387,6 +397,8 @@ flowchart TD
     class R1,R2 reject
 ```
 
+> Fuente editable: [`fuentes/parte3-actividades-flujo-alquiler.mmd`](fuentes/parte3-actividades-flujo-alquiler.mmd)
+
 ### 5.2 Estados de `Alquiler` (complementa el diagrama de estados de `Vehiculo` de la Parte 1)
 
 La Parte 1 (`01-johann-tafur-vehiculos-clientes.md`, sección 4.1) dejó marcadas como
@@ -412,6 +424,8 @@ stateDiagram-v2
     class ACTIVO:::active
     class FINALIZADO:::done
 ```
+
+> Fuente editable: [`fuentes/parte3-estados-alquiler.mmd`](fuentes/parte3-estados-alquiler.mmd)
 
 ---
 

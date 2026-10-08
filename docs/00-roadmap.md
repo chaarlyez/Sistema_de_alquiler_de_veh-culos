@@ -33,7 +33,8 @@ docs/
 │   ├── 01-johann-tafur-vehiculos-clientes.md
 │   ├── 02-reservas-chaarlyez.md
 │   ├── 03-alquileres-mariocardona970546.md
-│   └── 04-revision-integracion.md     (revisión de coherencia entre las 3 partes)
+│   ├── 04-revision-integracion.md     (revisión de coherencia entre las 3 partes)
+│   └── fuentes/                       (fuentes editables .mmd de los 19 diagramas UML)
 ├── 04-base-de-datos/                  (Fase 4 - cerrada)
 │   ├── 00-asignacion.md               (división del trabajo en 3 partes)
 │   ├── 01-johann-tafur-vehiculos-clientes.md

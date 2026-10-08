@@ -1,0 +1,56 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
+sequenceDiagram
+    actor Cliente
+    participant Form as Formulario público
+    participant API as Sistema (API pública)
+    participant SC as Servicio de Clientes
+    participant SR as Servicio de Reservas
+    participant BD as Base de Datos
+
+    Cliente->>Form: buscar vehículos disponibles (fechaInicio, fechaFin)
+    Form->>API: consultar disponibilidad (RF42)
+    API->>SR: buscarDisponibles(rango)
+    SR->>BD: vehículos sin solapamiento (RN12) ni alquiler activo (RN14)
+    BD-->>SR: lista de vehículos disponibles
+    SR-->>API: lista
+    API-->>Form: lista de vehículos
+    Form-->>Cliente: muestra vehículos disponibles
+
+    Cliente->>Form: elige vehículo + completa datos (nombre, apellido, documento, email/teléfono)
+    Form->>API: crear reserva pública (RF43)
+    API->>SC: buscarClientePorDocumento(documento)
+
+    alt Cliente ya existe (RF44 / RN10)
+        SC-->>API: reutilizar Cliente existente
+    else Cliente no existe
+        SC->>BD: crear Cliente nuevo
+        BD-->>SC: Cliente creado
+        SC-->>API: Cliente nuevo
+    end
+
+    API->>SR: crearReserva(cliente, vehiculo, fechas) — mismas validaciones que 3.1 (RF45)
+    SR->>BD: validar disponibilidad (RN12, RN14)
+    BD-->>SR: sin conflictos
+    SR->>BD: guardar Reserva (PENDIENTE)
+    BD-->>SR: Reserva guardada
+    SR-->>API: Reserva creada
+    API-->>Form: confirmación
+    Form-->>Cliente: reserva confirmada

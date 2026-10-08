@@ -1,0 +1,45 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+classDiagram
+    class Reserva {
+        -Long id
+        -LocalDate fechaInicio
+        -LocalDate fechaFin
+        -EstadoReserva estado
+        +crear(cliente, vehiculo, fechaInicio, fechaFin)
+        +confirmar()
+        +cancelar()
+    }
+
+    class EstadoReserva {
+        <<enumeration>>
+        PENDIENTE
+        CONFIRMADA
+        CANCELADA
+    }
+
+    class Cliente {
+        <<Parte 1 - Johann-Tafur>>
+    }
+
+    class Vehiculo {
+        <<Parte 1 - Johann-Tafur>>
+    }
+
+    Reserva "0..*" --> "1" Cliente : pertenece a
+    Reserva "0..*" --> "1" Vehiculo : reserva
+    Reserva --> EstadoReserva : estado
+
+    classDef own fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef enum fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
+    classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class Reserva:::own
+    class EstadoReserva:::enum
+    class Cliente:::other
+    class Vehiculo:::other
