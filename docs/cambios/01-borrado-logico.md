@@ -99,7 +99,9 @@ deja anotada para que la corrija el dueño de la Parte 3.
 
 - [ ] ¿El equipo está de acuerdo con el borrado lógico como regla general (RN15)?
 - [ ] ¿Las 3 historias nuevas (US1.7, US2.5, US4.5) y sus puntos son correctos?
-- [ ] ¿La reactivación automática del cliente desde el formulario público (RF58) es lo que se
-      quiere, o debería reactivarlo solo un empleado?
-- [ ] ¿Anular un alquiler debe cancelar también su reserva de origen (RF56)?
+- [x] ¿La reactivación automática del cliente desde el formulario público (RF58) es lo que se
+      quiere, o debería reactivarlo solo un empleado? → **Confirmado: se reactiva
+      automáticamente** (chaarlyez, 2026-10-08).
+- [x] ¿Anular un alquiler debe cancelar también su reserva de origen (RF56)? → **Sí, confirmado**
+      (chaarlyez, 2026-10-08).
 - [ ] Johann-Tafur y mariocardona970546 revisan los cambios hechos en sus partes de las Fases 3 y 4.
