@@ -2,7 +2,8 @@
 
 **Alcance**: tabla `rentals`, a partir de la clase `Alquiler` modelada en
 `docs/03-uml/03-alquileres-mariocardona970546.md` y de los requerimientos RF34-RF41, RN04, RN05,
-RN11, RN13, RN14 de `docs/02-requerimientos.md`.
+RN11, RN13, RN14 de `docs/02-requerimientos.md` (más RF55-RF57 y RN15/RN18 del cambio de borrado
+lógico, `docs/cambios/01-borrado-logico.md`).
 
 Las tablas `vehicles` y `customers` son responsabilidad de la Parte 1 (Johann-Tafur) y la tabla
 `reservations` de la Parte 2 (chaarlyez, `02-reservas-chaarlyez.md`) — acá se referencian solo como
@@ -22,7 +23,7 @@ FK.
 | `reservation_id` | `BIGINT` | `NULL`, `UNIQUE`, `REFERENCES reservations(id)` | relación `Reserva 0..1 — 0..1 Alquiler` (RN04: alquiler directo sin reserva) |
 | `actual_start_date` | `TIMESTAMP` | `NOT NULL` | `Alquiler.fechaInicioReal` |
 | `actual_end_date` | `TIMESTAMP` | `NULL` (se completa recién al finalizar) | `Alquiler.fechaFinReal` |
-| `status` | `VARCHAR(20)` | `NOT NULL DEFAULT 'ACTIVE'`, `CHECK (status IN ('ACTIVE','FINISHED'))` | `Alquiler.estado` (`EstadoAlquiler`) |
+| `status` | `VARCHAR(20)` | `NOT NULL DEFAULT 'ACTIVE'`, `CHECK (status IN ('ACTIVE','FINISHED','VOIDED'))`, `chk_rentals_voided` | `Alquiler.estado` (`EstadoAlquiler`) |
 | `total_amount` | `NUMERIC(10,2)` | `NULL` (se calcula recién al finalizar), `CHECK (total_amount >= 0)` | `Alquiler.montoTotal` |
 
 Notas de diseño:
@@ -53,6 +54,10 @@ Notas de diseño:
   `docs/04-base-de-datos/02-reservas-chaarlyez.md`, sección 1).
 - No se agregan columnas de auditoría (`created_at`, etc.) porque ningún requerimiento las pide —
   mismo criterio que el resto del sistema.
+- **Borrado lógico** (RN15, RN18): anular un alquiler no lo borra, lo pasa a `status = 'VOIDED'`
+  (`ANULADO`). `chk_rentals_voided` garantiza que un alquiler anulado no tenga fecha de devolución ni
+  monto, para que nunca se confunda con uno cobrado. Como `idx_rentals_vehicle_status` busca por
+  `status = 'ACTIVE'`, un alquiler `VOIDED` deja de bloquear el vehículo sin cambiar el índice.
 
 ## 2. Script SQL
 
@@ -65,10 +70,12 @@ CREATE TABLE rentals (
     actual_start_date  TIMESTAMP NOT NULL,
     actual_end_date    TIMESTAMP,
     status             VARCHAR(20) NOT NULL DEFAULT 'ACTIVE'
-                       CHECK (status IN ('ACTIVE', 'FINISHED')),
+                       CHECK (status IN ('ACTIVE', 'FINISHED', 'VOIDED')),
     total_amount       NUMERIC(10,2)
                        CHECK (total_amount IS NULL OR total_amount >= 0),
-    CONSTRAINT chk_rentals_dates CHECK (actual_end_date IS NULL OR actual_end_date > actual_start_date)
+    CONSTRAINT chk_rentals_dates CHECK (actual_end_date IS NULL OR actual_end_date > actual_start_date),
+    -- Un alquiler anulado (RN18) no tiene devolución ni monto
+    CONSTRAINT chk_rentals_voided CHECK (status <> 'VOIDED' OR (actual_end_date IS NULL AND total_amount IS NULL))
 );
 
 -- Soporta eficientemente RN14: "¿este vehículo tiene ya un alquiler ACTIVE?"
@@ -138,6 +145,7 @@ completas están en `01-johann-tafur-vehiculos-clientes.md` (pendiente de entreg
 | `chk_rentals_dates` | RF37 |
 | `status DEFAULT 'ACTIVE'` | RF34, RN11 |
 | `total_amount` (`NUMERIC`, calculado al finalizar) | RF38, RN05, RN13 |
+| `status = 'VOIDED'` + `chk_rentals_voided` | RF55, RF57, RN15, RN18 |
 | Índice `idx_rentals_vehicle_status` | RF13, RF28, RF36, RN14 |
 | Índice `idx_rentals_customer` | RF41 |
 
@@ -162,8 +170,11 @@ CREATE TABLE vehicles (
     year           INT NOT NULL,
     type           VARCHAR(30) NOT NULL,
     status         VARCHAR(20) NOT NULL DEFAULT 'AVAILABLE'
-                   CHECK (status IN ('AVAILABLE', 'RENTED', 'MAINTENANCE')),
-    price_per_day  NUMERIC(10,2) NOT NULL
+                   CHECK (status IN ('AVAILABLE', 'RENTED', 'MAINTENANCE', 'RETIRED')),
+    price_per_day  NUMERIC(10,2) NOT NULL,
+    deactivated_at TIMESTAMP,
+    -- Borrado lógico (RN15): un vehículo RETIRED siempre tiene fecha de baja, y uno activo nunca
+    CONSTRAINT chk_vehicles_retired CHECK ((status = 'RETIRED') = (deactivated_at IS NOT NULL))
 );
 
 CREATE INDEX idx_vehicles_status ON vehicles (status);
@@ -174,7 +185,11 @@ CREATE TABLE customers (
     last_name        VARCHAR(50) NOT NULL,
     document_number  VARCHAR(20) NOT NULL UNIQUE,
     email            VARCHAR(100),
-    phone            VARCHAR(20)
+    phone            VARCHAR(20),
+    active           BOOLEAN NOT NULL DEFAULT TRUE,
+    deactivated_at   TIMESTAMP,
+    -- Borrado lógico (RN15): un cliente inactivo siempre tiene fecha de baja, y uno activo nunca
+    CONSTRAINT chk_customers_active CHECK (active = (deactivated_at IS NULL))
 );
 
 CREATE INDEX idx_customers_last_name ON customers (last_name);
@@ -204,10 +219,12 @@ CREATE TABLE rentals (
     actual_start_date  TIMESTAMP NOT NULL,
     actual_end_date    TIMESTAMP,
     status             VARCHAR(20) NOT NULL DEFAULT 'ACTIVE'
-                       CHECK (status IN ('ACTIVE', 'FINISHED')),
+                       CHECK (status IN ('ACTIVE', 'FINISHED', 'VOIDED')),
     total_amount       NUMERIC(10,2)
                        CHECK (total_amount IS NULL OR total_amount >= 0),
-    CONSTRAINT chk_rentals_dates CHECK (actual_end_date IS NULL OR actual_end_date > actual_start_date)
+    CONSTRAINT chk_rentals_dates CHECK (actual_end_date IS NULL OR actual_end_date > actual_start_date),
+    -- Un alquiler anulado (RN18) no tiene devolución ni monto
+    CONSTRAINT chk_rentals_voided CHECK (status <> 'VOIDED' OR (actual_end_date IS NULL AND total_amount IS NULL))
 );
 
 CREATE INDEX idx_rentals_vehicle_status ON rentals (vehicle_id, status);
@@ -243,6 +260,7 @@ erDiagram
         varchar type
         varchar status
         numeric price_per_day
+        timestamp deactivated_at
     }
 
     CUSTOMERS {
@@ -252,6 +270,8 @@ erDiagram
         varchar document_number UK
         varchar email
         varchar phone
+        boolean active
+        timestamp deactivated_at
     }
 
     RESERVATIONS {
@@ -278,6 +298,11 @@ erDiagram
 Revisión de coherencia cruzada entre las 3 partes (nombres, tipos, constraints) en
 `docs/04-base-de-datos/04-revision-integracion.md` — sin contradicciones encontradas.
 
+> **Borrado lógico**: el script no tiene ni necesita ningún `DELETE`. Las bajas son `UPDATE` de
+> `status`/`active`/`deactivated_at` (ver notas de las secciones 1 de cada parte y
+> `docs/cambios/01-borrado-logico.md`). El script se probó completo contra PostgreSQL (PGlite 16),
+> incluyendo los `CHECK` de baja lógica.
+
 ## 6. Qué falta validar
 
 - [x] ¿Las columnas y tipos de `rentals` (sección 1) son correctos y suficientes para RF34-RF39? →
@@ -289,6 +314,9 @@ Revisión de coherencia cruzada entre las 3 partes (nombres, tipos, constraints)
 - [x] ¿Las FKs a `vehicles` y `customers` (sección 3) son consistentes con lo que entregó la
       Parte 1? → **Sí**, confirmado en `04-revision-integracion.md`.
 - [x] Integración final del script SQL y del diagrama ER completo (sección 5) → **Hecha.**
+
+- [ ] ¿El estado `VOIDED` y `chk_rentals_voided`, y su integración en el script único, reflejan
+      bien RN15/RN18? → **Pendiente de validar** (ver `docs/cambios/01-borrado-logico.md`).
 
 **Parte 3 validada, con la integración final completa.** Con esto se cierra formalmente la
 **Fase 4** en `docs/00-roadmap.md` y `CLAUDE.md`.

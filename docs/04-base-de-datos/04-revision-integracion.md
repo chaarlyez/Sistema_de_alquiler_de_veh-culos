@@ -54,6 +54,25 @@ script SQL y del diagrama ER).
 Parte 1 lo documentó a propósito (ningún requerimiento define un dominio fijo de tipos de
 vehículo, a diferencia de los estados que sí están enumerados en RN01). No amerita cambio.
 
+## Revisión del cambio de borrado lógico
+
+Cambio agregado después del cierre (`docs/cambios/01-borrado-logico.md`). Se verificó que:
+
+1. **Las columnas nuevas siguen las convenciones existentes**: `vehicles.status` suma `RETIRED` y
+   `rentals.status` suma `VOIDED` con el mismo patrón `VARCHAR` + `CHECK`; `customers.active` es
+   `BOOLEAN NOT NULL DEFAULT TRUE`; `deactivated_at` se llama igual y es `TIMESTAMP` en las dos
+   tablas que la usan.
+2. **El script único (Parte 3, sección 5.1) es igual a la suma de las partes**: las definiciones de
+   `vehicles`, `customers` y `rentals` del script integrado son idénticas a las de las Partes 1 y 3.
+   `reservations` no cambia: `CANCELLED` ya cumplía la función de borrado lógico.
+3. **El script funciona en PostgreSQL**: se ejecutó completo en PGlite (PostgreSQL 16 compilado a
+   WebAssembly) con casos de prueba. Se aceptan: alta normal, baja y reactivación de un cliente,
+   anulación de un alquiler. Se rechazan: vehículo `RETIRED` sin fecha de baja (o al revés),
+   patente repetida de un vehículo dado de baja (RN16), cliente inactivo sin fecha, alquiler
+   `VOIDED` con monto, y `DELETE` físico de un vehículo con alquileres (la FK lo impide).
+4. **El ER completo (Parte 3, sección 5.2) incluye las columnas nuevas** y sigue igual a las
+   porciones de las Partes 1 y 3.
+
 ## Conclusión
 
 Las 3 partes son coherentes entre sí y con `docs/02-requerimientos.md` y el diagrama de clases
