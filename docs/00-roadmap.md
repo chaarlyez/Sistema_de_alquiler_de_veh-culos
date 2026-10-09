@@ -28,13 +28,15 @@ docs/
 ├── 00-roadmap.md                      (este archivo)
 ├── 01-epicas-historias-usuario.md     (Fase 1)
 ├── 02-requerimientos.md               (Fase 2)
+├── cambios/                           (cambios posteriores al cierre de una fase)
+│   └── 01-borrado-logico.md           (borrado lógico — afecta Fases 1-4, pendiente de validar)
 ├── 03-uml/                            (Fase 3 - cerrada)
 │   ├── 00-asignacion.md               (división del trabajo en 3 partes)
 │   ├── 01-johann-tafur-vehiculos-clientes.md
 │   ├── 02-reservas-chaarlyez.md
 │   ├── 03-alquileres-mariocardona970546.md
 │   ├── 04-revision-integracion.md     (revisión de coherencia entre las 3 partes)
-│   └── fuentes/                       (fuentes editables .mmd de los 19 diagramas UML)
+│   └── fuentes/                       (fuentes editables .mmd de los 23 diagramas UML)
 ├── 04-base-de-datos/                  (Fase 4 - cerrada)
 │   ├── 00-asignacion.md               (división del trabajo en 3 partes)
 │   ├── 01-johann-tafur-vehiculos-clientes.md
@@ -80,3 +82,12 @@ menor sí se aplicó: se agregó `UNIQUE` a `rentals.reservation_id` para reflej
 multiplicidad `0..1`–`0..1` de RN04). La integración final del script SQL único y el diagrama ER
 completo del sistema está en la sección 5 de `03-alquileres-mariocardona970546.md`. **Fase 4
 cerrada.** Se pasa a la Fase 5 (Mockup/Prototipo) en `docs/05-mockups/`.
+
+## Cambios posteriores al cierre de fases
+
+| # | Cambio | Fases afectadas | Estado |
+|---|---|---|---|
+| 01 | Borrado lógico de vehículos, clientes, reservas y alquileres (`docs/cambios/01-borrado-logico.md`) | 1, 2, 3, 4 | 🟡 Documentado, pendiente de validar por el equipo |
+
+Las Fases 1-4 siguen cerradas: el cambio se documentó sobre ellas sin reabrir el resto de su
+contenido, y cada documento afectado tiene un ítem nuevo en su checklist de validación.

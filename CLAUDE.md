@@ -47,12 +47,12 @@ roles/permisos, notificaciones, reportes, multi-sucursal.
 > sección 6).
 
 - **Vehiculo**: id, patente, marca, modelo, anio, tipo, estado (DISPONIBLE / ALQUILADO /
-  MANTENIMIENTO), precioPorDia.
-- **Cliente**: id, nombre, apellido, documento (DNI), email, telefono.
+  MANTENIMIENTO / RETIRADO), precioPorDia, fechaBaja.
+- **Cliente**: id, nombre, apellido, documento (DNI), email, telefono, activo, fechaBaja.
 - **Reserva**: id, cliente (FK), vehiculo (FK), fechaInicio, fechaFin, estado (PENDIENTE /
   CONFIRMADA / CANCELADA).
 - **Alquiler**: id, reserva (FK, opcional), cliente (FK), vehiculo (FK), fechaInicioReal,
-  fechaFinReal, estado (ACTIVO / FINALIZADO), montoTotal.
+  fechaFinReal, estado (ACTIVO / FINALIZADO / ANULADO), montoTotal.
 
 Relaciones: un Cliente tiene muchas Reservas; un Vehiculo tiene muchas Reservas; una Reserva puede
 derivar en un Alquiler cuando el cliente retira el vehículo.
@@ -60,7 +60,14 @@ derivar en un Alquiler cuando el cliente retira el vehículo.
 > **Nota**: no hay entidad de autenticación (ni Empleado ni Cliente tienen usuario/contraseña) —
 > decisión confirmada de no manejar seguridad en el MVP. Cuando un cliente reserva por el
 > formulario público (épica E5 en `docs/01-epicas-historias-usuario.md`), si ya existe un Cliente
-> con ese documento se reutiliza el registro; si no, se crea uno nuevo.
+> con ese documento se reutiliza el registro (y si estaba inactivo, se reactiva); si no, se crea
+> uno nuevo.
+
+> **Borrado lógico** (RN15, `docs/cambios/01-borrado-logico.md`): ningún registro se borra
+> físicamente. Vehículo → `RETIRADO`, Cliente → `activo = false`, Reserva → `CANCELADA`,
+> Alquiler → `ANULADO`. Lo dado de baja se oculta de los listados pero conserva su historial, y
+> vehículos y clientes se pueden reactivar. En la Fase 6, ningún endpoint ni servicio ejecuta un
+> `DELETE` SQL.
 
 ## 4. Stack elegido y por qué
 
@@ -131,8 +138,11 @@ ambigüedad:
 | documento (DNI) | `documentNumber` |
 | fechaInicio / fechaFin | `startDate` / `endDate` |
 | montoTotal | `totalAmount` |
-| Disponible / Alquilado / Mantenimiento | `AVAILABLE` / `RENTED` / `MAINTENANCE` |
+| Disponible / Alquilado / Mantenimiento / Retirado | `AVAILABLE` / `RENTED` / `MAINTENANCE` / `RETIRED` |
 | Pendiente / Confirmada / Cancelada | `PENDING` / `CONFIRMED` / `CANCELLED` |
+| Activo / Finalizado / Anulado (alquiler) | `ACTIVE` / `FINISHED` / `VOIDED` |
+| activo (cliente) | `active` |
+| fechaBaja | `deactivatedAt` (columna `deactivated_at`) |
 
 - **Clases**: `PascalCase`, en inglés (ej. `VehicleController`, `ReservationService`).
 - **Métodos y variables**: `camelCase`, en inglés (ej. `findVehicleById`).
@@ -165,6 +175,9 @@ Registrar acá lo que se simplificó a propósito, para no perderlo de vista:
   pide datos básicos obligatorios (nombre, apellido, documento, email/teléfono) en cada reserva.
 - Sin migraciones formales (Flyway/Liquibase): se usa `ddl-auto=update`.
 - Sin manejo de errores centralizado sofisticado.
+- Borrado lógico sin eliminación definitiva ni anonimización de datos personales a pedido del
+  titular (Ley 25.326). Sería una historia nueva si la empresa lo necesita (ver
+  `docs/cambios/01-borrado-logico.md`, sección 5).
 - Sin UI para el back-office del empleado; el formulario público de reserva del cliente sí
   necesita una UI mínima — a resolver en la Fase 5 (Mockup/Prototipo).
 
@@ -256,5 +269,17 @@ Hecho:
   de RN04 quedara reflejada también a nivel de esquema, no solo en el diagrama de clases.
   **Fase 4 cerrada.**
 
-Próximo paso: arrancar la **Fase 5 (Mockup/Prototipo)** — diseñar el formulario público de reserva
+- **Cambio 01 — borrado lógico** (`docs/cambios/01-borrado-logico.md`), pedido después de cerrar
+  las Fases 1-4: deshabilitar clientes, cancelar y dar de baja vehículos sin borrar datos. Se
+  documentó en las 4 fases: US1.7, US2.5 y US4.5 nuevas (63 pts, 24 historias), RF46-RF58, RNF09,
+  RN15-RN18, 4 diagramas UML nuevos (23 en total, con su `.mmd`) y columnas `RETIRED`, `active`,
+  `deactivated_at` y `VOIDED` en el esquema (script probado en PostgreSQL vía PGlite). **Pendiente
+  de validar por el equipo** (checklist en la sección 7 del documento del cambio); Johann-Tafur y
+  mariocardona970546 tienen que revisar lo que se tocó en sus partes.
+- Evaluación del profesor de la Fase 3: el grupo (Grupo 3) quedó en **nivel aceptable**. Se dejó
+  anotado, sin corregir, un `include` condicional (`UC41 → UC35`, Parte 3) que semánticamente es un
+  `<<extend>>` — mismo error que se le marcó al Grupo 1. Lo corrige el dueño de la Parte 3
+  (mariocardona970546).
+
+Próximo paso: validar el cambio 01 con el equipo, y después arrancar la **Fase 5 (Mockup/Prototipo)** — diseñar el formulario público de reserva
 del cliente (única UI que necesita el MVP, ver sección 4) a partir del modelo de datos ya cerrado.
