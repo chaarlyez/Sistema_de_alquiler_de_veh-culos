@@ -277,9 +277,10 @@ Hecho:
   de validar por el equipo** (checklist en la sección 7 del documento del cambio); Johann-Tafur y
   mariocardona970546 tienen que revisar lo que se tocó en sus partes.
 - Evaluación del profesor de la Fase 3: el grupo (Grupo 3) quedó en **nivel aceptable**. Se dejó
-  anotado, sin corregir, un `include` condicional (`UC41 → UC35`, Parte 3) que semánticamente es un
-  `<<extend>>` — mismo error que se le marcó al Grupo 1. Lo corrige el dueño de la Parte 3
-  (mariocardona970546).
+  anotado un `include` condicional (`UC41 → UC35`, Parte 3) que semánticamente es un `<<extend>>`
+  — mismo error que se le marcó al Grupo 1. **Corregido** por el dueño de la Parte 3
+  (mariocardona970546): ahora es `UC35 -.-> UC41` con `extend (si viene de reserva)`, en el `.md`
+  y en su fuente `.mmd`.
 
 Próximo paso: validar el cambio 01 con el equipo, y después arrancar la **Fase 5 (Mockup/Prototipo)** — diseñar el formulario público de reserva
 del cliente (única UI que necesita el MVP, ver sección 4) a partir del modelo de datos ya cerrado.

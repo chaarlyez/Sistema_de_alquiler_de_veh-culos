@@ -92,8 +92,11 @@ Cómo se va a ver en la API de la Fase 6 (orientativo, a confirmar al programar)
 En `docs/03-uml/03-alquileres-mariocardona970546.md`, sección 1, la relación `UC41 → UC35`
 ("Iniciar alquiler" → "Confirmar reserva") está dibujada como `include` con la condición "si viene
 de reserva". Un `<<include>>` es obligatorio (se ejecuta siempre); uno condicional debería ser
-`<<extend>>`. Es la misma corrección que el instructor le marcó al Grupo 1. **No se tocó**: se
-deja anotada para que la corrija el dueño de la Parte 3.
+`<<extend>>`. Es la misma corrección que el instructor le marcó al Grupo 1. **No se tocó** en este
+cambio: se dejó anotada para que la corrigiera el dueño de la Parte 3.
+
+> **Corregida después** por mariocardona970546: ahora es `UC35 -.-> UC41` con
+> `extend (si viene de reserva)`, en el `.md` y en su fuente `.mmd`.
 
 ## 7. Qué falta validar
 

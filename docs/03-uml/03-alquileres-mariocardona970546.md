@@ -41,7 +41,7 @@ flowchart LR
     Empleado --> UC44
     Empleado --> UC45
 
-    UC41 -.->|"include (si viene de reserva)"| UC35
+    UC35 -.->|"extend (si viene de reserva)"| UC41
     UC44 -.->|include| UC8
 
     UC35(["Confirmar reserva<br/>Parte 2 - chaarlyez"])
@@ -57,12 +57,17 @@ flowchart LR
 
 > Fuente editable: [`fuentes/parte3-casos-de-uso-alquileres.mmd`](fuentes/parte3-casos-de-uso-alquileres.mmd)
 
-**Relaciones `include` con otras partes**:
+**Relaciones `include` y `extend` con otras partes**:
 
-| Caso de uso | Incluye | Condición / regla |
-|---|---|---|
-| UC41 — Iniciar alquiler | UC35 (Confirmar reserva, Parte 2) | Solo si el alquiler se origina en una reserva; también puede ser directo, sin reserva previa (RN04) |
-| UC44 — Consultar historial de un cliente | UC8 (Buscar cliente, Parte 1) | El historial se busca por documento del cliente, igual que UC8 (US4.4) |
+| Caso de uso base | Relación | Caso de uso relacionado | Condición / regla |
+|---|---|---|---|
+| UC41 — Iniciar alquiler | `<<extend>>` (la flecha va de UC35 a UC41) | UC35 (Confirmar reserva, Parte 2) | Opcional: solo si el alquiler se origina en una reserva; también puede ser directo, sin reserva previa (RN04) |
+| UC44 — Consultar historial de un cliente | `<<include>>` | UC8 (Buscar cliente, Parte 1) | Obligatorio: el historial siempre se busca por documento del cliente, igual que UC8 (US4.4) |
+
+> **Por qué `extend` y no `include`**: un `<<include>>` se ejecuta siempre que se ejecuta el caso
+> base. UC35 solo interviene bajo una condición ("si viene de reserva"), y eso es un `<<extend>>`,
+> cuya flecha va del caso que extiende (UC35) al caso base (UC41). Corrección de notación a partir
+> de la evaluación del instructor de la Fase 3.
 
 ---
 
@@ -528,7 +533,8 @@ stateDiagram-v2
 ## 7. Qué falta validar
 
 - [x] ¿El diagrama de casos de uso (sección 1) cubre completo US4.1-US4.4, y las relaciones
-      `include` con las Partes 1 y 2 son correctas? → **Sí.**
+      `include`/`extend` con las Partes 1 y 2 son correctas? → **Sí** (`UC35 → UC41` corregida de
+      `include` condicional a `extend`).
 - [x] ¿La clase `Alquiler` (sección 2) tiene los atributos y relaciones correctos? → **Sí.**
 - [x] ¿El diagrama de clases integrado (sección 3) es consistente con lo que definieron
       Johann-Tafur y chaarlyez, sin contradecir ninguna de sus dos partes? → **Sí, confirmado**

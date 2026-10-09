@@ -69,11 +69,12 @@ partes lo reflejen igual:
 - Los 23 diagramas siguen siendo iguales a su fuente `.mmd`, y se verificó que todos renderizan
   sin errores con `mermaid-cli`.
 
-Queda una observación de notación **que no se corrigió** en este cambio, para que la revise el
-dueño de la parte: en la Parte 3 (sección 1), `UC41 → UC35` está dibujado como `include` con la
-condición "si viene de reserva". Un `<<include>>` significa que el caso incluido se ejecuta
-**siempre**; si es condicional, corresponde `<<extend>>` (la misma corrección que el instructor le
-marcó al Grupo 1).
+Quedaba una observación de notación para el dueño de la parte, **ya corregida**: en la Parte 3
+(sección 1), `UC41 → UC35` estaba dibujado como `include` con la condición "si viene de reserva".
+Un `<<include>>` significa que el caso incluido se ejecuta **siempre**; si es condicional,
+corresponde `<<extend>>` (la misma corrección que el instructor le marcó al Grupo 1).
+mariocardona970546 la cambió a `UC35 -.-> UC41` con `extend (si viene de reserva)` — la flecha va
+del caso que extiende al caso base —, en el `.md` y en su fuente `.mmd`.
 
 ## Conclusión
 
