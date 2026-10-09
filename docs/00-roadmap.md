@@ -87,7 +87,7 @@ cerrada.** Se pasa a la Fase 5 (Mockup/Prototipo) en `docs/05-mockups/`.
 
 | # | Cambio | Fases afectadas | Estado |
 |---|---|---|---|
-| 01 | Borrado lógico de vehículos, clientes, reservas y alquileres (`docs/cambios/01-borrado-logico.md`) | 1, 2, 3, 4 | 🟡 Documentado, pendiente de validar por el equipo |
+| 01 | Borrado lógico de vehículos, clientes, reservas y alquileres (`docs/cambios/01-borrado-logico.md`) | 1, 2, 3, 4 | 🟡 Documentado, aceptado por mariocardona970546; pendiente de validar por Johann-Tafur |
 
 Las Fases 1-4 siguen cerradas: el cambio se documentó sobre ellas sin reabrir el resto de su
 contenido, y cada documento afectado tiene un ítem nuevo en su checklist de validación.

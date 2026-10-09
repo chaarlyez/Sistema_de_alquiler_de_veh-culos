@@ -544,8 +544,8 @@ stateDiagram-v2
 - [x] ¿El diagrama de actividades (sección 5) cubre correctamente el bloqueo por alquiler activo
       (RF36) y el cálculo de días efectivos (RN13)? → **Sí.**
 
-- [ ] ¿Los ajustes del borrado lógico (US4.5 anular alquiler, estado `ANULADO`, atributos de baja
-      en la integración final) son correctos? → **Pendiente de validar** (ver
+- [x] ¿Los ajustes del borrado lógico (US4.5 anular alquiler, estado `ANULADO`, atributos de baja
+      en la integración final) son correctos? → **Sí**, aceptados por mariocardona970546 (ver
       `docs/cambios/01-borrado-logico.md`).
 
 **Parte 3 validada.** Con esto se cierra formalmente la **Fase 3** completa en

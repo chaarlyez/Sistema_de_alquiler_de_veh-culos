@@ -5,7 +5,7 @@
 | Fecha | 2026-10-08 |
 | Pedido por | chaarlyez (en nombre del equipo) |
 | Fases afectadas | 1, 2, 3 y 4 (ya cerradas) |
-| Estado | Documentado en las 4 fases — **pendiente de validar por el equipo** |
+| Estado | Documentado en las 4 fases — aceptado por mariocardona970546; **pendiente de validar por Johann-Tafur** |
 
 ## 1. Qué se pidió
 
@@ -100,11 +100,15 @@ cambio: se dejó anotada para que la corrigiera el dueño de la Parte 3.
 
 ## 7. Qué falta validar
 
-- [ ] ¿El equipo está de acuerdo con el borrado lógico como regla general (RN15)?
-- [ ] ¿Las 3 historias nuevas (US1.7, US2.5, US4.5) y sus puntos son correctos?
+- [ ] ¿El equipo está de acuerdo con el borrado lógico como regla general (RN15)? → **Aceptado
+      por mariocardona970546** (2026-10-08); falta Johann-Tafur.
+- [ ] ¿Las 3 historias nuevas (US1.7, US2.5, US4.5) y sus puntos son correctos? → **Aceptadas
+      por mariocardona970546** (2026-10-08); falta Johann-Tafur.
 - [x] ¿La reactivación automática del cliente desde el formulario público (RF58) es lo que se
       quiere, o debería reactivarlo solo un empleado? → **Confirmado: se reactiva
       automáticamente** (chaarlyez, 2026-10-08).
 - [x] ¿Anular un alquiler debe cancelar también su reserva de origen (RF56)? → **Sí, confirmado**
       (chaarlyez, 2026-10-08).
-- [ ] Johann-Tafur y mariocardona970546 revisan los cambios hechos en sus partes de las Fases 3 y 4.
+- [x] mariocardona970546 revisa los cambios hechos en sus partes de las Fases 3 y 4. → **Revisados
+      y aceptados** (2026-10-08).
+- [ ] Johann-Tafur revisa los cambios hechos en sus partes de las Fases 3 y 4.

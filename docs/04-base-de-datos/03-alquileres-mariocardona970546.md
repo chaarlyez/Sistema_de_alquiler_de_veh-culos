@@ -315,8 +315,9 @@ Revisión de coherencia cruzada entre las 3 partes (nombres, tipos, constraints)
       Parte 1? → **Sí**, confirmado en `04-revision-integracion.md`.
 - [x] Integración final del script SQL y del diagrama ER completo (sección 5) → **Hecha.**
 
-- [ ] ¿El estado `VOIDED` y `chk_rentals_voided`, y su integración en el script único, reflejan
-      bien RN15/RN18? → **Pendiente de validar** (ver `docs/cambios/01-borrado-logico.md`).
+- [x] ¿El estado `VOIDED` y `chk_rentals_voided`, y su integración en el script único, reflejan
+      bien RN15/RN18? → **Sí**, aceptado por mariocardona970546 (ver
+      `docs/cambios/01-borrado-logico.md`).
 
 **Parte 3 validada, con la integración final completa.** Con esto se cierra formalmente la
 **Fase 4** en `docs/00-roadmap.md` y `CLAUDE.md`.

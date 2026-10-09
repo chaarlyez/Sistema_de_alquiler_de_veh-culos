@@ -273,9 +273,9 @@ Hecho:
   las Fases 1-4: deshabilitar clientes, cancelar y dar de baja vehículos sin borrar datos. Se
   documentó en las 4 fases: US1.7, US2.5 y US4.5 nuevas (63 pts, 24 historias), RF46-RF58, RNF09,
   RN15-RN18, 4 diagramas UML nuevos (23 en total, con su `.mmd`) y columnas `RETIRED`, `active`,
-  `deactivated_at` y `VOIDED` en el esquema (script probado en PostgreSQL vía PGlite). **Pendiente
-  de validar por el equipo** (checklist en la sección 7 del documento del cambio); Johann-Tafur y
-  mariocardona970546 tienen que revisar lo que se tocó en sus partes.
+  `deactivated_at` y `VOIDED` en el esquema (script probado en PostgreSQL vía PGlite). mariocardona970546
+  ya aceptó el cambio (regla general, las 3 historias nuevas y lo que se tocó en sus partes);
+  **pendiente de validar por Johann-Tafur** (checklist en la sección 7 del documento del cambio).
 - Evaluación del profesor de la Fase 3: el grupo (Grupo 3) quedó en **nivel aceptable**. Se dejó
   anotado un `include` condicional (`UC41 → UC35`, Parte 3) que semánticamente es un `<<extend>>`
   — mismo error que se le marcó al Grupo 1. **Corregido** por el dueño de la Parte 3
