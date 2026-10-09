@@ -36,6 +36,12 @@ Notas de diseño:
   de comparar contra otras filas). Se implementan en la capa de servicio en la Fase 6; acá solo se
   deja el índice que las hace eficientes (ver sección 2).
 
+**Borrado lógico** (cambio `docs/cambios/01-borrado-logico.md`): `reservations` no necesita
+columnas nuevas. El estado `CANCELLED` ya es el "borrado" de una reserva: se conserva la fila y deja
+de bloquear la disponibilidad (RN03, RF53). Una reserva también pasa a `CANCELLED` si se anula el
+alquiler que generó (RF56). Validar que el vehículo no esté `RETIRED` y que el cliente esté activo
+antes de crear una reserva (RF27, RN17) es lógica de servicio, no de esquema.
+
 ## 2. Script SQL
 
 ```sql
