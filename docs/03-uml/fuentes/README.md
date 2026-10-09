@@ -53,6 +53,7 @@ Documento: [`../02-reservas-chaarlyez.md`](../02-reservas-chaarlyez.md)
 | [`parte2-secuencia-reserva-publica.mmd`](parte2-secuencia-reserva-publica.mmd) | Secuencia | 3.2 |
 | [`parte2-actividades-validacion-solapamiento.mmd`](parte2-actividades-validacion-solapamiento.mmd) | Actividades | 4.1 |
 | [`parte2-actividades-reutilizacion-cliente.mmd`](parte2-actividades-reutilizacion-cliente.mmd) | Actividades | 4.2 |
+| [`parte2-actividades-cancelar-reserva.mmd`](parte2-actividades-cancelar-reserva.mmd) | Actividades (cancelación de reserva) | 4.3 |
 
 ## Parte 3 — mariocardona970546 (E4 Alquileres + integración final)
 

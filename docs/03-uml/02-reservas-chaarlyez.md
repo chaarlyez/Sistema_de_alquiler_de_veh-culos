@@ -2,7 +2,8 @@
 
 **Alcance**: E3 — Gestión de Reservas + E5 — Autogestión de Reservas del Cliente (según
 `docs/03-uml/00-asignacion.md`). Basado en `docs/01-epicas-historias-usuario.md` (historias
-US3.1-US3.5, US5.1-US5.2) y `docs/02-requerimientos.md` (RF25-RF45, RN02-RN04, RN09-RN14).
+US3.1-US3.5, US5.1-US5.2) y `docs/02-requerimientos.md` (RF25-RF45, RN02-RN04, RN09-RN14; más
+RF53, RF58 y RN15-RN17 del cambio de borrado lógico, `docs/cambios/01-borrado-logico.md`).
 
 Las clases `Cliente` y `Vehiculo` son responsabilidad de la Parte 1 (Johann-Tafur, E1+E2) — acá se
 referencian como colaboradoras de `Reserva`, sin redefinir sus atributos. La integración final del
@@ -32,13 +33,13 @@ flowchart LR
 
     UC31(["Crear reserva<br/>US3.1"])
     UC33(["Listar reservas<br/>US3.3"])
-    UC34(["Cancelar reserva<br/>US3.4"])
+    UC34(["Cancelar reserva (queda en el historial)<br/>US3.4"])
     UC35(["Confirmar reserva<br/>US3.5"])
     UC32(["Validar disponibilidad<br/>US3.2 / RN12 / RN14"])
 
     UC51(["Buscar vehículos disponibles<br/>US5.1 (público)"])
     UC52(["Reservar vehículo<br/>US5.2 (público)"])
-    UC_CLI(["Reutilizar o crear cliente<br/>RF44 / RN10"])
+    UC_CLI(["Reutilizar, reactivar o crear cliente<br/>RF44 / RF58 / RN10"])
 
     Empleado --> UC31
     Empleado --> UC33
@@ -115,6 +116,9 @@ classDiagram
 
 **Notas para la integración (Parte 3)**:
 - `Reserva` nace siempre en `PENDIENTE` (RN09); solo pasa a `CONFIRMADA` vía US3.5.
+- `cancelar()` es el "borrado" de una reserva: la pasa a `CANCELADA` y la conserva en el historial
+  (RN15). Una reserva también pasa a `CANCELADA` si se anula el alquiler que generó (RF56, Parte 3).
+  No hace falta un atributo extra: el estado ya cumple la función de borrado lógico.
 - La relación con `Alquiler` (Parte 3) es: una `Reserva` `CONFIRMADA` puede derivar en **como
   máximo un** `Alquiler` (RN04) — esa asociación la dibuja la Parte 3 al integrar, no se duplica
   acá para no generar inconsistencias entre las tres partes.
@@ -154,7 +158,7 @@ sequenceDiagram
     Empleado->>API: crear reserva (cliente, vehiculo, fechaInicio, fechaFin)
     API->>SR: crearReserva(datos)
     SR->>BD: buscar Cliente y Vehiculo por id
-    BD-->>SR: existen y Vehiculo no está dado de baja (RF27)
+    BD-->>SR: existen, Vehiculo no RETIRADO y Cliente activo (RF27, RN17)
     SR->>SR: validar fechaFin > fechaInicio (RF26)
 
     alt fechas inválidas
@@ -205,7 +209,7 @@ sequenceDiagram
     Cliente->>Form: buscar vehículos disponibles (fechaInicio, fechaFin)
     Form->>API: consultar disponibilidad (RF42)
     API->>SR: buscarDisponibles(rango)
-    SR->>BD: vehículos sin solapamiento (RN12) ni alquiler activo (RN14)
+    SR->>BD: vehículos no RETIRADOS ni en MANTENIMIENTO, sin solapamiento (RN12) ni alquiler activo (RN14)
     BD-->>SR: lista de vehículos disponibles
     SR-->>API: lista
     API-->>Form: lista de vehículos
@@ -215,8 +219,12 @@ sequenceDiagram
     Form->>API: crear reserva pública (RF43)
     API->>SC: buscarClientePorDocumento(documento)
 
-    alt Cliente ya existe (RF44 / RN10)
+    alt Cliente ya existe y está activo (RF44 / RN10)
         SC-->>API: reutilizar Cliente existente
+    else Cliente existe pero está inactivo (RF58)
+        SC->>BD: reactivar Cliente (activo = true, fechaBaja = vacía)
+        BD-->>SC: Cliente reactivado
+        SC-->>API: reutilizar Cliente reactivado
     else Cliente no existe
         SC->>BD: crear Cliente nuevo
         BD-->>SC: Cliente creado
@@ -256,8 +264,8 @@ flowchart TD
     Datos --> ValFechas{"fechaFin > fechaInicio? (RF26)"}
     ValFechas -- No --> R1["Rechazar: rango de fechas inválido"]
     R1 --> Fin(["Fin"])
-    ValFechas -- Sí --> ExisteCV{"Cliente y Vehículo existen,<br/>Vehículo no dado de baja? (RF27)"}
-    ExisteCV -- No --> R2["Rechazar: cliente o vehículo inexistente"]
+    ValFechas -- Sí --> ExisteCV{"Cliente y Vehículo existen,<br/>Vehículo no RETIRADO y Cliente activo? (RF27, RN17)"}
+    ExisteCV -- No --> R2["Rechazar: cliente o vehículo inexistente o dado de baja"]
     R2 --> Fin
     ExisteCV -- Sí --> Activo{"¿Vehículo con alquiler ACTIVO? (RN14)"}
     Activo -- Sí --> R3["Rechazar: vehículo con alquiler activo"]
@@ -281,7 +289,8 @@ flowchart TD
 ### 4.2 Flujo de reutilización/alta de cliente en el formulario público (E5)
 
 Detalle del paso previo a la validación de disponibilidad cuando la reserva viene del formulario
-público (US5.2, RF44, RN10) — no aplica al flujo del empleado, que ya trabaja con un Cliente
+público (US5.2, RF44, RF58, RN10). Si el cliente estaba dado de baja, se reactiva: es el caso del
+cliente que "vuelve" y reutiliza sus datos anteriores — no aplica al flujo del empleado, que ya trabaja con un Cliente
 existente (E2, Parte 1).
 
 ```mermaid
@@ -296,7 +305,10 @@ existente (E2, Parte 1).
 flowchart TD
     Start(["Cliente completa formulario:<br/>nombre, apellido, documento, email/teléfono"]) --> Buscar["Buscar Cliente por documento"]
     Buscar --> Existe{"¿Existe un Cliente<br/>con ese documento? (RN10)"}
-    Existe -- Sí --> Reusar["Reutilizar el Cliente existente"]
+    Existe -- Sí --> Inactivo{"¿Está inactivo<br/>(dado de baja)?"}
+    Inactivo -- Sí --> Reactivar["Reactivar el Cliente (RF58)"]
+    Inactivo -- No --> Reusar["Reutilizar el Cliente existente"]
+    Reactivar --> Reusar
     Existe -- No --> Crear["Crear Cliente nuevo con los datos ingresados"]
     Reusar --> Continuar["Continuar con validación de disponibilidad (4.1)"]
     Crear --> Continuar
@@ -306,8 +318,41 @@ flowchart TD
     classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
     classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
     class Start,Fin startEnd
-    class Existe decision
-    class Buscar,Reusar,Crear,Continuar action
+    class Existe,Inactivo decision
+    class Buscar,Reusar,Reactivar,Crear,Continuar action
+```
+
+### 4.3 Flujo de cancelación de una reserva (US3.4 — RF30, RF31, RF53)
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+flowchart TD
+    Start(["Inicio: el cliente avisa que no va a usar la reserva"]) --> Buscar["Empleado busca la reserva (US3.3)"]
+    Buscar --> Alquiler{"¿Ya derivó en un alquiler? (RF31)"}
+    Alquiler -- Sí --> R1["Rechazar: la reserva ya se convirtió en alquiler<br/>(si fue un error, se anula el alquiler, US4.5)"]
+    Alquiler -- No --> Estado{"¿Está PENDIENTE o CONFIRMADA?"}
+    Estado -- No --> R2["Rechazar: la reserva ya está CANCELADA"]
+    Estado -- Sí --> Cancelar["Pasar la reserva a CANCELADA (RF30)"]
+    Cancelar --> Conservar["La reserva no se borra: queda en el historial (RF53, RN15)<br/>y deja de bloquear la disponibilidad (RN03)"]
+    R1 --> Fin(["Fin"])
+    R2 --> Fin
+    Conservar --> Fin
+
+    classDef startEnd fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    classDef reject fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
+    class Start,Fin startEnd
+    class Alquiler,Estado decision
+    class Buscar,Cancelar,Conservar action
+    class R1,R2 reject
 ```
 
 ---
@@ -320,6 +365,10 @@ flowchart TD
       integración final)? → **Sí, confirmado** en `docs/03-uml/04-revision-integracion.md`.
 - [x] ¿Los diagramas de secuencia (sección 3) reflejan bien RF25-RF28 y RF42-RF45? → **Sí.**
 - [x] ¿El diagrama de actividades (sección 4) cubre correctamente RN09, RN12 y RN14? → **Sí.**
+
+- [ ] ¿Los ajustes del borrado lógico (cliente inactivo que se reactiva por el formulario
+      público, vehículo `RETIRADO` excluido, diagrama 4.3 de cancelación) son correctos? →
+      **Pendiente de validar** (ver `docs/cambios/01-borrado-logico.md`).
 
 **Parte 2 validada.** Ver `docs/03-uml/04-revision-integracion.md` para la revisión de coherencia
 entre las 3 partes de la Fase 3.

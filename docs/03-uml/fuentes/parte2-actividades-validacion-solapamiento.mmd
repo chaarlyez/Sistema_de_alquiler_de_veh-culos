@@ -11,8 +11,8 @@ flowchart TD
     Datos --> ValFechas{"fechaFin > fechaInicio? (RF26)"}
     ValFechas -- No --> R1["Rechazar: rango de fechas inválido"]
     R1 --> Fin(["Fin"])
-    ValFechas -- Sí --> ExisteCV{"Cliente y Vehículo existen,<br/>Vehículo no dado de baja? (RF27)"}
-    ExisteCV -- No --> R2["Rechazar: cliente o vehículo inexistente"]
+    ValFechas -- Sí --> ExisteCV{"Cliente y Vehículo existen,<br/>Vehículo no RETIRADO y Cliente activo? (RF27, RN17)"}
+    ExisteCV -- No --> R2["Rechazar: cliente o vehículo inexistente o dado de baja"]
     R2 --> Fin
     ExisteCV -- Sí --> Activo{"¿Vehículo con alquiler ACTIVO? (RN14)"}
     Activo -- Sí --> R3["Rechazar: vehículo con alquiler activo"]

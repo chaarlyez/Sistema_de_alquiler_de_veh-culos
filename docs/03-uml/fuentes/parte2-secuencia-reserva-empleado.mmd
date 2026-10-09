@@ -26,7 +26,7 @@ sequenceDiagram
     Empleado->>API: crear reserva (cliente, vehiculo, fechaInicio, fechaFin)
     API->>SR: crearReserva(datos)
     SR->>BD: buscar Cliente y Vehiculo por id
-    BD-->>SR: existen y Vehiculo no está dado de baja (RF27)
+    BD-->>SR: existen, Vehiculo no RETIRADO y Cliente activo (RF27, RN17)
     SR->>SR: validar fechaFin > fechaInicio (RF26)
 
     alt fechas inválidas

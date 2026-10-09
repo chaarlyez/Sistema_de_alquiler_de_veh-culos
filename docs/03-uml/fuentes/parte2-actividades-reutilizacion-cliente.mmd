@@ -9,7 +9,10 @@
 flowchart TD
     Start(["Cliente completa formulario:<br/>nombre, apellido, documento, email/teléfono"]) --> Buscar["Buscar Cliente por documento"]
     Buscar --> Existe{"¿Existe un Cliente<br/>con ese documento? (RN10)"}
-    Existe -- Sí --> Reusar["Reutilizar el Cliente existente"]
+    Existe -- Sí --> Inactivo{"¿Está inactivo<br/>(dado de baja)?"}
+    Inactivo -- Sí --> Reactivar["Reactivar el Cliente (RF58)"]
+    Inactivo -- No --> Reusar["Reutilizar el Cliente existente"]
+    Reactivar --> Reusar
     Existe -- No --> Crear["Crear Cliente nuevo con los datos ingresados"]
     Reusar --> Continuar["Continuar con validación de disponibilidad (4.1)"]
     Crear --> Continuar
@@ -19,5 +22,5 @@ flowchart TD
     classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
     classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
     class Start,Fin startEnd
-    class Existe decision
-    class Buscar,Reusar,Crear,Continuar action
+    class Existe,Inactivo decision
+    class Buscar,Reusar,Reactivar,Crear,Continuar action

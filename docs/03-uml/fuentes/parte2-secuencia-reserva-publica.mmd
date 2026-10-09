@@ -28,7 +28,7 @@ sequenceDiagram
     Cliente->>Form: buscar vehículos disponibles (fechaInicio, fechaFin)
     Form->>API: consultar disponibilidad (RF42)
     API->>SR: buscarDisponibles(rango)
-    SR->>BD: vehículos sin solapamiento (RN12) ni alquiler activo (RN14)
+    SR->>BD: vehículos no RETIRADOS ni en MANTENIMIENTO, sin solapamiento (RN12) ni alquiler activo (RN14)
     BD-->>SR: lista de vehículos disponibles
     SR-->>API: lista
     API-->>Form: lista de vehículos
@@ -38,8 +38,12 @@ sequenceDiagram
     Form->>API: crear reserva pública (RF43)
     API->>SC: buscarClientePorDocumento(documento)
 
-    alt Cliente ya existe (RF44 / RN10)
+    alt Cliente ya existe y está activo (RF44 / RN10)
         SC-->>API: reutilizar Cliente existente
+    else Cliente existe pero está inactivo (RF58)
+        SC->>BD: reactivar Cliente (activo = true, fechaBaja = vacía)
+        BD-->>SC: Cliente reactivado
+        SC-->>API: reutilizar Cliente reactivado
     else Cliente no existe
         SC->>BD: crear Cliente nuevo
         BD-->>SC: Cliente creado
