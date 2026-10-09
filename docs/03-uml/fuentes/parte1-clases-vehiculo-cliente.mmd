@@ -16,6 +16,7 @@ classDiagram
         -String tipo
         -EstadoVehiculo estado
         -BigDecimal precioPorDia
+        -LocalDateTime fechaBaja
     }
 
     class EstadoVehiculo {
@@ -23,6 +24,7 @@ classDiagram
         DISPONIBLE
         ALQUILADO
         MANTENIMIENTO
+        RETIRADO
     }
 
     class Cliente {
@@ -32,6 +34,8 @@ classDiagram
         -String documento
         -String email
         -String telefono
+        -boolean activo
+        -LocalDateTime fechaBaja
     }
 
     class Reserva {

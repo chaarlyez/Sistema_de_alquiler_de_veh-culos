@@ -31,11 +31,14 @@ sequenceDiagram
         Servicio-->>Controlador: error: datos incompletos
         Controlador-->>Empleado: 400 Bad Request
     else campos completos
-        Servicio->>Repositorio: existePorDocumento(documento)
+        Servicio->>Repositorio: buscarPorDocumento(documento)
         Repositorio->>BaseDeDatos: SELECT ... WHERE documento = ?
         BaseDeDatos-->>Repositorio: resultado
-        Repositorio-->>Servicio: existe true/false
-        alt documento ya registrado (RF18)
+        Repositorio-->>Servicio: cliente existente o vacío
+        alt documento de un cliente inactivo (RF52)
+            Servicio-->>Controlador: error: existe dado de baja, se puede reactivar (US2.5)
+            Controlador-->>Empleado: 409 Conflict
+        else documento ya registrado en un cliente activo (RF18)
             Servicio-->>Controlador: error: documento duplicado
             Controlador-->>Empleado: 409 Conflict
         else documento disponible

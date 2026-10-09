@@ -31,11 +31,14 @@ sequenceDiagram
         Servicio-->>Controlador: error: datos incompletos
         Controlador-->>Empleado: 400 Bad Request
     else campos completos
-        Servicio->>Repositorio: existePorPatente(patente)
+        Servicio->>Repositorio: buscarPorPatente(patente)
         Repositorio->>BaseDeDatos: SELECT ... WHERE patente = ?
         BaseDeDatos-->>Repositorio: resultado
-        Repositorio-->>Servicio: existe true/false
-        alt patente ya registrada (RF03)
+        Repositorio-->>Servicio: vehículo existente o vacío
+        alt patente de un vehículo RETIRADO (RF49)
+            Servicio-->>Controlador: error: existe dado de baja, se puede reactivar (US1.7)
+            Controlador-->>Empleado: 409 Conflict
+        else patente ya registrada en un vehículo activo (RF03)
             Servicio-->>Controlador: error: patente duplicada
             Controlador-->>Empleado: 409 Conflict
         else patente disponible

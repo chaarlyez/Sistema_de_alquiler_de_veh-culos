@@ -1,0 +1,18 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eafaf0',
+  'primaryBorderColor': '#2f9e5c',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+stateDiagram-v2
+    [*] --> ACTIVO : alta de cliente (RF16) o primera reserva pública (RF44)
+    ACTIVO --> INACTIVO : desactivar, sin reservas ni alquileres activos (RF23, RF24, US2.4)
+    INACTIVO --> ACTIVO : reactivar por el empleado (RF51, US2.5)
+    INACTIVO --> ACTIVO : vuelve a reservar por el formulario público (RF58, Parte 2)
+
+    classDef own fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef hidden fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class ACTIVO:::own
+    class INACTIVO:::hidden

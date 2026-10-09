@@ -1,7 +1,8 @@
 # Fase 3 — Parte 1 (Johann-Tafur): Vehículos y Clientes
 
 Alcance: **E1 — Gestión de Vehículos** y **E2 — Gestión de Clientes**
-(`docs/01-epicas-historias-usuario.md`), 25 puntos de historia. Trazabilidad completa a los
+(`docs/01-epicas-historias-usuario.md`), 27 puntos de historia (25 originales + US1.7 y US2.5,
+agregadas por el cambio de borrado lógico, `docs/cambios/01-borrado-logico.md`). Trazabilidad completa a los
 requerimientos funcionales y reglas de negocio de `docs/02-requerimientos.md`.
 
 Ver la división completa de la Fase 3 en `docs/03-uml/00-asignacion.md`.
@@ -26,16 +27,18 @@ flowchart LR
         UC1(["Registrar vehículo<br/>US1.1"])
         UC2(["Listar vehículos<br/>US1.2"])
         UC3(["Modificar vehículo<br/>US1.3"])
-        UC4(["Dar de baja vehículo<br/>US1.4"])
+        UC4(["Dar de baja vehículo (baja lógica)<br/>US1.4"])
         UC5(["Buscar vehículos disponibles<br/>US1.5"])
         UC6(["Marcar / desmarcar mantenimiento<br/>US1.6"])
+        UC11(["Reactivar vehículo<br/>US1.7"])
     end
 
     subgraph E2["Gestión de Clientes (E2)"]
         UC7(["Registrar cliente<br/>US2.1"])
         UC8(["Buscar cliente<br/>US2.2"])
         UC9(["Modificar cliente<br/>US2.3"])
-        UC10(["Eliminar cliente<br/>US2.4"])
+        UC10(["Desactivar cliente (baja lógica)<br/>US2.4"])
+        UC12(["Reactivar cliente<br/>US2.5"])
     end
 
     Empleado --> UC1
@@ -48,6 +51,8 @@ flowchart LR
     Empleado --> UC8
     Empleado --> UC9
     Empleado --> UC10
+    Empleado --> UC11
+    Empleado --> UC12
 
     style E1 fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
     style E2 fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
@@ -55,7 +60,7 @@ flowchart LR
     classDef actor fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
     classDef usecase fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
     class Empleado actor
-    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10 usecase
+    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10,UC11,UC12 usecase
 ```
 
 **Relaciones `<<include>>` con otras partes** (dependen de datos de Reserva/Alquiler, fuera del
@@ -63,10 +68,13 @@ alcance de esta parte, ver `docs/03-uml/00-asignacion.md`):
 
 | Caso de uso | Incluye | Regla |
 |---|---|---|
-| UC4 — Dar de baja vehículo | Verificar que el vehículo no tenga un alquiler ACTIVO | RF11 |
+| UC4 — Dar de baja vehículo | Verificar que el vehículo no tenga un alquiler ACTIVO ni reservas PENDIENTES/CONFIRMADAS | RF11, RF46, RN08 |
 | UC5 — Buscar vehículos disponibles | Excluir vehículos con reserva solapada o alquiler ACTIVO | RF13, RN12, RN14 |
 | UC6 — Marcar/desmarcar mantenimiento | Verificar que el vehículo no tenga un alquiler ACTIVO | RF15 |
-| UC10 — Eliminar cliente | Verificar que el cliente no tenga reservas/alquileres activos | RF24, RN08 |
+| UC10 — Desactivar cliente | Verificar que el cliente no tenga reservas/alquileres activos | RF24, RN08 |
+
+**Borrado lógico** (RN15): UC4 y UC10 no borran el registro. UC4 pasa el vehículo a `RETIRADO`
+y UC10 marca al cliente como inactivo; ambos se pueden revertir con UC11 y UC12.
 
 ## 2. Diagrama de clases (aporte de esta parte)
 
@@ -92,6 +100,7 @@ classDiagram
         -String tipo
         -EstadoVehiculo estado
         -BigDecimal precioPorDia
+        -LocalDateTime fechaBaja
     }
 
     class EstadoVehiculo {
@@ -99,6 +108,7 @@ classDiagram
         DISPONIBLE
         ALQUILADO
         MANTENIMIENTO
+        RETIRADO
     }
 
     class Cliente {
@@ -108,6 +118,8 @@ classDiagram
         -String documento
         -String email
         -String telefono
+        -boolean activo
+        -LocalDateTime fechaBaja
     }
 
     class Reserva {
@@ -137,10 +149,15 @@ classDiagram
 Notas:
 - `documento` (Cliente) y `patente` (Vehiculo) son identificadores de negocio únicos — RN06, RN07.
 - Al crearse un `Vehiculo`, `estado` queda en `DISPONIBLE` automáticamente (RF04).
+- Borrado lógico (RN15): `Vehiculo` se da de baja pasando a `estado = RETIRADO`; `Cliente` se
+  desactiva con `activo = false`. En los dos casos `fechaBaja` guarda cuándo se dio de baja (queda
+  vacía mientras el registro está activo) y se limpia al reactivar.
+- Un registro dado de baja conserva su `patente`/`documento`: no se puede crear otro con el mismo
+  valor, sino que se reactiva (RN16).
 
 ## 3. Diagramas de secuencia
 
-### 3.1 Registrar vehículo nuevo (US1.1 — RF01, RF02, RF03, RF04)
+### 3.1 Registrar vehículo nuevo (US1.1 — RF01, RF02, RF03, RF04, RF49)
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {
@@ -176,11 +193,14 @@ sequenceDiagram
         Servicio-->>Controlador: error: datos incompletos
         Controlador-->>Empleado: 400 Bad Request
     else campos completos
-        Servicio->>Repositorio: existePorPatente(patente)
+        Servicio->>Repositorio: buscarPorPatente(patente)
         Repositorio->>BaseDeDatos: SELECT ... WHERE patente = ?
         BaseDeDatos-->>Repositorio: resultado
-        Repositorio-->>Servicio: existe true/false
-        alt patente ya registrada (RF03)
+        Repositorio-->>Servicio: vehículo existente o vacío
+        alt patente de un vehículo RETIRADO (RF49)
+            Servicio-->>Controlador: error: existe dado de baja, se puede reactivar (US1.7)
+            Controlador-->>Empleado: 409 Conflict
+        else patente ya registrada en un vehículo activo (RF03)
             Servicio-->>Controlador: error: patente duplicada
             Controlador-->>Empleado: 409 Conflict
         else patente disponible
@@ -195,7 +215,7 @@ sequenceDiagram
     end
 ```
 
-### 3.2 Registrar cliente nuevo (US2.1 — RF16, RF17, RF18)
+### 3.2 Registrar cliente nuevo (US2.1 — RF16, RF17, RF18, RF52)
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {
@@ -231,11 +251,14 @@ sequenceDiagram
         Servicio-->>Controlador: error: datos incompletos
         Controlador-->>Empleado: 400 Bad Request
     else campos completos
-        Servicio->>Repositorio: existePorDocumento(documento)
+        Servicio->>Repositorio: buscarPorDocumento(documento)
         Repositorio->>BaseDeDatos: SELECT ... WHERE documento = ?
         BaseDeDatos-->>Repositorio: resultado
-        Repositorio-->>Servicio: existe true/false
-        alt documento ya registrado (RF18)
+        Repositorio-->>Servicio: cliente existente o vacío
+        alt documento de un cliente inactivo (RF52)
+            Servicio-->>Controlador: error: existe dado de baja, se puede reactivar (US2.5)
+            Controlador-->>Empleado: 409 Conflict
+        else documento ya registrado en un cliente activo (RF18)
             Servicio-->>Controlador: error: documento duplicado
             Controlador-->>Empleado: 409 Conflict
         else documento disponible
@@ -254,7 +277,8 @@ sequenceDiagram
 ### 4.1 Diagrama de estados de Vehiculo (RN01)
 
 Las transiciones hacia/desde `ALQUILADO` las genera el flujo de Alquileres (Parte 3); se muestran
-acá solo para que el diagrama de estados quede completo.
+acá solo para que el diagrama de estados quede completo. Un vehículo `ALQUILADO` no puede pasar
+directamente a `RETIRADO`: primero tiene que volver (RF11).
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {
@@ -270,12 +294,16 @@ stateDiagram-v2
     DISPONIBLE --> MANTENIMIENTO : marcar mantenimiento (RF14, US1.6)
     MANTENIMIENTO --> DISPONIBLE : finalizar mantenimiento (RF14, US1.6)
     DISPONIBLE --> ALQUILADO : retiro de vehículo (Parte 3 - Alquileres)
-    ALQUILADO --> DISPONIBLE : devolución de vehículo (Parte 3 - Alquileres)
+    ALQUILADO --> DISPONIBLE : devolución o anulación del alquiler (Parte 3 - Alquileres)
+    DISPONIBLE --> RETIRADO : dar de baja (RF10, US1.4)
+    MANTENIMIENTO --> RETIRADO : dar de baja (RF10, US1.4)
+    RETIRADO --> DISPONIBLE : reactivar (RF48, US1.7)
 
     classDef own fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
     classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
     class DISPONIBLE:::own
     class MANTENIMIENTO:::own
+    class RETIRADO:::own
     class ALQUILADO:::other
 ```
 
@@ -311,13 +339,74 @@ flowchart TD
     class C reject
 ```
 
+### 4.3 Diagrama de estados de Cliente (borrado lógico — RN15, RN17)
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eafaf0',
+  'primaryBorderColor': '#2f9e5c',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+stateDiagram-v2
+    [*] --> ACTIVO : alta de cliente (RF16) o primera reserva pública (RF44)
+    ACTIVO --> INACTIVO : desactivar, sin reservas ni alquileres activos (RF23, RF24, US2.4)
+    INACTIVO --> ACTIVO : reactivar por el empleado (RF51, US2.5)
+    INACTIVO --> ACTIVO : vuelve a reservar por el formulario público (RF58, Parte 2)
+
+    classDef own fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef hidden fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class ACTIVO:::own
+    class INACTIVO:::hidden
+```
+
+### 4.4 Diagrama de actividades: dar de baja un vehículo (US1.4 — RF10, RF11, RF46, RF47)
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+flowchart TD
+    Start([Inicio]) --> A[Empleado selecciona un vehículo para dar de baja]
+    A --> B{"¿Ya está RETIRADO?"}
+    B -- Sí --> R1["Sistema rechaza: ya está dado de baja"]
+    B -- No --> C{"¿Tiene un alquiler ACTIVO?"}
+    C -- Sí --> R2["Sistema rechaza la baja (RF11)"]
+    C -- No --> D{"¿Tiene reservas PENDIENTES o CONFIRMADAS?"}
+    D -- Sí --> R3["Sistema rechaza la baja (RF46, RN08)"]
+    D -- No --> E["Sistema pasa el estado a RETIRADO y registra fechaBaja"]
+    E --> F["El registro y su historial se conservan (RN15);<br/>deja de aparecer en listados y en disponibilidad (RF47)"]
+    R1 --> Fin1([Fin])
+    R2 --> Fin1
+    R3 --> Fin1
+    F --> Fin2([Fin])
+
+    classDef startEnd fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    classDef reject fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
+    class Start,Fin1,Fin2 startEnd
+    class B,C,D decision
+    class A,E,F action
+    class R1,R2,R3 reject
+```
+
 ## 5. Trazabilidad
 
 | Diagrama | Historias | Requerimientos / Reglas |
 |---|---|---|
-| Casos de uso | US1.1–US1.6, US2.1–US2.4 | RF01–RF24 |
-| Clases (Vehiculo, Cliente) | US1.1, US2.1 | RN01, RN06, RN07 |
-| Secuencia — registrar vehículo | US1.1 | RF01, RF02, RF03, RF04 |
-| Secuencia — registrar cliente | US2.1 | RF16, RF17, RF18 |
-| Estados de Vehiculo | US1.1, US1.6 | RN01, RF04, RF14 |
+| Casos de uso | US1.1–US1.7, US2.1–US2.5 | RF01–RF24, RF46–RF52 |
+| Clases (Vehiculo, Cliente) | US1.1, US1.4, US2.1, US2.4 | RN01, RN06, RN07, RN15, RN16 |
+| Secuencia — registrar vehículo | US1.1 | RF01, RF02, RF03, RF04, RF49 |
+| Secuencia — registrar cliente | US2.1 | RF16, RF17, RF18, RF52 |
+| Estados de Vehiculo | US1.1, US1.4, US1.6, US1.7 | RN01, RF04, RF10, RF14, RF48 |
 | Actividades — mantenimiento | US1.6 | RF14, RF15 |
+| Estados de Cliente | US2.4, US2.5, US5.2 | RF23, RF24, RF51, RF58, RN17 |
+| Actividades — baja de vehículo | US1.4 | RF10, RF11, RF46, RF47, RN08, RN15 |

@@ -1,0 +1,31 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#eef6ff',
+  'primaryBorderColor': '#2a6fb0',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a'
+}}}%%
+flowchart TD
+    Start([Inicio]) --> A[Empleado selecciona un vehículo para dar de baja]
+    A --> B{"¿Ya está RETIRADO?"}
+    B -- Sí --> R1["Sistema rechaza: ya está dado de baja"]
+    B -- No --> C{"¿Tiene un alquiler ACTIVO?"}
+    C -- Sí --> R2["Sistema rechaza la baja (RF11)"]
+    C -- No --> D{"¿Tiene reservas PENDIENTES o CONFIRMADAS?"}
+    D -- Sí --> R3["Sistema rechaza la baja (RF46, RN08)"]
+    D -- No --> E["Sistema pasa el estado a RETIRADO y registra fechaBaja"]
+    E --> F["El registro y su historial se conservan (RN15);<br/>deja de aparecer en listados y en disponibilidad (RF47)"]
+    R1 --> Fin1([Fin])
+    R2 --> Fin1
+    R3 --> Fin1
+    F --> Fin2([Fin])
+
+    classDef startEnd fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
+    classDef reject fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
+    class Start,Fin1,Fin2 startEnd
+    class B,C,D decision
+    class A,E,F action
+    class R1,R2,R3 reject

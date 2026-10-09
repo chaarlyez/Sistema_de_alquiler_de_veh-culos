@@ -11,10 +11,14 @@ stateDiagram-v2
     DISPONIBLE --> MANTENIMIENTO : marcar mantenimiento (RF14, US1.6)
     MANTENIMIENTO --> DISPONIBLE : finalizar mantenimiento (RF14, US1.6)
     DISPONIBLE --> ALQUILADO : retiro de vehículo (Parte 3 - Alquileres)
-    ALQUILADO --> DISPONIBLE : devolución de vehículo (Parte 3 - Alquileres)
+    ALQUILADO --> DISPONIBLE : devolución o anulación del alquiler (Parte 3 - Alquileres)
+    DISPONIBLE --> RETIRADO : dar de baja (RF10, US1.4)
+    MANTENIMIENTO --> RETIRADO : dar de baja (RF10, US1.4)
+    RETIRADO --> DISPONIBLE : reactivar (RF48, US1.7)
 
     classDef own fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
     classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
     class DISPONIBLE:::own
     class MANTENIMIENTO:::own
+    class RETIRADO:::own
     class ALQUILADO:::other

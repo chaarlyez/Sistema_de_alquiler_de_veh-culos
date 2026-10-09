@@ -38,6 +38,8 @@ Documento: [`../01-johann-tafur-vehiculos-clientes.md`](../01-johann-tafur-vehic
 | [`parte1-secuencia-registrar-cliente.mmd`](parte1-secuencia-registrar-cliente.mmd) | Secuencia | 3.2 |
 | [`parte1-estados-vehiculo.mmd`](parte1-estados-vehiculo.mmd) | Estados (`Vehiculo`) | 4.1 |
 | [`parte1-actividades-mantenimiento-vehiculo.mmd`](parte1-actividades-mantenimiento-vehiculo.mmd) | Actividades | 4.2 |
+| [`parte1-estados-cliente.mmd`](parte1-estados-cliente.mmd) | Estados (`Cliente`, borrado lógico) | 4.3 |
+| [`parte1-actividades-baja-vehiculo.mmd`](parte1-actividades-baja-vehiculo.mmd) | Actividades (baja lógica de vehículo) | 4.4 |
 
 ## Parte 2 — chaarlyez (E3 Reservas + E5 Autogestión de Reservas del Cliente)
 

@@ -15,16 +15,18 @@ flowchart LR
         UC1(["Registrar vehículo<br/>US1.1"])
         UC2(["Listar vehículos<br/>US1.2"])
         UC3(["Modificar vehículo<br/>US1.3"])
-        UC4(["Dar de baja vehículo<br/>US1.4"])
+        UC4(["Dar de baja vehículo (baja lógica)<br/>US1.4"])
         UC5(["Buscar vehículos disponibles<br/>US1.5"])
         UC6(["Marcar / desmarcar mantenimiento<br/>US1.6"])
+        UC11(["Reactivar vehículo<br/>US1.7"])
     end
 
     subgraph E2["Gestión de Clientes (E2)"]
         UC7(["Registrar cliente<br/>US2.1"])
         UC8(["Buscar cliente<br/>US2.2"])
         UC9(["Modificar cliente<br/>US2.3"])
-        UC10(["Eliminar cliente<br/>US2.4"])
+        UC10(["Desactivar cliente (baja lógica)<br/>US2.4"])
+        UC12(["Reactivar cliente<br/>US2.5"])
     end
 
     Empleado --> UC1
@@ -37,6 +39,8 @@ flowchart LR
     Empleado --> UC8
     Empleado --> UC9
     Empleado --> UC10
+    Empleado --> UC11
+    Empleado --> UC12
 
     style E1 fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
     style E2 fill:#f3eaff,stroke:#7e3ff2,color:#1a1a1a
@@ -44,4 +48,4 @@ flowchart LR
     classDef actor fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
     classDef usecase fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
     class Empleado actor
-    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10 usecase
+    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10,UC11,UC12 usecase
