@@ -1,7 +1,8 @@
 # Fase 3 — Fuentes editables de los diagramas UML
 
-Esta carpeta contiene el **archivo fuente editable** de cada uno de los 19 diagramas UML de la
-Fase 3, versionado en el repositorio. Cada archivo `.mmd` es texto plano en sintaxis
+Esta carpeta contiene el **archivo fuente editable** de cada uno de los 23 diagramas UML de la
+Fase 3, versionado en el repositorio (19 originales + 4 agregados por el cambio de borrado lógico,
+[`../../cambios/01-borrado-logico.md`](../../cambios/01-borrado-logico.md)). Cada archivo `.mmd` es texto plano en sintaxis
 [Mermaid](https://mermaid.js.org/): se puede abrir, modificar y volver a generar el diagrama sin
 depender de una imagen exportada ni de una herramienta paga.
 
@@ -66,5 +67,6 @@ Documento: [`../03-alquileres-mariocardona970546.md`](../03-alquileres-mariocard
 | [`parte3-clases-integracion-final.mmd`](parte3-clases-integracion-final.mmd) | Clases (sistema completo, las 3 partes unificadas) | 3 |
 | [`parte3-secuencia-iniciar-alquiler.mmd`](parte3-secuencia-iniciar-alquiler.mmd) | Secuencia | 4.1 |
 | [`parte3-secuencia-finalizar-alquiler.mmd`](parte3-secuencia-finalizar-alquiler.mmd) | Secuencia | 4.2 |
+| [`parte3-secuencia-anular-alquiler.mmd`](parte3-secuencia-anular-alquiler.mmd) | Secuencia (anulación de alquiler) | 4.3 |
 | [`parte3-actividades-flujo-alquiler.mmd`](parte3-actividades-flujo-alquiler.mmd) | Actividades | 5.1 |
 | [`parte3-estados-alquiler.mmd`](parte3-estados-alquiler.mmd) | Estados (`Alquiler`) | 5.2 |

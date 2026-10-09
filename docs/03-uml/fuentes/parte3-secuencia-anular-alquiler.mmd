@@ -1,0 +1,51 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
+sequenceDiagram
+    actor Empleado
+    participant Controlador
+    participant Servicio
+    participant Repositorio
+    participant BaseDeDatos as Base de Datos
+
+    Empleado->>Controlador: anular alquiler (id)
+    Controlador->>Servicio: anularAlquiler(id)
+    Servicio->>Repositorio: buscarAlquiler(id)
+    Repositorio->>BaseDeDatos: SELECT alquiler
+    BaseDeDatos-->>Repositorio: alquiler
+    Repositorio-->>Servicio: alquiler
+
+    alt alquiler no está ACTIVO (RF57)
+        Servicio-->>Controlador: error: solo se puede anular un alquiler activo
+        Controlador-->>Empleado: 409 Conflict
+    else alquiler ACTIVO
+        Servicio->>Repositorio: guardar(alquiler, estado = ANULADO, sin montoTotal) (RF55, RN18)
+        Repositorio->>BaseDeDatos: UPDATE alquiler (no se borra, RN15)
+        BaseDeDatos-->>Repositorio: ok
+        Servicio->>Repositorio: actualizarEstadoVehiculo(vehiculoId, DISPONIBLE) (RF56)
+        Repositorio->>BaseDeDatos: UPDATE vehiculo SET estado = DISPONIBLE
+        BaseDeDatos-->>Repositorio: ok
+        opt el alquiler se originó en una reserva
+            Servicio->>Repositorio: actualizarEstadoReserva(reservaId, CANCELADA) (RF56)
+            Repositorio->>BaseDeDatos: UPDATE reserva SET estado = CANCELADA
+            BaseDeDatos-->>Repositorio: ok
+        end
+        Servicio-->>Controlador: alquiler anulado
+        Controlador-->>Empleado: 200 OK
+    end

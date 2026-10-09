@@ -52,6 +52,29 @@ corrigió: las 4 relaciones de `01-johann-tafur-vehiculos-clientes.md` (sección
 `-->`, igual que el resto. Con esto, los 3 archivos individuales y el diagrama integrado usan la
 misma notación de extremo a extremo.
 
+## Revisión del cambio de borrado lógico
+
+Cambio agregado después del cierre (`docs/cambios/01-borrado-logico.md`). Se revisó que las 3
+partes lo reflejen igual:
+
+- `EstadoVehiculo.RETIRADO`, `Vehiculo.fechaBaja`, `Cliente.activo` y `Cliente.fechaBaja` están
+  igual en la Parte 1 (sección 2) y en la integración final de la Parte 3 (sección 3).
+- `EstadoAlquiler.ANULADO` está igual en la clase `Alquiler` (Parte 3, sección 2) y en la
+  integración final.
+- Las transiciones cruzadas coinciden: la anulación de un alquiler (Parte 3, 4.3 y 5.2) devuelve
+  el vehículo a `DISPONIBLE` (Parte 1, 4.1) y pasa la reserva de origen a `CANCELADA` (Parte 2,
+  nota de la sección 2). La reactivación automática del cliente en el formulario público (Parte 2,
+  3.2 y 4.2) es la misma transición `INACTIVO → ACTIVO` del diagrama de estados de `Cliente`
+  (Parte 1, 4.3).
+- Los 23 diagramas siguen siendo iguales a su fuente `.mmd`, y se verificó que todos renderizan
+  sin errores con `mermaid-cli`.
+
+Queda una observación de notación **que no se corrigió** en este cambio, para que la revise el
+dueño de la parte: en la Parte 3 (sección 1), `UC41 → UC35` está dibujado como `include` con la
+condición "si viene de reserva". Un `<<include>>` significa que el caso incluido se ejecuta
+**siempre**; si es condicional, corresponde `<<extend>>` (la misma corrección que el instructor le
+marcó al Grupo 1).
+
 ## Conclusión
 
 Las 3 partes son coherentes entre sí y con `docs/01-epicas-historias-usuario.md` y

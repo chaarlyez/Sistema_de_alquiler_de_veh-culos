@@ -26,12 +26,15 @@ sequenceDiagram
 
     Empleado->>Controlador: iniciar alquiler (cliente, vehiculo, reserva opcional)
     Controlador->>Servicio: iniciarAlquiler(datos)
-    Servicio->>Repositorio: buscarVehiculo(vehiculoId)
-    Repositorio->>BaseDeDatos: SELECT vehiculo
-    BaseDeDatos-->>Repositorio: vehiculo
-    Repositorio-->>Servicio: vehiculo
+    Servicio->>Repositorio: buscarVehiculo(vehiculoId) y buscarCliente(clienteId)
+    Repositorio->>BaseDeDatos: SELECT vehiculo, cliente
+    BaseDeDatos-->>Repositorio: vehiculo, cliente
+    Repositorio-->>Servicio: vehiculo, cliente
 
-    alt vehículo ya está ALQUILADO (RF36)
+    alt vehículo RETIRADO o cliente inactivo (RF54, RN17)
+        Servicio-->>Controlador: error: vehículo o cliente dado de baja
+        Controlador-->>Empleado: 409 Conflict
+    else vehículo ya está ALQUILADO (RF36)
         Servicio-->>Controlador: error: vehículo no disponible
         Controlador-->>Empleado: 409 Conflict
     else vehículo disponible

@@ -1,8 +1,9 @@
 # Fase 3 — Parte 3 (mariocardona970546): Alquileres + integración final del diagrama de clases
 
 **Alcance**: E4 — Gestión de Alquileres (`docs/01-epicas-historias-usuario.md`, historias
-US4.1-US4.4), según `docs/03-uml/00-asignacion.md`. Basado en `docs/02-requerimientos.md`
-(RF34-RF41, RN04, RN05, RN11, RN13, RN14).
+US4.1-US4.5), según `docs/03-uml/00-asignacion.md`. Basado en `docs/02-requerimientos.md`
+(RF34-RF41, RN04, RN05, RN11, RN13, RN14; más RF54-RF57 y RN15-RN18 del cambio de borrado lógico,
+`docs/cambios/01-borrado-logico.md`, que agregó US4.5).
 
 Las clases `Vehiculo` y `Cliente` son responsabilidad de la Parte 1 (Johann-Tafur,
 `01-johann-tafur-vehiculos-clientes.md`) y `Reserva` de la Parte 2 (chaarlyez,
@@ -32,11 +33,13 @@ flowchart LR
     UC42(["Finalizar alquiler (devolución)<br/>US4.2"])
     UC43(["Listar alquileres<br/>US4.3"])
     UC44(["Consultar historial de alquileres de un cliente<br/>US4.4"])
+    UC45(["Anular alquiler (registrado por error)<br/>US4.5"])
 
     Empleado --> UC41
     Empleado --> UC42
     Empleado --> UC43
     Empleado --> UC44
+    Empleado --> UC45
 
     UC41 -.->|"include (si viene de reserva)"| UC35
     UC44 -.->|include| UC8
@@ -48,7 +51,7 @@ flowchart LR
     classDef usecase fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
     classDef other fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
     class Empleado actor
-    class UC41,UC42,UC43,UC44 usecase
+    class UC41,UC42,UC43,UC44,UC45 usecase
     class UC35,UC8 other
 ```
 
@@ -87,6 +90,7 @@ classDiagram
         <<enumeration>>
         ACTIVO
         FINALIZADO
+        ANULADO
     }
 
     class Cliente {
@@ -126,6 +130,9 @@ Notas:
   (alquiler directo, RN04) y una Reserva puede no derivar nunca en un Alquiler (si se cancela).
 - `montoTotal` es `BigDecimal` (no `double`), igual criterio que `Vehiculo.precioPorDia` (Parte 1)
   para evitar errores de redondeo en montos de dinero.
+- `ANULADO` es el "borrado" de un alquiler (RN15, RN18): se usa solo para un alquiler `ACTIVO`
+  registrado por error. Queda sin `fechaFinReal` ni `montoTotal`, y no cuenta como alquiler activo
+  para los bloqueos de RN14/RF36.
 
 ---
 
@@ -154,6 +161,7 @@ classDiagram
         -String tipo
         -EstadoVehiculo estado
         -BigDecimal precioPorDia
+        -LocalDateTime fechaBaja
     }
 
     class Cliente {
@@ -163,6 +171,8 @@ classDiagram
         -String documento
         -String email
         -String telefono
+        -boolean activo
+        -LocalDateTime fechaBaja
     }
 
     class Reserva {
@@ -185,6 +195,7 @@ classDiagram
         DISPONIBLE
         ALQUILADO
         MANTENIMIENTO
+        RETIRADO
     }
 
     class EstadoReserva {
@@ -198,6 +209,7 @@ classDiagram
         <<enumeration>>
         ACTIVO
         FINALIZADO
+        ANULADO
     }
 
     Cliente "1" --> "0..*" Reserva : realiza
@@ -230,6 +242,7 @@ classDiagram
 |---|---|
 | Se mantienen los 4 atributos de `Vehiculo` y `Cliente` exactamente como los definió la Parte 1 | No había ningún conflicto con `Alquiler` — `Vehiculo`/`Cliente` no necesitan ningún atributo nuevo por el lado de Alquileres. |
 | Se mantiene `Reserva` exactamente como la definió la Parte 2 | Mismo criterio — sin conflictos. |
+| *(Cambio posterior)* `Vehiculo` y `Cliente` suman `fechaBaja`, `Cliente` suma `activo`, `EstadoVehiculo` suma `RETIRADO` y `EstadoAlquiler` suma `ANULADO` | Borrado lógico (RN15, `docs/cambios/01-borrado-logico.md`): ningún registro se borra; se copian acá los mismos atributos que agregó la Parte 1, para que el diagrama integrado siga siendo igual a la suma de las tres partes. |
 | `Reserva` y `Alquiler` quedan `0..1`–`0..1` (no `1`–`1`) | RF34/RN04: un alquiler puede ser directo, sin reserva; y una reserva puede cancelarse sin llegar a ser alquiler nunca. |
 | Se reemplazan los placeholders `<<Parte 2 - chaarlyez>>` / `<<Parte 3 - mariocardona970546>>` de los diagramas parciales por las clases completas | Esos placeholders eran intencionales en los archivos `01-...` y `02-...` — ahí se aclara que la integración final la hace esta parte, así que no se tocan esos archivos, se integra acá. |
 
@@ -237,7 +250,7 @@ classDiagram
 
 ## 4. Diagramas de secuencia
 
-### 4.1 Iniciar alquiler / retiro de vehículo (US4.1 — RF34, RF35, RF36, RN04)
+### 4.1 Iniciar alquiler / retiro de vehículo (US4.1 — RF34, RF35, RF36, RF54, RN04)
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {
@@ -268,12 +281,15 @@ sequenceDiagram
 
     Empleado->>Controlador: iniciar alquiler (cliente, vehiculo, reserva opcional)
     Controlador->>Servicio: iniciarAlquiler(datos)
-    Servicio->>Repositorio: buscarVehiculo(vehiculoId)
-    Repositorio->>BaseDeDatos: SELECT vehiculo
-    BaseDeDatos-->>Repositorio: vehiculo
-    Repositorio-->>Servicio: vehiculo
+    Servicio->>Repositorio: buscarVehiculo(vehiculoId) y buscarCliente(clienteId)
+    Repositorio->>BaseDeDatos: SELECT vehiculo, cliente
+    BaseDeDatos-->>Repositorio: vehiculo, cliente
+    Repositorio-->>Servicio: vehiculo, cliente
 
-    alt vehículo ya está ALQUILADO (RF36)
+    alt vehículo RETIRADO o cliente inactivo (RF54, RN17)
+        Servicio-->>Controlador: error: vehículo o cliente dado de baja
+        Controlador-->>Empleado: 409 Conflict
+    else vehículo ya está ALQUILADO (RF36)
         Servicio-->>Controlador: error: vehículo no disponible
         Controlador-->>Empleado: 409 Conflict
     else vehículo disponible
@@ -348,13 +364,71 @@ sequenceDiagram
 
 > Fuente editable: [`fuentes/parte3-secuencia-finalizar-alquiler.mmd`](fuentes/parte3-secuencia-finalizar-alquiler.mmd)
 
+### 4.3 Anular alquiler registrado por error (US4.5 — RF55, RF56, RF57, RN15, RN18)
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'actorBkg': '#eef6ff',
+  'actorBorder': '#2a6fb0',
+  'actorTextColor': '#1a1a1a',
+  'actorLineColor': '#4a4a4a',
+  'signalColor': '#1a1a1a',
+  'signalTextColor': '#1a1a1a',
+  'labelBoxBkgColor': '#fff4e0',
+  'labelBoxBorderColor': '#c97a1e',
+  'labelTextColor': '#1a1a1a',
+  'loopTextColor': '#1a1a1a',
+  'noteBkgColor': '#fff9c4',
+  'noteBorderColor': '#c9a400',
+  'noteTextColor': '#1a1a1a',
+  'activationBorderColor': '#2a6fb0',
+  'activationBkgColor': '#eafaf0',
+  'sequenceNumberColor': '#1a1a1a'
+}}}%%
+sequenceDiagram
+    actor Empleado
+    participant Controlador
+    participant Servicio
+    participant Repositorio
+    participant BaseDeDatos as Base de Datos
+
+    Empleado->>Controlador: anular alquiler (id)
+    Controlador->>Servicio: anularAlquiler(id)
+    Servicio->>Repositorio: buscarAlquiler(id)
+    Repositorio->>BaseDeDatos: SELECT alquiler
+    BaseDeDatos-->>Repositorio: alquiler
+    Repositorio-->>Servicio: alquiler
+
+    alt alquiler no está ACTIVO (RF57)
+        Servicio-->>Controlador: error: solo se puede anular un alquiler activo
+        Controlador-->>Empleado: 409 Conflict
+    else alquiler ACTIVO
+        Servicio->>Repositorio: guardar(alquiler, estado = ANULADO, sin montoTotal) (RF55, RN18)
+        Repositorio->>BaseDeDatos: UPDATE alquiler (no se borra, RN15)
+        BaseDeDatos-->>Repositorio: ok
+        Servicio->>Repositorio: actualizarEstadoVehiculo(vehiculoId, DISPONIBLE) (RF56)
+        Repositorio->>BaseDeDatos: UPDATE vehiculo SET estado = DISPONIBLE
+        BaseDeDatos-->>Repositorio: ok
+        opt el alquiler se originó en una reserva
+            Servicio->>Repositorio: actualizarEstadoReserva(reservaId, CANCELADA) (RF56)
+            Repositorio->>BaseDeDatos: UPDATE reserva SET estado = CANCELADA
+            BaseDeDatos-->>Repositorio: ok
+        end
+        Servicio-->>Controlador: alquiler anulado
+        Controlador-->>Empleado: 200 OK
+    end
+```
+
+> Fuente editable: [`fuentes/parte3-secuencia-anular-alquiler.mmd`](fuentes/parte3-secuencia-anular-alquiler.mmd)
+
 ---
 
 ## 5. Diagramas de actividades
 
 ### 5.1 Flujo completo de un alquiler: bloqueo por alquiler activo + cálculo de días efectivos
 
-Cubre RF34-RF39, RN04, RN05, RN11, RN13.
+Cubre RF34-RF39, RF54, RN04, RN05, RN11, RN13, RN17.
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {
@@ -373,11 +447,14 @@ flowchart TD
     ValReserva -- Sí --> ValVehiculo
     Origen -- "Directo, sin reserva (RN04)" --> ValVehiculo
 
-    ValVehiculo{"¿El vehículo ya está ALQUILADO? (RF36)"}
-    ValVehiculo -- Sí --> R2["Rechazar: vehículo ya alquilado"]
+    ValVehiculo{"¿Vehículo RETIRADO o<br/>Cliente inactivo? (RF54)"}
+    ValVehiculo -- Sí --> R3["Rechazar: vehículo o cliente dado de baja"]
+    R3 --> Fin1
+    ValVehiculo -- No --> ValAlquilado{"¿El vehículo ya está ALQUILADO? (RF36)"}
+    ValAlquilado -- Sí --> R2["Rechazar: vehículo ya alquilado"]
     R2 --> Fin1
 
-    ValVehiculo -- No --> Crear["Crear Alquiler ACTIVO<br/>fechaInicioReal = ahora"]
+    ValAlquilado -- No --> Crear["Crear Alquiler ACTIVO<br/>fechaInicioReal = ahora"]
     Crear --> Ocupar["Vehículo pasa a ALQUILADO (RF35, RN11)"]
     Ocupar --> Uso["... el cliente usa el vehículo ..."]
     Uso --> Devolucion["Empleado registra la devolución (fechaFinReal)"]
@@ -392,9 +469,9 @@ flowchart TD
     classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
     classDef reject fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
     class Start,Fin1,Fin2 startEnd
-    class Origen,ValReserva,ValVehiculo decision
+    class Origen,ValReserva,ValVehiculo,ValAlquilado decision
     class Crear,Ocupar,Uso,Devolucion,Calcular,Monto,Finalizar,EstadoFinal action
-    class R1,R2 reject
+    class R1,R2,R3 reject
 ```
 
 > Fuente editable: [`fuentes/parte3-actividades-flujo-alquiler.mmd`](fuentes/parte3-actividades-flujo-alquiler.mmd)
@@ -417,12 +494,16 @@ muestra el lado del `Alquiler` que las dispara.
 stateDiagram-v2
     [*] --> ACTIVO : iniciar alquiler (RF34) — dispara Vehiculo: DISPONIBLE/CONFIRMADA -> ALQUILADO
     ACTIVO --> FINALIZADO : finalizar alquiler (RF37) — dispara Vehiculo: ALQUILADO -> DISPONIBLE/MANTENIMIENTO
+    ACTIVO --> ANULADO : anular alquiler (RF55) — dispara Vehiculo: ALQUILADO -> DISPONIBLE
     FINALIZADO --> [*]
+    ANULADO --> [*]
 
     classDef active fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
     classDef done fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef voided fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
     class ACTIVO:::active
     class FINALIZADO:::done
+    class ANULADO:::voided
 ```
 
 > Fuente editable: [`fuentes/parte3-estados-alquiler.mmd`](fuentes/parte3-estados-alquiler.mmd)
@@ -433,13 +514,14 @@ stateDiagram-v2
 
 | Diagrama | Historias | Requerimientos / Reglas |
 |---|---|---|
-| Casos de uso | US4.1–US4.4 | RF34–RF41 |
-| Clases (`Alquiler`) | US4.1, US4.2 | RN04, RN05, RN13 |
-| Integración final del diagrama de clases | — | RN04 (relación Reserva–Alquiler) |
-| Secuencia — iniciar alquiler | US4.1 | RF34, RF35, RF36, RN04, RN11 |
+| Casos de uso | US4.1–US4.5 | RF34–RF41, RF54–RF57 |
+| Clases (`Alquiler`) | US4.1, US4.2, US4.5 | RN04, RN05, RN13, RN18 |
+| Integración final del diagrama de clases | — | RN04 (relación Reserva–Alquiler), RN15 (borrado lógico) |
+| Secuencia — iniciar alquiler | US4.1 | RF34, RF35, RF36, RF54, RN04, RN11 |
 | Secuencia — finalizar alquiler | US4.2 | RF37, RF38, RF39, RN05, RN13 |
-| Actividades — flujo completo de alquiler | US4.1, US4.2 | RF34–RF39, RN04, RN05, RN11, RN13 |
-| Estados de `Alquiler` | US4.1, US4.2 | RN04 |
+| Secuencia — anular alquiler | US4.5 | RF55, RF56, RF57, RN15, RN18 |
+| Actividades — flujo completo de alquiler | US4.1, US4.2 | RF34–RF39, RF54, RN04, RN05, RN11, RN13 |
+| Estados de `Alquiler` | US4.1, US4.2, US4.5 | RN04, RN18 |
 
 ---
 
@@ -455,6 +537,10 @@ stateDiagram-v2
       **Sí.**
 - [x] ¿El diagrama de actividades (sección 5) cubre correctamente el bloqueo por alquiler activo
       (RF36) y el cálculo de días efectivos (RN13)? → **Sí.**
+
+- [ ] ¿Los ajustes del borrado lógico (US4.5 anular alquiler, estado `ANULADO`, atributos de baja
+      en la integración final) son correctos? → **Pendiente de validar** (ver
+      `docs/cambios/01-borrado-logico.md`).
 
 **Parte 3 validada.** Con esto se cierra formalmente la **Fase 3** completa en
 `docs/00-roadmap.md` y `CLAUDE.md`.

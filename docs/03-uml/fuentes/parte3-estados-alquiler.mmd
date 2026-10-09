@@ -9,9 +9,13 @@
 stateDiagram-v2
     [*] --> ACTIVO : iniciar alquiler (RF34) — dispara Vehiculo: DISPONIBLE/CONFIRMADA -> ALQUILADO
     ACTIVO --> FINALIZADO : finalizar alquiler (RF37) — dispara Vehiculo: ALQUILADO -> DISPONIBLE/MANTENIMIENTO
+    ACTIVO --> ANULADO : anular alquiler (RF55) — dispara Vehiculo: ALQUILADO -> DISPONIBLE
     FINALIZADO --> [*]
+    ANULADO --> [*]
 
     classDef active fill:#eafaf0,stroke:#2f9e5c,color:#1a1a1a
     classDef done fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef voided fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
     class ACTIVO:::active
     class FINALIZADO:::done
+    class ANULADO:::voided

@@ -14,11 +14,14 @@ flowchart TD
     ValReserva -- Sí --> ValVehiculo
     Origen -- "Directo, sin reserva (RN04)" --> ValVehiculo
 
-    ValVehiculo{"¿El vehículo ya está ALQUILADO? (RF36)"}
-    ValVehiculo -- Sí --> R2["Rechazar: vehículo ya alquilado"]
+    ValVehiculo{"¿Vehículo RETIRADO o<br/>Cliente inactivo? (RF54)"}
+    ValVehiculo -- Sí --> R3["Rechazar: vehículo o cliente dado de baja"]
+    R3 --> Fin1
+    ValVehiculo -- No --> ValAlquilado{"¿El vehículo ya está ALQUILADO? (RF36)"}
+    ValAlquilado -- Sí --> R2["Rechazar: vehículo ya alquilado"]
     R2 --> Fin1
 
-    ValVehiculo -- No --> Crear["Crear Alquiler ACTIVO<br/>fechaInicioReal = ahora"]
+    ValAlquilado -- No --> Crear["Crear Alquiler ACTIVO<br/>fechaInicioReal = ahora"]
     Crear --> Ocupar["Vehículo pasa a ALQUILADO (RF35, RN11)"]
     Ocupar --> Uso["... el cliente usa el vehículo ..."]
     Uso --> Devolucion["Empleado registra la devolución (fechaFinReal)"]
@@ -33,6 +36,6 @@ flowchart TD
     classDef action fill:#ffffff,stroke:#4a4a4a,color:#1a1a1a
     classDef reject fill:#fdeaea,stroke:#c0392b,color:#1a1a1a
     class Start,Fin1,Fin2 startEnd
-    class Origen,ValReserva,ValVehiculo decision
+    class Origen,ValReserva,ValVehiculo,ValAlquilado decision
     class Crear,Ocupar,Uso,Devolucion,Calcular,Monto,Finalizar,EstadoFinal action
-    class R1,R2 reject
+    class R1,R2,R3 reject
