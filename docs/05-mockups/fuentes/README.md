@@ -20,7 +20,7 @@ Cada integrante completa solo la tabla de su parte.
 | Diagrama | Fuente | Documento |
 |---|---|---|
 | Navegación del formulario público | [`parte2-navegacion-formulario-publico.mmd`](parte2-navegacion-formulario-publico.mmd) | `../02-chaarlyez-reservas.md` §3.1 |
-| Navegación de reservas en el back-office | *(pendiente)* | `../02-chaarlyez-reservas.md` §3.2 |
+| Navegación de reservas en el back-office | [`parte2-navegacion-reservas-backoffice.mmd`](parte2-navegacion-reservas-backoffice.mmd) | `../02-chaarlyez-reservas.md` §3.2 |
 
 ## Parte 3 — mariocardona970546 (Alquileres + navegación completa)
 

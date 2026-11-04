@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nueva reserva — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Crear reserva (US3.1, RF25). Al guardar se valida (RF26, RF27, RF28):
+  fechas, cliente activo, vehículo no Retirado, sin solapamiento (RN12) ni alquiler activo (RN14).
+  Los Retirados no aparecen en la lista de vehículos. La reserva nace Pendiente (RN09).
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html" class="activo">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <section class="tarjeta">
+      <h1>Nueva reserva</h1>
+
+      <form>
+        <div class="campo">
+          <label for="documento">Documento del cliente <span class="obligatorio">*</span></label>
+          <input id="documento" inputmode="numeric" value="28333444">
+          <span class="ayuda">Cliente: <strong>Martín Gómez</strong> ·
+            ¿Es nuevo? <a href="clientes-listado.html">Registralo en Clientes</a></span>
+        </div>
+
+        <div class="campo">
+          <label for="vehiculo">Vehículo <span class="obligatorio">*</span></label>
+          <select id="vehiculo">
+            <option selected>AB123CD · Fiat Cronos 2023</option>
+            <option>AC456EF · Toyota Yaris 2022 (alquilado)</option>
+            <option>AD789GH · Toyota Hilux 2024</option>
+            <option>AE012IJ · Ford Ranger 2021 (en mantenimiento)</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="inicio">Fecha de inicio <span class="obligatorio">*</span></label>
+          <input id="inicio" type="date" value="2026-11-24">
+        </div>
+        <div class="campo">
+          <label for="fin">Fecha de fin <span class="obligatorio">*</span></label>
+          <input id="fin" type="date" value="2026-11-27">
+        </div>
+
+        <div class="botones">
+          <a href="reservas-listado.html" class="boton">Guardar reserva</a>
+          <a href="reservas-listado.html" class="boton secundario">Cancelar</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+</body>
+</html>

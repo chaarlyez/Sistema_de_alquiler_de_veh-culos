@@ -293,5 +293,6 @@ Hecho:
   `index.html`) ya está creada, y cada integrante trabaja en su rama `<integrante>-fase5-mockups`
   con PR a `main`. Detalle en `docs/05-mockups/00-asignacion.md`.
 
-Próximo paso: cada integrante arma su parte de la Fase 5 (chaarlyez ya arrancó la Parte 2), y
-Johann-Tafur valida antes el cambio 01.
+Próximo paso: validar la Parte 2 de la Fase 5 (entregada por chaarlyez en
+`docs/05-mockups/02-chaarlyez-reservas.md`, checklist en su sección 5); Johann-Tafur y
+mariocardona970546 arman sus partes, y Johann-Tafur valida antes el cambio 01.
