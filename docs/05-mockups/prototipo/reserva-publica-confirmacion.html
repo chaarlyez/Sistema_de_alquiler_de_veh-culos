@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reserva registrada — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Formulario público · Paso 3: comprobante (US5.2). La reserva nace Pendiente (RN09).
+  N° 4 porque 02-dml.sql ya carga las reservas 1 a 3. No hay autogestión de
+  consulta/cancelación: el cliente llama y el empleado lo hace por él (US3.3, US3.4).
+-->
+<header class="encabezado">Alquiler de Vehículos</header>
+
+<main class="publico">
+  <ol class="pasos">
+    <li>1. Vehículo</li>
+    <li>2. Tus datos</li>
+    <li class="actual">3. Listo</li>
+  </ol>
+
+  <div class="aviso exito">¡Listo! Tu reserva quedó registrada.</div>
+
+  <section class="tarjeta">
+    <h1>Reserva N° 4</h1>
+    <dl class="resumen">
+      <dt>Estado</dt><dd><span class="estado espera">Pendiente</span></dd>
+      <dt>Vehículo</dt><dd>Fiat Cronos 2023</dd>
+      <dt>Retiro</dt><dd>20/11/2026</dd>
+      <dt>Devolución</dt><dd>23/11/2026</dd>
+      <dt>Precio por día</dt><dd>$ 80.000</dd>
+      <dt>A nombre de</dt><dd>Valentina Ruiz</dd>
+    </dl>
+  </section>
+
+  <section class="tarjeta">
+    <h2>¿Qué sigue?</h2>
+    <p>Tu reserva queda <strong>pendiente</strong> hasta que la confirmemos (por ejemplo, con
+      una seña). Para confirmarla, consultarla o cancelarla, llamanos al
+      <strong>11 5555-0000</strong> e indicá el número de reserva.</p>
+    <div class="botones">
+      <a href="reserva-publica-buscar.html" class="boton secundario">Hacer otra reserva</a>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">¿Ya tenés una reserva? Para consultarla o cancelarla llamanos al 11 5555-0000.</footer>
+</body>
+</html>

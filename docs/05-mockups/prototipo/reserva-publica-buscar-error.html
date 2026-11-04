@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reservá tu vehículo — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!-- Formulario público · Paso 1 con error: la devolución no es posterior al retiro (RF26, RF45). -->
+<header class="encabezado">Alquiler de Vehículos</header>
+
+<main class="publico">
+  <ol class="pasos">
+    <li class="actual">1. Vehículo</li>
+    <li>2. Tus datos</li>
+    <li>3. Listo</li>
+  </ol>
+
+  <section class="tarjeta">
+    <h1>Reservá tu vehículo</h1>
+    <div class="aviso error">Revisá las fechas para poder buscar.</div>
+
+    <form>
+      <div class="campo">
+        <label for="retiro">Fecha de retiro <span class="obligatorio">*</span></label>
+        <input id="retiro" type="date" value="2026-11-23">
+      </div>
+      <div class="campo error">
+        <label for="devolucion">Fecha de devolución <span class="obligatorio">*</span></label>
+        <input id="devolucion" type="date" value="2026-11-20">
+        <span class="mensaje-error">La fecha de devolución tiene que ser posterior a la de retiro.</span>
+      </div>
+      <div class="botones">
+        <a href="reserva-publica-resultados.html" class="boton">Buscar vehículos</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer class="pie">¿Ya tenés una reserva? Para consultarla o cancelarla llamanos al 11 5555-0000.</footer>
+</body>
+</html>
