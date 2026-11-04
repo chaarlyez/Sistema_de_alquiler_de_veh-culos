@@ -9,7 +9,7 @@ al cerrar cada fase.
 | 2 | Requerimientos | Identificar y documentar requerimientos funcionales y no funcionales. Definir reglas de negocio y criterios de aceptación. | Documento de requerimientos | ✅ Cerrada |
 | 3 | Diagramas UML | Modelar el sistema a partir de los requerimientos. Casos de uso, clases, secuencia, actividades. | Diagramas UML | ✅ Cerrada |
 | 4 | Base de datos | Identificar entidades, atributos y relaciones. Modelo conceptual, lógico y físico. Script SQL. | Modelo ER/UML + Script de BD | ✅ Cerrada |
-| 5 | Mockup / Prototipo | Diseñar interfaces principales y flujo de navegación. Validar experiencia antes de programar. | Mockup/prototipo navegable | ⬜ Pendiente |
+| 5 | Mockup / Prototipo | Diseñar interfaces principales y flujo de navegación. Validar experiencia antes de programar. | Mockup/prototipo navegable | 🟡 En curso |
 | 6 | Programa funcional | Seleccionar tecnologías, desarrollar funcionalidades prioritarias, integrar frontend, backend y BD, pruebas. | MVP funcional | ⬜ Pendiente |
 
 ## Decisiones que aplican a todas las fases
@@ -43,7 +43,10 @@ docs/
 │   ├── 02-reservas-chaarlyez.md
 │   ├── 03-alquileres-mariocardona970546.md
 │   └── 04-revision-integracion.md     (revisión de coherencia entre las 3 partes)
-└── 05-mockups/                        (Fase 5 - pendiente)
+└── 05-mockups/                        (Fase 5 - en curso)
+    ├── 00-asignacion.md               (división del trabajo en 3 partes)
+    ├── fuentes/                       (fuentes .mmd de los diagramas de navegación)
+    └── prototipo/                     (pantallas HTML + estilos.css compartido)
 ```
 
 ## Fase 3 — división del trabajo
@@ -82,6 +85,20 @@ menor sí se aplicó: se agregó `UNIQUE` a `rentals.reservation_id` para reflej
 multiplicidad `0..1`–`0..1` de RN04). La integración final del script SQL único y el diagrama ER
 completo del sistema está en la sección 5 de `03-alquileres-mariocardona970546.md`. **Fase 4
 cerrada.** Se pasa a la Fase 5 (Mockup/Prototipo) en `docs/05-mockups/`.
+
+## Fase 5 — división del trabajo
+
+Misma mecánica que las Fases 3 y 4: 3 partes, una por integrante, con la misma agrupación por
+épicas. Se prototipa el back-office del empleado además del formulario público del cliente (la
+única UI que exige el MVP), para validar flujos y navegación antes de programar; si el back-office
+se construye con UI o queda solo como API se decide al arrancar la Fase 6. Ver alcance, base común
+y entregables de cada parte en `docs/05-mockups/00-asignacion.md`.
+
+| Parte | Integrante | Pantallas | Estado |
+|---|---|---|---|
+| 1 | Johann-Tafur | E1 Vehículos + E2 Clientes | ⬜ Pendiente |
+| 2 | chaarlyez | E3 Reservas + E5 formulario público de reserva | ⬜ Pendiente |
+| 3 | mariocardona970546 | E4 Alquileres + base común (plantilla y estilos) + integración final del prototipo | ⬜ Pendiente |
 
 ## Cambios posteriores al cierre de fases
 
