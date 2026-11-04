@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plantilla formulario público — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  PLANTILLA DEL FORMULARIO PÚBLICO (cliente, sin login).
+  No lleva el menú del back-office. Pensada primero para celular: una sola columna.
+  Para crear un paso nuevo: copiar este archivo como reserva-publica-<paso>.html
+  y marcar con class="actual" el paso que corresponde.
+-->
+<header class="encabezado">Alquiler de Vehículos</header>
+
+<main class="publico">
+  <ol class="pasos">
+    <li class="actual">1. Fechas</li>
+    <li>2. Tus datos</li>
+    <li>3. Listo</li>
+  </ol>
+
+  <section class="tarjeta">
+    <h1>Reservá tu vehículo</h1>
+    <p>Elegí las fechas y te mostramos los vehículos disponibles. No hace falta registrarse.</p>
+
+    <form>
+      <div class="campo">
+        <label for="desde">Desde <span class="obligatorio">*</span></label>
+        <input id="desde" type="date">
+      </div>
+      <div class="campo">
+        <label for="hasta">Hasta <span class="obligatorio">*</span></label>
+        <input id="hasta" type="date">
+      </div>
+      <div class="botones">
+        <a href="#" class="boton">Buscar vehículos</a>
+      </div>
+    </form>
+  </section>
+</main>
+</body>
+</html>

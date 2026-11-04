@@ -46,7 +46,8 @@ docs/
 └── 05-mockups/                        (Fase 5 - en curso)
     ├── 00-asignacion.md               (división del trabajo en 3 partes)
     ├── fuentes/                       (fuentes .mmd de los diagramas de navegación)
-    └── prototipo/                     (pantallas HTML + estilos.css compartido)
+    ├── capturas/                      (capturas de cada pantalla en móvil y web)
+    └── prototipo/                     (pantallas HTML responsive + estilos.css y plantillas)
 ```
 
 ## Fase 3 — división del trabajo
@@ -91,14 +92,17 @@ cerrada.** Se pasa a la Fase 5 (Mockup/Prototipo) en `docs/05-mockups/`.
 Misma mecánica que las Fases 3 y 4: 3 partes, una por integrante, con la misma agrupación por
 épicas. Se prototipa el back-office del empleado además del formulario público del cliente (la
 única UI que exige el MVP), para validar flujos y navegación antes de programar; si el back-office
-se construye con UI o queda solo como API se decide al arrancar la Fase 6. Ver alcance, base común
-y entregables de cada parte en `docs/05-mockups/00-asignacion.md`.
+se construye con UI o queda solo como API se decide al arrancar la Fase 6. Cada pantalla es un
+único HTML responsive, en versión **web y móvil** (se revisa en 375 px y 1280 px). La base común
+(estilos y plantillas) ya está creada, así que cada integrante arranca su parte sin esperar a los
+demás. Ver alcance, base común, organización del equipo y entregables de cada parte en
+`docs/05-mockups/00-asignacion.md`.
 
 | Parte | Integrante | Pantallas | Estado |
 |---|---|---|---|
 | 1 | Johann-Tafur | E1 Vehículos + E2 Clientes | ⬜ Pendiente |
-| 2 | chaarlyez | E3 Reservas + E5 formulario público de reserva | ⬜ Pendiente |
-| 3 | mariocardona970546 | E4 Alquileres + base común (plantilla y estilos) + integración final del prototipo | ⬜ Pendiente |
+| 2 | chaarlyez | Base común (estilos y plantillas, ✅ hecha) + E3 Reservas + E5 formulario público de reserva | 🟡 En curso |
+| 3 | mariocardona970546 | E4 Alquileres + integración final del prototipo | ⬜ Pendiente |
 
 ## Cambios posteriores al cierre de fases
 

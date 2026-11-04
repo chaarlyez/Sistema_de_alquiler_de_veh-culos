@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Sin esta línea el celular muestra la página achicada como si fuera de escritorio. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plantilla back-office — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  PLANTILLA DEL BACK-OFFICE (empleado).
+  Para crear una pantalla nueva: copiar este archivo, renombrarlo como
+  <seccion>-<pantalla>.html (ej. vehiculos-listado.html), marcar con class="activo"
+  la sección del menú que corresponde y dejar en <main> solo lo que use la pantalla.
+
+  Abajo hay un ejemplo de cada patrón común (listado, formulario, confirmación)
+  con los datos de docs/04-base-de-datos/sql/02-dml.sql. Se copian y se adaptan.
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html" class="activo">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <!-- ===== PATRÓN 1: LISTADO ===== -->
+    <div class="titulo-pantalla">
+      <h1>Vehículos</h1>
+      <a href="#" class="boton">Nuevo vehículo</a>
+    </div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="filtro-estado">Estado</label>
+        <select id="filtro-estado">
+          <option>Todos menos Retirados</option>
+          <option>Disponible</option>
+          <option>Alquilado</option>
+          <option>Mantenimiento</option>
+          <option>Retirado</option>
+        </select>
+      </div>
+      <a href="#" class="boton secundario">Filtrar</a>
+    </form>
+
+    <!-- Cada <td> lleva data-label: en el celular la fila se ve como tarjeta y usa ese texto. -->
+    <table class="tabla">
+      <thead>
+        <tr><th>Patente</th><th>Vehículo</th><th>Precio por día</th><th>Estado</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Patente">AB123CD</td>
+          <td data-label="Vehículo">Fiat Cronos 2023</td>
+          <td data-label="Precio por día">$ 80.000</td>
+          <td data-label="Estado"><span class="estado ok">Disponible</span></td>
+          <td data-label="Acciones">
+            <span class="acciones">
+              <a href="#" class="boton secundario">Editar</a>
+              <a href="#" class="boton peligro">Dar de baja</a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Patente">AC456EF</td>
+          <td data-label="Vehículo">Toyota Yaris 2022</td>
+          <td data-label="Precio por día">$ 85.000</td>
+          <td data-label="Estado"><span class="estado espera">Alquilado</span></td>
+          <td data-label="Acciones">
+            <span class="acciones"><a href="#" class="boton secundario">Editar</a></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ===== PATRÓN 2: FORMULARIO (con un error de ejemplo) ===== -->
+    <section class="tarjeta">
+      <h2>Nuevo vehículo</h2>
+      <div class="aviso error">No se pudo guardar: revisá los campos marcados.</div>
+
+      <form>
+        <div class="campo error">
+          <label for="patente">Patente <span class="obligatorio">*</span></label>
+          <input id="patente" value="AB123CD">
+          <span class="mensaje-error">Ya existe un vehículo con la patente AB123CD.</span>
+        </div>
+        <div class="campo">
+          <label for="marca">Marca <span class="obligatorio">*</span></label>
+          <input id="marca" value="Fiat">
+        </div>
+        <div class="botones">
+          <a href="#" class="boton">Guardar</a>
+          <a href="#" class="boton secundario">Cancelar</a>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== PATRÓN 3: CONFIRMACIÓN de baja / cancelación / anulación ===== -->
+    <!-- Nunca dice "eliminar": nada se borra (RN15). Explica qué pasa con el historial. -->
+    <section class="tarjeta">
+      <h2>¿Dar de baja el vehículo AB123CD?</h2>
+      <p>El vehículo pasa a estado <span class="estado baja">Retirado</span>: deja de aparecer en
+        el listado y en las búsquedas, pero conserva su historial de reservas y alquileres. Se
+        puede reactivar más adelante.</p>
+      <div class="botones">
+        <a href="#" class="boton peligro">Sí, dar de baja</a>
+        <a href="#" class="boton secundario">Volver</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+</body>
+</html>

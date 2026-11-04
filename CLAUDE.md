@@ -284,11 +284,14 @@ Hecho:
 
 - Fase 5 dividida en 3 partes entre el equipo, misma agrupación por épicas que las Fases 3 y 4:
   Johann-Tafur (E1 Vehículos + E2 Clientes), chaarlyez (E3 Reservas + E5 formulario público) y
-  mariocardona970546 (E4 Alquileres + base común de plantilla/estilos + integración final del
-  prototipo). Se decidió prototipar también el back-office del empleado, no solo el formulario
-  público, para validar flujos y navegación; si el back-office se programa con UI o queda solo
-  como API (sección 4) se decide al arrancar la Fase 6. Prototipo en HTML + CSS sin frameworks.
-  Detalle en `docs/05-mockups/00-asignacion.md`.
+  mariocardona970546 (E4 Alquileres + integración final del prototipo). Se decidió prototipar
+  también el back-office del empleado, no solo el formulario público, para validar flujos y
+  navegación; si el back-office se programa con UI o queda solo como API (sección 4) se decide al
+  arrancar la Fase 6. Los mockups son **web y móvil**: un único HTML + CSS responsive por pantalla
+  (mobile first, corte en 768 px, se revisa en 375 px y 1280 px), sin frameworks. La base común
+  (`docs/05-mockups/prototipo/`: `estilos.css`, `plantilla.html`, `plantilla-publica.html`,
+  `index.html`) ya está creada, y cada integrante trabaja en su rama `<integrante>-fase5-mockups`
+  con PR a `main`. Detalle en `docs/05-mockups/00-asignacion.md`.
 
-Próximo paso: validar el cambio 01 con Johann-Tafur, y en paralelo que cada integrante arme su
-parte de la Fase 5 (la Parte 3 empieza por `prototipo/estilos.css` y `prototipo/plantilla.html`).
+Próximo paso: cada integrante arma su parte de la Fase 5 (chaarlyez ya arrancó la Parte 2), y
+Johann-Tafur valida antes el cambio 01.
