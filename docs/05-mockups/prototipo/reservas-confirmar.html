@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confirmar reserva — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!-- Back-office · Confirmar una reserva Pendiente (US3.5, RF32). Solo se ofrece para Pendientes (RF33). -->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html" class="activo">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <section class="tarjeta">
+      <h1>¿Confirmar la reserva N° 4?</h1>
+      <dl class="resumen">
+        <dt>Cliente</dt><dd>Valentina Ruiz (40333444)</dd>
+        <dt>Vehículo</dt><dd>AB123CD · Fiat Cronos 2023</dd>
+        <dt>Fechas</dt><dd>20/11/2026 al 23/11/2026</dd>
+        <dt>Estado actual</dt><dd><span class="estado espera">Pendiente</span></dd>
+      </dl>
+      <p>Confirmala cuando el cliente la haya validado (por ejemplo, con una seña). Pasa a
+        <span class="estado ok">Confirmada</span> y desde ahí se puede iniciar el alquiler cuando el
+        cliente retire el vehículo.</p>
+      <div class="botones">
+        <a href="reservas-listado-confirmada.html" class="boton">Sí, confirmar</a>
+        <a href="reservas-listado.html" class="boton secundario">Volver</a>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

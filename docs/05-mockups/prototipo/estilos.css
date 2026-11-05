@@ -326,3 +326,30 @@ a { color: var(--color-primario); }
 
   .publico { padding: 32px var(--espacio); }
 }
+
+/* ---------- Agregados por la Parte 2 (formulario público) ---------- */
+
+/* Texto de ayuda debajo de un campo (no es un error). */
+.ayuda {
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+}
+
+/* Resumen de datos en pares "etiqueta: valor" (vehículo elegido, comprobante). */
+.resumen {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  margin: 0 0 var(--espacio);
+}
+
+.resumen dt { font-weight: 600; color: var(--color-texto-suave); }
+.resumen dd { margin: 0; }
+
+/* Pie con los datos de contacto de la empresa. */
+.pie {
+  text-align: center;
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+  padding: var(--espacio);
+}
