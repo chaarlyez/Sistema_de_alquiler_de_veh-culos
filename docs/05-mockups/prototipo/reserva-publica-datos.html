@@ -36,32 +36,32 @@
 
   <section class="tarjeta">
     <h1>Tus datos</h1>
-    <form>
+    <form data-validar action="reserva-publica-confirmacion.html" method="get" novalidate>
       <div class="campo">
         <label for="nombre">Nombre <span class="obligatorio">*</span></label>
-        <input id="nombre" autocomplete="given-name" value="Valentina">
+        <input id="nombre" autocomplete="given-name" required value="Valentina">
       </div>
       <div class="campo">
         <label for="apellido">Apellido <span class="obligatorio">*</span></label>
-        <input id="apellido" autocomplete="family-name" value="Ruiz">
+        <input id="apellido" autocomplete="family-name" required value="Ruiz">
       </div>
       <div class="campo">
         <label for="documento">Documento (DNI) <span class="obligatorio">*</span></label>
-        <input id="documento" inputmode="numeric" value="40333444">
+        <input id="documento" inputmode="numeric" required data-numerico value="40333444">
       </div>
 
       <p class="ayuda">Completá al menos uno de estos dos datos para que podamos contactarte.</p>
       <div class="campo">
         <label for="email">Email</label>
-        <input id="email" type="email" autocomplete="email" value="valentina.ruiz@example.com">
+        <input id="email" type="email" autocomplete="email" data-grupo="contacto" value="valentina.ruiz@example.com">
       </div>
       <div class="campo">
         <label for="telefono">Teléfono</label>
-        <input id="telefono" type="tel" autocomplete="tel">
+        <input id="telefono" type="tel" autocomplete="tel" data-grupo="contacto">
       </div>
 
       <div class="botones">
-        <a href="reserva-publica-confirmacion.html" class="boton">Confirmar reserva</a>
+        <button type="submit" class="boton">Confirmar reserva</button>
         <a href="reserva-publica-resultados.html" class="boton secundario">Volver</a>
       </div>
     </form>
@@ -74,5 +74,6 @@
 </main>
 
 <footer class="pie">¿Ya tenés una reserva? Para consultarla o cancelarla llamanos al 11 5555-0000.</footer>
+<script src="validacion.js"></script>
 </body>
 </html>
