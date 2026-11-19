@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buscar disponibles (sin resultados) · Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html" class="activo">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <div class="titulo-pantalla">
+      <h1>Buscar vehículos disponibles</h1>
+    </div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="desde">Desde <span class="obligatorio">*</span></label>
+        <input id="desde" type="date" value="2026-05-10">
+      </div>
+      <div class="campo">
+        <label for="hasta">Hasta <span class="obligatorio">*</span></label>
+        <input id="hasta" type="date" value="2026-05-15">
+      </div>
+      <a href="#" class="boton secundario">Buscar</a>
+    </form>
+
+    <section class="tarjeta">
+      <p>No hay unidades disponibles para el rango de fechas pedido.</p>
+    </section>
+
+    <p><a href="vehiculos-disponibilidad.html">Volver</a></p>
+
+  </main>
+</div>
+</body>
+</html>

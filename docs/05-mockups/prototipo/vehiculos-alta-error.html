@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuevo vehículo (errores) · Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html" class="activo">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <!-- Variante A: la patente ya existe en un vehículo activo (RF03). Rechazo simple. -->
+    <section class="tarjeta">
+      <h2>Nuevo vehículo</h2>
+      <div class="aviso error">No se pudo guardar: revisá los campos marcados.</div>
+      <form>
+        <div class="campo error">
+          <label for="patente-a">Patente <span class="obligatorio">*</span></label>
+          <input id="patente-a" value="AC456EF">
+          <span class="mensaje-error">Ya existe un vehículo con la patente AC456EF.</span>
+        </div>
+        <div class="campo">
+          <label for="marca-a">Marca <span class="obligatorio">*</span></label>
+          <input id="marca-a" value="Toyota">
+        </div>
+        <div class="botones">
+          <a href="#" class="boton">Guardar</a>
+          <a href="vehiculos-listado.html" class="boton secundario">Cancelar</a>
+        </div>
+      </form>
+    </section>
+
+    <!-- Variante B: la patente es de un vehículo Retirado (RF49, RN16). En vez de rechazar
+         sin más, se ofrece reactivar el vehículo existente. -->
+    <section class="tarjeta">
+      <h2>Nuevo vehículo</h2>
+      <div class="aviso advertencia">
+        Ya existe un vehículo con la patente AF345KL, pero está dado de baja (Retirado).
+        ¿Querés reactivarlo en vez de crear uno nuevo?
+      </div>
+      <form>
+        <div class="campo error">
+          <label for="patente-b">Patente <span class="obligatorio">*</span></label>
+          <input id="patente-b" value="AF345KL">
+          <span class="mensaje-error">Patente de un vehículo Retirado — no se puede duplicar (RN16).</span>
+        </div>
+        <div class="botones">
+          <a href="vehiculos-reactivar.html" class="boton">Reactivar vehículo AF345KL</a>
+          <a href="vehiculos-listado.html" class="boton secundario">Cancelar</a>
+        </div>
+      </form>
+    </section>
+
+  </main>
+</div>
+</body>
+</html>

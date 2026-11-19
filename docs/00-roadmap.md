@@ -100,7 +100,7 @@ demás. Ver alcance, base común, organización del equipo y entregables de cada
 
 | Parte | Integrante | Pantallas | Estado |
 |---|---|---|---|
-| 1 | Johann-Tafur | E1 Vehículos + E2 Clientes | ⬜ Pendiente |
+| 1 | Johann-Tafur | E1 Vehículos + E2 Clientes | 🟡 Entregada en rama, falta capturas y PR |
 | 2 | chaarlyez | Base común (estilos y plantillas, ✅ hecha) + E3 Reservas + E5 formulario público de reserva | 🟡 En curso |
 | 3 | mariocardona970546 | E4 Alquileres + integración final del prototipo | ⬜ Pendiente |
 

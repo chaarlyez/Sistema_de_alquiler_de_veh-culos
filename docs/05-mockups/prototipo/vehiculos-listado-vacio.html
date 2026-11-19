@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vehículos (sin resultados) · Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html" class="activo">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <div class="titulo-pantalla">
+      <h1>Vehículos</h1>
+      <a href="vehiculos-alta.html" class="boton">Nuevo vehículo</a>
+    </div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="filtro-estado">Estado</label>
+        <select id="filtro-estado">
+          <option>Mantenimiento</option>
+        </select>
+      </div>
+      <a href="#" class="boton secundario">Filtrar</a>
+    </form>
+
+    <section class="tarjeta">
+      <p>No hay vehículos que coincidan con el filtro elegido.</p>
+    </section>
+
+    <p><a href="vehiculos-listado.html">Volver al listado</a></p>
+
+  </main>
+</div>
+</body>
+</html>

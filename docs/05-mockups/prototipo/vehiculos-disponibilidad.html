@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buscar disponibles · Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html" class="activo">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <div class="titulo-pantalla">
+      <h1>Buscar vehículos disponibles</h1>
+    </div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="desde">Desde <span class="obligatorio">*</span></label>
+        <input id="desde" type="date" value="2026-06-01">
+      </div>
+      <div class="campo">
+        <label for="hasta">Hasta <span class="obligatorio">*</span></label>
+        <input id="hasta" type="date" value="2026-06-05">
+      </div>
+      <a href="#" class="boton secundario">Buscar</a>
+    </form>
+
+    <!-- Excluye vehículos Retirados, en Mantenimiento, y los que tengan una reserva o un
+         alquiler que se solape con el rango pedido (RF12, RF13). -->
+    <table class="tabla">
+      <thead>
+        <tr><th>Patente</th><th>Vehículo</th><th>Precio por día</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Patente">AB123CD</td>
+          <td data-label="Vehículo">Fiat Cronos 2023</td>
+          <td data-label="Precio por día">$ 80.000</td>
+          <td data-label="Acciones">
+            <span class="acciones"><a href="reservas-listado.html" class="boton secundario">Reservar</a></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><a href="vehiculos-disponibilidad-vacia.html">Ver variante: sin unidades disponibles</a></p>
+
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#ffffff',
+  'primaryColor': '#ffffff',
+  'primaryBorderColor': '#4a4a4a',
+  'primaryTextColor': '#1a1a1a',
+  'lineColor': '#4a4a4a',
+  'textColor': '#1a1a1a',
+  'clusterBkg': '#eef6ff',
+  'clusterBorder': '#2a6fb0'
+}}}%%
+flowchart TD
+    subgraph V["Vehículos"]
+        VL["vehiculos-listado.html"]
+        VD["vehiculos-disponibilidad.html"]
+        VDV["vehiculos-disponibilidad-vacia.html"]
+        VA["vehiculos-alta.html"]
+        VAE["vehiculos-alta-error.html"]
+        VB["vehiculos-baja.html"]
+        VR["vehiculos-reactivar.html"]
+        VLV["vehiculos-listado-vacio.html"]
+    end
+
+    subgraph C["Clientes"]
+        CL["clientes-listado.html"]
+        CA["clientes-alta.html"]
+        CAE["clientes-alta-error.html"]
+        CB["clientes-baja.html"]
+        CR["clientes-reactivar.html"]
+        CLV["clientes-listado-vacio.html"]
+    end
+
+    RL[["reservas-listado.html (Parte 2)"]]
+    AH[["alquileres-historial.html (Parte 3)"]]
+
+    VL --> VA
+    VL --> VB
+    VL --> VD
+    VL -.-> VLV
+    VA -.-> VAE
+    VAE --> VR
+    VD --> RL
+    VD -.-> VDV
+    VB --> VL
+    VR --> VL
+
+    CL --> CA
+    CL --> CB
+    CL --> CR
+    CL --> AH
+    CL -.-> CLV
+    CA -.-> CAE
+    CAE --> CR
+    CB --> CL
+    CR --> CL
+
+    style V fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    style C fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+
+    classDef externo fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
+    class RL,AH externo
