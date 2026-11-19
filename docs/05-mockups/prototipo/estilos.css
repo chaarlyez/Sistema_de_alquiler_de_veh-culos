@@ -1,29 +1,62 @@
 /*
   Estilos compartidos del prototipo (Fase 5). Los usan TODAS las pantallas.
 
+  === TEMA VISUAL: "VeloRent" — oscuro de lujo ===
+  Referencia: Ideas/VeloRent_ lujo sobre ruedas.png
+  - Fondo casi negro, acentos dorados, texto claro.
+  - Títulos con tipografía serif elegante; texto con sans del sistema.
+  - Botón principal: dorado relleno con texto oscuro. Botón secundario: "fantasma"
+    (transparente con borde dorado). Tarjetas y campos sobre superficies oscuras.
+
   Enfoque "mobile first": las reglas generales son para celular y el bloque
   @media (min-width: 768px) del final ajusta para escritorio. Un solo HTML
   por pantalla sirve para web y para móvil.
 
-  Si una pantalla necesita un estilo nuevo, se agrega acá (no dentro del HTML)
-  y se avisa al equipo en el PR, para no pisarse.
+  REGLA DE EQUIPO: todas las pantallas (de cualquier integrante) usan SOLO estas
+  clases y estas variables; no se escriben colores "a mano" en el HTML. Si una
+  pantalla necesita un estilo nuevo, se agrega acá (no dentro del HTML) y se avisa
+  en el PR. La guía completa del estilo está en guia-estilo.html y en
+  docs/05-mockups/guia-de-estilo.md.
 */
 
-/* ---------- Colores y medidas ---------- */
-:root {
-  --color-fondo: #f4f5f7;
-  --color-superficie: #ffffff;
-  --color-texto: #1f2933;
-  --color-texto-suave: #5f6b7a;
-  --color-borde: #d9dee5;
-  --color-primario: #1d5fa8;
-  --color-primario-oscuro: #164b85;
-  --color-peligro: #b42318;
-  --color-exito: #1e7a46;
-  --color-aviso: #9a6200;
+/* Tipografía de títulos (serif de lujo). Si no hay internet, cae a Georgia. */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap');
 
-  --radio: 8px;
+/* ---------- Colores, tipografías y medidas (tokens) ---------- */
+:root {
+  /* Superficies */
+  --color-fondo: #0f0f12;         /* fondo de la página (casi negro) */
+  --color-superficie: #1a1a1f;    /* tarjetas, menús, encabezado */
+  --color-superficie-2: #141418;  /* campos de formulario (un poco más oscuro) */
+
+  /* Texto */
+  --color-texto: #f3f1ec;         /* texto principal (blanco cálido) */
+  --color-texto-suave: #a5a39c;   /* texto secundario / ayudas */
+
+  /* Bordes */
+  --color-borde: #2b2b31;
+
+  /* Dorado de marca (acento principal) */
+  --color-primario: #c9a24e;         /* dorado */
+  --color-primario-oscuro: #b1883a;  /* dorado al pasar el mouse */
+  --color-primario-texto: #1a1206;   /* texto oscuro sobre botón dorado */
+  --oro-tenue: rgba(201, 162, 78, 0.12); /* fondo dorado muy suave (avisos, focus) */
+
+  /* Estados (ajustados para que se lean sobre fondo oscuro) */
+  --color-peligro: #e5736a;
+  --color-exito: #5fb97e;
+  --color-aviso: #d9a441;
+
+  /* Tipografías */
+  --fuente-titulo: "Playfair Display", Georgia, "Times New Roman", serif;
+  --fuente-texto: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --radio: 10px;
   --espacio: 16px;
+
+  /* Hace que los controles nativos (calendario del date, flecha del select)
+     se dibujen en modo oscuro y se vean sobre el fondo negro. */
+  color-scheme: dark;
 }
 
 * {
@@ -32,24 +65,38 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--fuente-texto);
   font-size: 16px;
   line-height: 1.5;
   color: var(--color-texto);
   background: var(--color-fondo);
 }
 
-h1 { font-size: 1.4rem; margin: 0 0 var(--espacio); }
-h2 { font-size: 1.15rem; margin: 0 0 var(--espacio); }
+h1, h2 {
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+h1 { font-size: 1.6rem; margin: 0 0 var(--espacio); }
+h2 { font-size: 1.25rem; margin: 0 0 var(--espacio); }
+
 a { color: var(--color-primario); }
+
+::placeholder { color: var(--color-texto-suave); opacity: 1; }
 
 /* ---------- Layout del back-office ---------- */
 /* Celular: encabezado arriba, menú como fila de pestañas desplazable, contenido abajo. */
 .encabezado {
-  background: var(--color-primario);
-  color: #fff;
-  padding: 12px var(--espacio);
-  font-weight: 600;
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  padding: 14px var(--espacio);
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid var(--color-borde);
+  /* Fina línea dorada superior, como detalle de marca. */
+  box-shadow: inset 0 3px 0 0 var(--color-primario);
 }
 
 .menu {
@@ -63,12 +110,15 @@ a { color: var(--color-primario); }
   padding: 12px var(--espacio);
   white-space: nowrap;
   text-decoration: none;
-  color: var(--color-texto);
+  color: var(--color-texto-suave);
   border-bottom: 3px solid transparent;
 }
 
+.menu a:hover { color: var(--color-texto); }
+
 .menu a.activo {
   border-bottom-color: var(--color-primario);
+  color: var(--color-texto);
   font-weight: 600;
 }
 
@@ -77,7 +127,7 @@ a { color: var(--color-primario); }
   max-width: 1100px;
 }
 
-/* ---------- Tarjeta (caja blanca para agrupar contenido) ---------- */
+/* ---------- Tarjeta (caja para agrupar contenido) ---------- */
 .tarjeta {
   background: var(--color-superficie);
   border: 1px solid var(--color-borde);
@@ -89,28 +139,36 @@ a { color: var(--color-primario); }
 /* ---------- Botones ---------- */
 .boton {
   display: inline-block;
-  padding: 10px 16px;
+  padding: 11px 18px;
   border: 1px solid var(--color-primario);
   border-radius: var(--radio);
   background: var(--color-primario);
-  color: #fff;
+  color: var(--color-primario-texto);
   font: inherit;
+  font-weight: 600;
   text-decoration: none;
   text-align: center;
   cursor: pointer;
+  transition: background .15s ease, color .15s ease;
 }
 
-.boton:hover { background: var(--color-primario-oscuro); }
+.boton:hover { background: var(--color-primario-oscuro); border-color: var(--color-primario-oscuro); }
 
+/* Secundario: "fantasma", transparente con borde dorado. */
 .boton.secundario {
-  background: var(--color-superficie);
+  background: transparent;
   color: var(--color-primario);
 }
+
+.boton.secundario:hover { background: var(--oro-tenue); color: var(--color-primario); }
 
 .boton.peligro {
   background: var(--color-peligro);
   border-color: var(--color-peligro);
+  color: #2a0d0a;
 }
+
+.boton.peligro:hover { background: #d3615a; border-color: #d3615a; }
 
 .botones {
   display: flex;
@@ -141,14 +199,22 @@ a { color: var(--color-primario); }
 
 .campo input,
 .campo select {
-  padding: 10px;
+  padding: 11px;
   border: 1px solid var(--color-borde);
   border-radius: var(--radio);
   font: inherit;
-  background: var(--color-superficie);
+  color: var(--color-texto);
+  background: var(--color-superficie-2);
 }
 
-.obligatorio { color: var(--color-peligro); }
+.campo input:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 3px var(--oro-tenue);
+}
+
+.obligatorio { color: var(--color-primario); }
 
 /* Campo con error: borde rojo y mensaje debajo (RNF01). */
 .campo.error input,
@@ -174,13 +240,13 @@ a { color: var(--color-primario); }
   padding: 12px var(--espacio);
   border-radius: var(--radio);
   border-left: 4px solid var(--color-primario);
-  background: #e8f0fa;
+  background: var(--oro-tenue);
   margin-bottom: var(--espacio);
 }
 
-.aviso.error { border-left-color: var(--color-peligro); background: #fdecea; }
-.aviso.exito { border-left-color: var(--color-exito); background: #e6f4ec; }
-.aviso.advertencia { border-left-color: var(--color-aviso); background: #fdf3e1; }
+.aviso.error { border-left-color: var(--color-peligro); background: rgba(229, 115, 106, 0.12); }
+.aviso.exito { border-left-color: var(--color-exito); background: rgba(95, 185, 126, 0.12); }
+.aviso.advertencia { border-left-color: var(--color-aviso); background: rgba(217, 164, 65, 0.12); }
 
 /* ---------- Etiqueta de estado (Disponible, Pendiente, Activo, etc.) ---------- */
 .estado {
@@ -189,13 +255,13 @@ a { color: var(--color-primario); }
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 600;
-  background: #e6e9ee;
-  color: var(--color-texto);
+  background: #26262c;
+  color: var(--color-texto-suave);
 }
 
-.estado.ok { background: #e6f4ec; color: var(--color-exito); }        /* Disponible, Confirmada, Activo (cliente) */
-.estado.espera { background: #fdf3e1; color: var(--color-aviso); }    /* Pendiente, Mantenimiento, Alquilado, Activo (alquiler) */
-.estado.baja { background: #eceef1; color: var(--color-texto-suave); } /* Retirado, Inactivo, Cancelada, Anulado, Finalizado */
+.estado.ok { background: rgba(95, 185, 126, 0.15); color: var(--color-exito); }        /* Disponible, Confirmada, Activo (cliente) */
+.estado.espera { background: rgba(217, 164, 65, 0.15); color: var(--color-aviso); }     /* Pendiente, Mantenimiento, Alquilado, Activo (alquiler) */
+.estado.baja { background: #24242a; color: var(--color-texto-suave); }                  /* Retirado, Inactivo, Cancelada, Anulado, Finalizado */
 
 /* ---------- Tablas de listado ---------- */
 /*
@@ -224,7 +290,7 @@ a { color: var(--color-primario); }
   justify-content: space-between;
   gap: 12px;
   padding: 6px 0;
-  border-bottom: 1px solid var(--color-fondo);
+  border-bottom: 1px solid var(--color-borde);
 }
 
 .tabla td:last-child { border-bottom: none; }
@@ -321,8 +387,8 @@ a { color: var(--color-primario); }
   .tabla tr { display: table-row; border: none; padding: 0; margin: 0; }
   .tabla td { display: table-cell; padding: 10px; border-bottom: 1px solid var(--color-borde); }
   .tabla td::before { content: none; }
-  .tabla th { text-align: left; padding: 10px; border-bottom: 2px solid var(--color-borde); }
-  .tabla { background: var(--color-superficie); border: 1px solid var(--color-borde); }
+  .tabla th { text-align: left; padding: 10px; color: var(--color-texto-suave); border-bottom: 2px solid var(--color-borde); }
+  .tabla { background: var(--color-superficie); border: 1px solid var(--color-borde); border-radius: var(--radio); overflow: hidden; }
 
   .publico { padding: 32px var(--espacio); }
 }
@@ -352,4 +418,271 @@ a { color: var(--color-primario); }
   color: var(--color-texto-suave);
   font-size: 0.9rem;
   padding: var(--espacio);
+  border-top: 1px solid var(--color-borde);
+  margin-top: var(--espacio);
+}
+
+/* ====================================================================
+   LANDING PÚBLICA (inicio.html) — página de inicio tipo "VeloRent".
+   Clases nuevas, no afectan a las pantallas del back-office ni al
+   formulario de reserva. Mobile-first; el bloque de escritorio está
+   más abajo, dentro del mismo @media (min-width: 768px) no: acá va su
+   propio @media al final de esta sección.
+   ==================================================================== */
+
+/* Ancho máximo del contenido de la landing, centrado. */
+.seccion-landing {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px var(--espacio);
+}
+
+/* ---- Barra de navegación superior ---- */
+.nav-publica {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 14px var(--espacio);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--color-texto);
+}
+
+.logo .monograma {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--color-primario);
+  border-radius: 8px;
+  color: var(--color-primario);
+  font-size: 1.1rem;
+}
+
+.nav-links { display: none; } /* en celular se ocultan los enlaces del medio */
+
+.nav-links a {
+  color: var(--color-texto-suave);
+  text-decoration: none;
+  padding: 6px 2px;
+}
+
+.nav-links a:hover, .nav-links a.activo { color: var(--color-texto); }
+
+/* ---- Hero ---- */
+/* Foto de fondo (auto de lujo) con un degradado oscuro encima, de izquierda a
+   derecha, para que el texto se lea sobre la imagen. */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, #0f0f12 8%, rgba(15, 15, 18, 0.72) 42%, rgba(15, 15, 18, 0.25) 100%),
+    linear-gradient(180deg, rgba(15, 15, 18, 0.1), rgba(15, 15, 18, 0.55)),
+    url('img/mercedes-gclass.jpg');
+  background-size: cover;
+  background-position: center right;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.hero-interno {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 56px var(--espacio);
+  display: grid;
+  gap: 22px;
+  min-height: 420px;
+  align-content: center;
+}
+
+/* El texto del hero no ocupa todo el ancho, así se ve el auto a la derecha. */
+.hero-texto { max-width: 560px; }
+
+.hero h1 {
+  font-size: 2.1rem;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.hero h1 .dorado { color: var(--color-primario); }
+
+.hero p { color: var(--color-texto-suave); max-width: 46ch; margin: 0; }
+
+.hero-acciones { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+.enlace-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-texto);
+  text-decoration: none;
+}
+
+.enlace-play .circulo {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--color-primario);
+  color: var(--color-primario);
+}
+
+/* Silueta de auto decorativa del hero. */
+.hero-arte { color: var(--color-primario); opacity: 0.9; }
+.hero-arte svg { width: 100%; height: auto; display: block; }
+
+/* ---- Franja de features (4 beneficios con ícono) ---- */
+.features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.feature { display: flex; gap: 12px; align-items: flex-start; }
+.feature .ico { color: var(--color-primario); flex-shrink: 0; }
+.feature strong { display: block; }
+.feature span { color: var(--color-texto-suave); font-size: 0.92rem; }
+
+/* ---- Buscador ("Reserva tu vehículo") ---- */
+.buscador {
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: var(--espacio);
+  display: grid;
+  gap: 12px;
+}
+
+.buscador h2 { margin: 0; }
+.buscador-campos { display: grid; gap: 12px; }
+
+/* ---- Flota (grilla de autos) ---- */
+.grid-autos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.auto-card {
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.auto-imagen {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #22222a, #141418);
+  color: var(--color-primario);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.auto-imagen svg { width: 68%; height: auto; opacity: 0.9; }
+
+/* Si la tarjeta tiene foto real, llena el recuadro. */
+.auto-imagen img { width: 100%; height: 100%; object-fit: cover; }
+
+.badge-cat {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--color-primario);
+  background: rgba(15, 15, 18, 0.7);
+  color: var(--color-primario);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.auto-cuerpo { padding: 14px; display: grid; gap: 10px; }
+.auto-cuerpo h3 { margin: 0; font-family: var(--fuente-titulo); font-size: 1.15rem; }
+
+.specs { display: flex; flex-wrap: wrap; gap: 14px; color: var(--color-texto-suave); font-size: 0.9rem; }
+.specs span { display: inline-flex; align-items: center; gap: 6px; }
+
+.auto-pie { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.precio { color: var(--color-texto-suave); font-size: 0.85rem; }
+.precio strong { display: block; color: var(--color-texto); font-size: 1.05rem; }
+
+.flecha {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--color-primario);
+  color: var(--color-primario-texto);
+  text-decoration: none;
+}
+
+/* Encabezado de sección con título a la izquierda y enlace a la derecha. */
+.cabecera-seccion {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.cabecera-seccion h2 { margin: 0; }
+.cabecera-seccion p { margin: 0; color: var(--color-texto-suave); }
+
+/* ---- Planes flexibles ---- */
+.planes {
+  background:
+    radial-gradient(700px 240px at 85% 120%, rgba(201, 162, 78, 0.15), transparent 60%),
+    linear-gradient(180deg, #17171c, #121216);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: 28px var(--espacio);
+}
+
+.planes h2 { margin: 0 0 6px; }
+.planes > p { color: var(--color-texto-suave); margin: 0 0 20px; }
+
+.planes-items { display: flex; flex-wrap: wrap; gap: 24px; }
+.plan { display: flex; align-items: center; gap: 10px; }
+.plan .ico { color: var(--color-primario); }
+
+/* ---- Escritorio de la landing ---- */
+@media (min-width: 768px) {
+  .nav-links { display: flex; gap: 22px; }
+
+  .hero-interno {
+    padding: 88px var(--espacio);
+    min-height: 480px;
+  }
+
+  .hero h1 { font-size: 3rem; }
+
+  .features { grid-template-columns: repeat(4, 1fr); }
+
+  .buscador-campos {
+    grid-template-columns: 1.4fr 1fr 1fr 1fr auto;
+    align-items: end;
+  }
+
+  .grid-autos { grid-template-columns: repeat(4, 1fr); }
+
+  .cabecera-seccion {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+  }
 }
