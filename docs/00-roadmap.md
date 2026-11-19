@@ -29,7 +29,7 @@ docs/
 ├── 01-epicas-historias-usuario.md     (Fase 1)
 ├── 02-requerimientos.md               (Fase 2)
 ├── cambios/                           (cambios posteriores al cierre de una fase)
-│   └── 01-borrado-logico.md           (borrado lógico — afecta Fases 1-4, pendiente de validar)
+│   └── 01-borrado-logico.md           (borrado lógico — afecta Fases 1-4, validado y cerrado)
 ├── 03-uml/                            (Fase 3 - cerrada)
 │   ├── 00-asignacion.md               (división del trabajo en 3 partes)
 │   ├── 01-johann-tafur-vehiculos-clientes.md
@@ -108,7 +108,7 @@ demás. Ver alcance, base común, organización del equipo y entregables de cada
 
 | # | Cambio | Fases afectadas | Estado |
 |---|---|---|---|
-| 01 | Borrado lógico de vehículos, clientes, reservas y alquileres (`docs/cambios/01-borrado-logico.md`) | 1, 2, 3, 4 | 🟡 Documentado, aceptado por mariocardona970546; pendiente de validar por Johann-Tafur |
+| 01 | Borrado lógico de vehículos, clientes, reservas y alquileres (`docs/cambios/01-borrado-logico.md`) | 1, 2, 3, 4 | ✅ Validado por las 3 partes del equipo (chaarlyez, mariocardona970546, Johann-Tafur). Cerrado. |
 
 Las Fases 1-4 siguen cerradas: el cambio se documentó sobre ellas sin reabrir el resto de su
-contenido, y cada documento afectado tiene un ítem nuevo en su checklist de validación.
+contenido, y cada documento afectado tiene su ítem de checklist ya marcado.

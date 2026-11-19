@@ -5,7 +5,7 @@
 | Fecha | 2026-10-08 |
 | Pedido por | chaarlyez (en nombre del equipo) |
 | Fases afectadas | 1, 2, 3 y 4 (ya cerradas) |
-| Estado | Documentado en las 4 fases — aceptado por mariocardona970546; **pendiente de validar por Johann-Tafur** |
+| Estado | **Validado por las 3 partes del equipo (chaarlyez, mariocardona970546, Johann-Tafur). Cerrado** (2026-11-18). |
 
 ## 1. Qué se pidió
 
@@ -100,10 +100,14 @@ cambio: se dejó anotada para que la corrigiera el dueño de la Parte 3.
 
 ## 7. Qué falta validar
 
-- [ ] ¿El equipo está de acuerdo con el borrado lógico como regla general (RN15)? → **Aceptado
-      por mariocardona970546** (2026-10-08); falta Johann-Tafur.
-- [ ] ¿Las 3 historias nuevas (US1.7, US2.5, US4.5) y sus puntos son correctos? → **Aceptadas
-      por mariocardona970546** (2026-10-08); falta Johann-Tafur.
+- [x] ¿El equipo está de acuerdo con el borrado lógico como regla general (RN15)? → **Aceptado
+      por mariocardona970546** (2026-10-08) **y por Johann-Tafur** (2026-11-18): es como operan
+      las empresas reales de alquiler (de-fleet en vez de borrado) y resuelve el conflicto real que
+      había entre RN08 y las FKs de `reservations`/`rentals` (sección 2).
+- [x] ¿Las 3 historias nuevas (US1.7, US2.5, US4.5) y sus puntos son correctos? → **Aceptadas
+      por mariocardona970546** (2026-10-08) **y por Johann-Tafur** (2026-11-18): 1 pt para las
+      reactivaciones (son un cambio de estado simple) y 2 pts para anular un alquiler (toca también
+      la reserva de origen) son proporcionales al resto de la estimación de la Fase 1.
 - [x] ¿La reactivación automática del cliente desde el formulario público (RF58) es lo que se
       quiere, o debería reactivarlo solo un empleado? → **Confirmado: se reactiva
       automáticamente** (chaarlyez, 2026-10-08).
@@ -111,4 +115,13 @@ cambio: se dejó anotada para que la corrigiera el dueño de la Parte 3.
       (chaarlyez, 2026-10-08).
 - [x] mariocardona970546 revisa los cambios hechos en sus partes de las Fases 3 y 4. → **Revisados
       y aceptados** (2026-10-08).
-- [ ] Johann-Tafur revisa los cambios hechos en sus partes de las Fases 3 y 4.
+- [x] Johann-Tafur revisa los cambios hechos en sus partes de las Fases 3 y 4. → **Revisados y
+      aceptados** (2026-11-18): en `03-uml/01-johann-tafur-vehiculos-clientes.md`, UC11/UC12,
+      `EstadoVehiculo.RETIRADO`, `Cliente.activo`/`fechaBaja` y el diagrama de estados de `Cliente`
+      están completos y coherentes con la integración final de la Parte 3; en
+      `04-base-de-datos/01-johann-tafur-vehiculos-clientes.md`, `chk_vehicles_retired` y
+      `chk_customers_active` expresan bien la regla (el estado/booleano y `deactivated_at` no se
+      pueden contradecir), y `UNIQUE` en `license_plate`/`document_number` se mantiene para poder
+      reactivar en vez de duplicar (RN16).
+
+**Cambio 01 validado por las 3 partes. Queda cerrado.**

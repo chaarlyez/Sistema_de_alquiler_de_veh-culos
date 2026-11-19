@@ -285,9 +285,9 @@ flowchart LR
 - [x] ¿Están bien las épicas/historias nuevas (US1.6, US4.4, E5)? → **Sí, confirmado.**
 - [x] ¿Login para Empleado y/o Cliente? → **No, no se maneja seguridad en el MVP.**
 
-- [ ] ¿Borrado lógico (US1.4, US2.4 y US5.2 ajustadas; US1.7, US2.5 y US4.5 nuevas)? → Agregado
+- [x] ¿Borrado lógico (US1.4, US2.4 y US5.2 ajustadas; US1.7, US2.5 y US4.5 nuevas)? → Agregado
       después del cierre a pedido del equipo (ver `docs/cambios/01-borrado-logico.md`);
-      **pendiente de validar**.
+      **validado por las 3 partes del equipo** (2026-11-18).
 
-**Fase 1 cerrada** (con el cambio de borrado lógico pendiente de validar). Se pasa a la Fase 2 (Requerimientos funcionales y no funcionales) en
+**Fase 1 cerrada**, incluido el cambio de borrado lógico ya validado. Se pasa a la Fase 2 (Requerimientos funcionales y no funcionales) en
 `docs/02-requerimientos.md`.

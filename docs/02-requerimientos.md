@@ -377,8 +377,9 @@ pagos/facturación).
 - [x] ¿Están de acuerdo con los criterios de aceptación formales elegidos (sección 6)? → **Sí, confirmado.**
 - [x] ¿Los precios de referencia del Anexo (sección 8) son razonables? → **Sí, confirmado.**
 
-- [ ] ¿RF46-RF58, RNF09 y RN15-RN18 (borrado lógico) reflejan bien lo pedido? → Agregados después
-      del cierre (ver `docs/cambios/01-borrado-logico.md`); **pendiente de validar**.
+- [x] ¿RF46-RF58, RNF09 y RN15-RN18 (borrado lógico) reflejan bien lo pedido? → Agregados después
+      del cierre (ver `docs/cambios/01-borrado-logico.md`); **validado por las 3 partes del
+      equipo** (2026-11-18).
 
-**Fase 2 cerrada** (con el cambio de borrado lógico pendiente de validar). Se pasa a la Fase 3 (Diagramas UML: casos de uso, clases, secuencia,
+**Fase 2 cerrada**, incluido el cambio de borrado lógico ya validado. Se pasa a la Fase 3 (Diagramas UML: casos de uso, clases, secuencia,
 actividades)
