@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finalizar alquiler — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Finalizar alquiler, paso 1 de 2 (US4.2, RF37, RF39): se registra la fecha
+  y hora real de devolución y cómo vuelve el vehículo. "Calcular monto" lleva al resumen
+  (alquileres-finalizar-confirmar.html): nada se guarda hasta confirmar ahí.
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html" class="activo">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <div class="titulo-pantalla">
+      <h1>Finalizar alquiler</h1>
+    </div>
+
+    <section class="tarjeta">
+      <h2>Alquiler N° 1 <span class="estado espera">Activo</span></h2>
+      <p><strong>Cliente:</strong> Lucía Fernández · DNI 30111222<br>
+        <strong>Vehículo:</strong> AC456EF · Toyota Yaris 2022 · $ 85.000 por día<br>
+        <strong>Retiro:</strong> 01/04/2026 10:00<br>
+        <strong>Origen:</strong> reserva N° 1</p>
+    </section>
+
+    <section class="tarjeta">
+      <form data-validar action="alquileres-finalizar-confirmar.html" method="get" novalidate>
+        <!-- El retiro no se edita acá; está para que validacion.js compare la devolución contra él. -->
+        <div class="campo">
+          <label for="retiro">Retiro</label>
+          <input id="retiro" type="datetime-local" readonly value="2026-04-01T10:00">
+        </div>
+        <div class="campo">
+          <label for="devolucion">Fecha y hora de devolución <span class="obligatorio">*</span></label>
+          <input id="devolucion" type="datetime-local" required data-no-antes-de="retiro" value="2026-04-05T10:40">
+          <span class="ayuda">Hay 1 hora de tolerancia: si se pasa, se cobra un día más.</span>
+        </div>
+        <div class="campo">
+          <label for="estado-vehiculo">Estado del vehículo al volver <span class="obligatorio">*</span></label>
+          <select id="estado-vehiculo" required>
+            <option value="DISPONIBLE" selected>Disponible (listo para alquilar)</option>
+            <option value="MANTENIMIENTO">Mantenimiento (necesita revisión o limpieza)</option>
+          </select>
+        </div>
+        <div class="botones">
+          <button type="submit" class="boton">Calcular monto</button>
+          <a href="alquileres-listado.html" class="boton secundario">Volver</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+<script src="validacion.js"></script>
+</body>
+</html>

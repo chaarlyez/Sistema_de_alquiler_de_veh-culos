@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuevo alquiler (error) — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Estado especial: error de validación al iniciar un alquiler directo.
+  Muestra los dos bloqueos de US4.1 a la vez: cliente inactivo (RF54, RN17) y vehículo ya
+  Alquilado (RF36). Los demás mensajes están en 03-mariocardona970546-alquileres.md.
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html" class="activo">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <div class="titulo-pantalla">
+      <h1>Nuevo alquiler (sin reserva)</h1>
+    </div>
+
+    <section class="tarjeta">
+      <div class="aviso error">No se pudo iniciar el alquiler: revisá los campos marcados.</div>
+
+      <form>
+        <div class="campo error">
+          <label for="documento">Documento del cliente <span class="obligatorio">*</span></label>
+          <input id="documento" inputmode="numeric" value="27777888">
+          <span class="mensaje-error">Diego Ramírez está dado de baja. Reactivalo desde Clientes para
+            poder alquilarle.</span>
+        </div>
+        <div class="campo error">
+          <label for="vehiculo">Vehículo <span class="obligatorio">*</span></label>
+          <select id="vehiculo">
+            <option>Elegí un vehículo</option>
+            <option>AB123CD · Fiat Cronos 2023 · $ 80.000 por día</option>
+            <option>AD789GH · Toyota Hilux 2024 · $ 200.000 por día</option>
+            <option selected>AC456EF · Toyota Yaris 2022 (alquilado)</option>
+            <option>AE012IJ · Ford Ranger 2021 (en mantenimiento)</option>
+          </select>
+          <span class="mensaje-error">El Toyota Yaris (AC456EF) ya está alquilado (alquiler N° 1).
+            Elegí otro vehículo o registrá antes su devolución.</span>
+        </div>
+        <div class="campo">
+          <label for="retiro">Fecha y hora de retiro <span class="obligatorio">*</span></label>
+          <input id="retiro" type="datetime-local" value="2026-11-19T09:00">
+        </div>
+        <div class="botones">
+          <a href="#" class="boton">Iniciar alquiler</a>
+          <a href="alquileres-listado.html" class="boton secundario">Cancelar</a>
+        </div>
+      </form>
+    </section>
+
+    <p><a href="clientes-listado.html">Ir a Clientes</a> para reactivar al cliente.</p>
+  </main>
+</div>
+</body>
+</html>

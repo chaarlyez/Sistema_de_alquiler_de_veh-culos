@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alquileres (sin resultados) — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Estado especial: los filtros no devuelven ningún alquiler.
+  Ejemplo: Estado = Activo y cliente "Pereyra" (Sofía Pereyra solo tiene el N° 3, Anulado).
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html" class="activo">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <div class="titulo-pantalla">
+      <h1>Alquileres</h1>
+      <span class="acciones">
+        <a href="alquileres-historial.html" class="boton secundario">Historial de un cliente</a>
+        <a href="alquileres-iniciar-directo.html" class="boton">Nuevo alquiler</a>
+      </span>
+    </div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="filtro-estado">Estado</label>
+        <select id="filtro-estado">
+          <option>Activos y finalizados</option>
+          <option selected>Activo</option>
+          <option>Finalizado</option>
+          <option>Anulado</option>
+          <option>Todos</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="filtro-cliente">Cliente</label>
+        <input id="filtro-cliente" placeholder="Documento o apellido" value="Pereyra">
+      </div>
+      <div class="campo">
+        <label for="filtro-vehiculo">Vehículo</label>
+        <input id="filtro-vehiculo" placeholder="Patente">
+      </div>
+      <a href="#" class="boton secundario">Filtrar</a>
+    </form>
+
+    <div class="aviso">No hay alquileres que coincidan con los filtros. Los alquileres anulados no
+      se muestran: elegí "Anulado" o "Todos" en Estado para verlos.</div>
+  </main>
+</div>
+</body>
+</html>

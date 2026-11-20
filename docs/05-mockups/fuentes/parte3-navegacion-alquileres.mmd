@@ -1,0 +1,32 @@
+flowchart TD
+    MENU([Menú: Alquileres]) --> L["Listado<br>alquileres-listado"]
+    RES([Reservas · Parte 2<br>reserva Confirmada]) -->|Iniciar alquiler| I["Iniciar desde reserva<br>alquileres-iniciar"]
+    CLI([Clientes · Parte 1]) -->|Ver historial| H["Historial de un cliente<br>alquileres-historial"]
+
+    L -->|Ver todos / filtro Anulado| LT["Listado con anulados<br>alquileres-listado-todos"]
+    L -.->|filtros sin resultados| LV["Sin resultados<br>alquileres-listado-vacio"]
+    L -->|Nuevo alquiler| ID["Iniciar directo<br>alquileres-iniciar-directo"]
+    L -->|Finalizar| F["Finalizar: devolución<br>alquileres-finalizar"]
+    L -->|Anular| A["Confirmar anulación<br>alquileres-anular"]
+    L -->|Historial de un cliente| H
+
+    I -->|Iniciar alquiler| LI["Listado + aviso<br>alquileres-listado-iniciado"]
+    I -->|Alquiler directo| ID
+    I -->|Volver a reservas| RES
+    ID -->|Iniciar alquiler, válido| LI
+    ID -->|Iniciar alquiler, rechazado| IE["Error al iniciar<br>alquileres-iniciar-error"]
+    IE -->|Ir a Clientes| CLI
+    IE -->|Cancelar| L
+
+    F -->|Calcular monto| FC["Días y monto<br>alquileres-finalizar-confirmar"]
+    F -.->|devolución inválida| FE["Error de devolución<br>alquileres-finalizar-error"]
+    FE -->|Calcular monto| FC
+    FC -->|Corregir datos| F
+    FC -->|Confirmar devolución| LF["Listado + aviso<br>alquileres-listado-finalizado"]
+
+    A -->|Sí, anular| LA["Listado + aviso<br>alquileres-listado-anulado"]
+    A -->|Finalizar| F
+    A -->|Volver| L
+
+    H -.->|cliente sin alquileres| HV["Historial vacío<br>alquileres-historial-vacio"]
+    H -->|Volver a alquileres| L

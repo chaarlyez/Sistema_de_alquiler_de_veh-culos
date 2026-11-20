@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuevo alquiler — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Iniciar alquiler directo, sin reserva previa (US4.1, RF34, RN04, RN11).
+  La lista de vehículos no incluye los Retirados (RN17); los que no se pueden alquilar
+  lo indican entre paréntesis. "Iniciar alquiler" lleva al ejemplo de error
+  (alquileres-iniciar-error.html); si todo está bien se vuelve al listado con un aviso de éxito.
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html" class="activo">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <div class="titulo-pantalla">
+      <h1>Nuevo alquiler (sin reserva)</h1>
+    </div>
+
+    <section class="tarjeta">
+      <form data-validar action="alquileres-iniciar-error.html" method="get" novalidate>
+        <div class="campo">
+          <label for="documento">Documento del cliente <span class="obligatorio">*</span></label>
+          <input id="documento" inputmode="numeric" required data-numerico placeholder="Ej. 28333444">
+        </div>
+        <div class="campo">
+          <label for="vehiculo">Vehículo <span class="obligatorio">*</span></label>
+          <select id="vehiculo" required>
+            <option value="">Elegí un vehículo</option>
+            <option>AB123CD · Fiat Cronos 2023 · $ 80.000 por día</option>
+            <option>AD789GH · Toyota Hilux 2024 · $ 200.000 por día</option>
+            <option>AC456EF · Toyota Yaris 2022 (alquilado)</option>
+            <option>AE012IJ · Ford Ranger 2021 (en mantenimiento)</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="retiro">Fecha y hora de retiro <span class="obligatorio">*</span></label>
+          <input id="retiro" type="datetime-local" required value="2026-11-19T09:00">
+          <span class="ayuda">El alquiler se cobra por períodos de 24 horas desde este momento.</span>
+        </div>
+        <div class="botones">
+          <button type="submit" class="boton">Iniciar alquiler</button>
+          <a href="alquileres-listado.html" class="boton secundario">Cancelar</a>
+        </div>
+      </form>
+    </section>
+
+    <p>Si el cliente no está registrado, <a href="clientes-listado.html">registralo en Clientes</a>.</p>
+  </main>
+</div>
+<script src="validacion.js"></script>
+</body>
+</html>

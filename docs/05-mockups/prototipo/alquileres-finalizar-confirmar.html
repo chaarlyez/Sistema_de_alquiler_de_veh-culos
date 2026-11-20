@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confirmar devolución — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Finalizar alquiler, paso 2 de 2 (US4.2, RF38, RN05, RN13): muestra los días
+  efectivos y el monto ANTES de guardar. Ejemplo dentro de la tolerancia: retiro 01/04 10:00,
+  devolución 05/04 10:40 -> 4 días (los 40 minutos no suman un día) x $ 85.000 = $ 340.000.
+  Si la devolución fuera 05/04 12:00 (1 h 20 min de más) serían 5 días = $ 425.000.
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html" class="activo">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <div class="titulo-pantalla">
+      <h1>Confirmar devolución del alquiler N° 1</h1>
+    </div>
+
+    <section class="tarjeta">
+      <h2>Resumen</h2>
+      <p><strong>Cliente:</strong> Lucía Fernández · DNI 30111222<br>
+        <strong>Vehículo:</strong> AC456EF · Toyota Yaris 2022<br>
+        <strong>Retiro:</strong> 01/04/2026 10:00<br>
+        <strong>Devolución:</strong> 05/04/2026 10:40<br>
+        <strong>El vehículo vuelve a:</strong> <span class="estado ok">Disponible</span></p>
+
+      <h2>Monto</h2>
+      <p><strong>Días efectivos:</strong> 4<br>
+        <strong>Precio por día:</strong> $ 85.000<br>
+        <strong>Monto total:</strong> $ 340.000</p>
+      <div class="aviso">Se cuentan períodos de 24 horas desde el retiro. La devolución fue 40 minutos
+        después del cuarto período: entra en la hora de tolerancia, así que no se cobra un día más.</div>
+      <div class="aviso advertencia">Al confirmar, el alquiler queda Finalizado con este monto y ya no
+        se puede anular ni modificar.</div>
+
+      <div class="botones">
+        <a href="alquileres-listado-finalizado.html" class="boton">Confirmar devolución</a>
+        <a href="alquileres-finalizar.html" class="boton secundario">Corregir datos</a>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

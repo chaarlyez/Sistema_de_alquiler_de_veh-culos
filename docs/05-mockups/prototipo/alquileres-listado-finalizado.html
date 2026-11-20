@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alquileres — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Listado después de finalizar el alquiler N° 1 (US4.2): aviso con el monto,
+  el alquiler queda Finalizado con su devolución y monto, sin acciones de cambio (RN18).
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html" class="activo">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <div class="titulo-pantalla">
+      <h1>Alquileres</h1>
+      <span class="acciones">
+        <a href="alquileres-historial.html" class="boton secundario">Historial de un cliente</a>
+        <a href="alquileres-iniciar-directo.html" class="boton">Nuevo alquiler</a>
+      </span>
+    </div>
+
+    <div class="aviso exito">Alquiler N° 1 finalizado. Monto a cobrar: $ 340.000 (4 días). El Toyota
+      Yaris (AC456EF) volvió a Disponible.</div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="filtro-estado">Estado</label>
+        <select id="filtro-estado">
+          <option selected>Activos y finalizados</option>
+          <option>Activo</option>
+          <option>Finalizado</option>
+          <option>Anulado</option>
+          <option>Todos</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="filtro-cliente">Cliente</label>
+        <input id="filtro-cliente" placeholder="Documento o apellido">
+      </div>
+      <div class="campo">
+        <label for="filtro-vehiculo">Vehículo</label>
+        <input id="filtro-vehiculo" placeholder="Patente">
+      </div>
+      <a href="#" class="boton secundario">Filtrar</a>
+    </form>
+
+    <table class="tabla">
+      <thead>
+        <tr><th>N°</th><th>Cliente</th><th>Vehículo</th><th>Retiro</th><th>Devolución</th><th>Origen</th><th>Estado</th><th>Monto</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="N°">1</td>
+          <td data-label="Cliente">Lucía Fernández</td>
+          <td data-label="Vehículo">AC456EF · Toyota Yaris</td>
+          <td data-label="Retiro">01/04/2026 10:00</td>
+          <td data-label="Devolución">05/04/2026 10:40</td>
+          <td data-label="Origen">Reserva N° 1</td>
+          <td data-label="Estado"><span class="estado baja">Finalizado</span></td>
+          <td data-label="Monto">$ 340.000</td>
+          <td data-label="Acciones">
+            <span class="acciones">
+              <a href="alquileres-historial.html" class="boton secundario">Ver historial del cliente</a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="N°">2</td>
+          <td data-label="Cliente">Martín Gómez</td>
+          <td data-label="Vehículo">AB123CD · Fiat Cronos</td>
+          <td data-label="Retiro">01/03/2026 09:00</td>
+          <td data-label="Devolución">04/03/2026 09:30</td>
+          <td data-label="Origen">Directo</td>
+          <td data-label="Estado"><span class="estado baja">Finalizado</span></td>
+          <td data-label="Monto">$ 240.000</td>
+          <td data-label="Acciones">
+            <span class="acciones">
+              <a href="alquileres-historial.html" class="boton secundario">Ver historial del cliente</a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Los alquileres anulados no se muestran.
+      <a href="alquileres-listado-todos.html">Ver todos los alquileres</a></p>
+  </main>
+</div>
+</body>
+</html>
