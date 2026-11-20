@@ -13,7 +13,7 @@ Cada integrante completa solo la tabla de su parte.
 
 | Diagrama | Fuente | Documento |
 |---|---|---|
-| *(pendiente)* | | `../01-johann-tafur-vehiculos-clientes.md` |
+| Navegación Vehículos + Clientes | `parte1-navegacion-vehiculos-clientes.mmd` | `../01-johann-tafur-vehiculos-clientes.md` |
 
 ## Parte 2 — chaarlyez (Reservas + formulario público)
 

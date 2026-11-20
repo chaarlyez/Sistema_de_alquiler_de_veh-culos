@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Desactivar cliente · Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html" class="activo">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <!-- Caso normal: sin reservas Pendientes/Confirmadas ni alquileres Activos (RN15). -->
+    <section class="tarjeta">
+      <h2>¿Desactivar al cliente Sofía Pereyra (35555666)?</h2>
+      <p>El cliente queda <span class="estado baja">Inactivo</span>: deja de aparecer en las
+        búsquedas por defecto, pero conserva su historial de reservas y alquileres. Se puede
+        reactivar más adelante (US2.5), o se reactiva solo si vuelve a reservar por el
+        formulario público.</p>
+      <div class="botones">
+        <a href="clientes-listado.html" class="boton peligro">Sí, desactivar</a>
+        <a href="clientes-listado.html" class="boton secundario">Volver</a>
+      </div>
+    </section>
+
+    <!-- Bloqueo por alquiler activo (RF24). -->
+    <section class="tarjeta">
+      <h2>No se puede desactivar a Lucía Fernández (30111222)</h2>
+      <div class="aviso error">
+        Tiene un alquiler <span class="estado espera">Activo</span> en curso. Hay que esperar a
+        que se finalice (o anule) antes de desactivar al cliente.
+      </div>
+      <div class="botones">
+        <a href="clientes-listado.html" class="boton secundario">Volver</a>
+      </div>
+    </section>
+
+    <!-- Bloqueo por reserva Pendiente/Confirmada (RF24). -->
+    <section class="tarjeta">
+      <h2>No se puede desactivar a Martín Gómez (28333444)</h2>
+      <div class="aviso error">
+        Tiene 1 reserva en estado <span class="estado espera">Pendiente</span> (10/05/2026 al
+        15/05/2026). Hay que cancelarla o esperar a que se resuelva antes de desactivar al
+        cliente.
+      </div>
+      <div class="botones">
+        <a href="clientes-listado.html" class="boton secundario">Volver</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+</body>
+</html>

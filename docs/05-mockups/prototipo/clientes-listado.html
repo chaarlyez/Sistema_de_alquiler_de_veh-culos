@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clientes · Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html" class="activo">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <div class="titulo-pantalla">
+      <h1>Clientes</h1>
+      <a href="clientes-alta.html" class="boton">Nuevo cliente</a>
+    </div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="busqueda">Documento o apellido</label>
+        <input id="busqueda" placeholder="30111222 o Fernández">
+      </div>
+      <div class="campo">
+        <label for="incluir-inactivos">
+          <input type="checkbox" id="incluir-inactivos"> Incluir inactivos
+        </label>
+      </div>
+      <a href="#" class="boton secundario">Buscar</a>
+    </form>
+
+    <table class="tabla">
+      <thead>
+        <tr><th>Documento</th><th>Nombre</th><th>Contacto</th><th>Estado</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Documento">30111222</td>
+          <td data-label="Nombre">Lucía Fernández</td>
+          <td data-label="Contacto">lucia.fernandez@example.com</td>
+          <td data-label="Estado"><span class="estado ok">Activo</span></td>
+          <td data-label="Acciones">
+            <!-- Tiene un alquiler ACTIVO: no se ofrece "Desactivar" (RF24). -->
+            <span class="acciones">
+              <a href="clientes-alta.html" class="boton secundario">Editar</a>
+              <a href="alquileres-historial.html" class="boton secundario">Historial</a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Documento">28333444</td>
+          <td data-label="Nombre">Martín Gómez</td>
+          <td data-label="Contacto">martin.gomez@example.com</td>
+          <td data-label="Estado"><span class="estado ok">Activo</span></td>
+          <td data-label="Acciones">
+            <!-- Tiene una reserva Pendiente: tampoco se ofrece "Desactivar" (RF24). -->
+            <span class="acciones">
+              <a href="clientes-alta.html" class="boton secundario">Editar</a>
+              <a href="alquileres-historial.html" class="boton secundario">Historial</a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Documento">35555666</td>
+          <td data-label="Nombre">Sofía Pereyra</td>
+          <td data-label="Contacto">1155550103</td>
+          <td data-label="Estado"><span class="estado ok">Activo</span></td>
+          <td data-label="Acciones">
+            <span class="acciones">
+              <a href="clientes-alta.html" class="boton secundario">Editar</a>
+              <a href="clientes-baja.html" class="boton peligro">Desactivar</a>
+              <a href="alquileres-historial.html" class="boton secundario">Historial</a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Solo aparece con "Incluir inactivos" marcado (RF50). -->
+    <table class="tabla">
+      <thead>
+        <tr><th>Documento</th><th>Nombre</th><th>Contacto</th><th>Estado</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Documento">27777888</td>
+          <td data-label="Nombre">Diego Ramírez</td>
+          <td data-label="Contacto">1155550102</td>
+          <td data-label="Estado"><span class="estado baja">Inactivo</span></td>
+          <td data-label="Acciones">
+            <span class="acciones">
+              <a href="clientes-reactivar.html" class="boton">Reactivar</a>
+              <a href="alquileres-historial.html" class="boton secundario">Historial</a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><a href="clientes-listado-vacio.html">Ver variante: búsqueda sin resultados</a></p>
+
+  </main>
+</div>
+</body>
+</html>

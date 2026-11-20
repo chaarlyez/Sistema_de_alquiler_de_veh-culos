@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuevo cliente · Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html" class="activo">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <section class="tarjeta">
+      <h2>Nuevo cliente</h2>
+      <form>
+        <div class="campo">
+          <label for="nombre">Nombre <span class="obligatorio">*</span></label>
+          <input id="nombre" placeholder="Lucía">
+        </div>
+        <div class="campo">
+          <label for="apellido">Apellido <span class="obligatorio">*</span></label>
+          <input id="apellido" placeholder="Fernández">
+        </div>
+        <div class="campo">
+          <label for="documento">Documento <span class="obligatorio">*</span></label>
+          <input id="documento" placeholder="30111222">
+        </div>
+        <div class="campo">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="lucia.fernandez@example.com">
+        </div>
+        <div class="campo">
+          <label for="telefono">Teléfono</label>
+          <input id="telefono" type="tel" placeholder="1155550101">
+        </div>
+        <div class="botones">
+          <a href="clientes-listado.html" class="boton">Guardar</a>
+          <a href="clientes-listado.html" class="boton secundario">Cancelar</a>
+        </div>
+      </form>
+    </section>
+
+    <p><a href="clientes-alta-error.html">Ver variantes de error (documento duplicado)</a></p>
+
+  </main>
+</div>
+</body>
+</html>

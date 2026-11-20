@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dar de baja vehículo · Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html" class="activo">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <!-- Caso normal: sin alquiler activo ni reservas Pendientes/Confirmadas (RN15). -->
+    <section class="tarjeta">
+      <h2>¿Dar de baja el vehículo AB123CD?</h2>
+      <p>El vehículo pasa a estado <span class="estado baja">Retirado</span>: deja de aparecer en
+        el listado y en las búsquedas, pero conserva su historial de reservas y alquileres. Se
+        puede reactivar más adelante (US1.7).</p>
+      <div class="botones">
+        <a href="vehiculos-listado.html" class="boton peligro">Sí, dar de baja</a>
+        <a href="vehiculos-listado.html" class="boton secundario">Volver</a>
+      </div>
+    </section>
+
+    <!-- Bloqueo por alquiler activo (RF11). -->
+    <section class="tarjeta">
+      <h2>No se puede dar de baja el vehículo AC456EF</h2>
+      <div class="aviso error">
+        Tiene un alquiler <span class="estado espera">Activo</span> en curso. Hay que esperar a
+        que se finalice (o anule) antes de dar de baja el vehículo.
+      </div>
+      <div class="botones">
+        <a href="vehiculos-listado.html" class="boton secundario">Volver</a>
+      </div>
+    </section>
+
+    <!-- Bloqueo por reservas Pendientes/Confirmadas (RF46). -->
+    <section class="tarjeta">
+      <h2>No se puede dar de baja el vehículo AD789GH</h2>
+      <div class="aviso error">
+        Tiene 1 reserva en estado <span class="estado espera">Pendiente</span> (10/05/2026 al
+        15/05/2026). Hay que cancelarla o esperar a que se resuelva antes de dar de baja el
+        vehículo.
+      </div>
+      <div class="botones">
+        <a href="vehiculos-listado.html" class="boton secundario">Volver</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+</body>
+</html>

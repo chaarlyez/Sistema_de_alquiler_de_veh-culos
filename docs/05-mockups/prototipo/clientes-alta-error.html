@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuevo cliente (errores) · Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html" class="activo">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <!-- Variante A: el documento ya existe en un cliente activo (RF18). Rechazo simple. -->
+    <section class="tarjeta">
+      <h2>Nuevo cliente</h2>
+      <div class="aviso error">No se pudo guardar: revisá los campos marcados.</div>
+      <form>
+        <div class="campo">
+          <label for="nombre-a">Nombre <span class="obligatorio">*</span></label>
+          <input id="nombre-a" value="Martín">
+        </div>
+        <div class="campo">
+          <label for="apellido-a">Apellido <span class="obligatorio">*</span></label>
+          <input id="apellido-a" value="Gómez">
+        </div>
+        <div class="campo error">
+          <label for="documento-a">Documento <span class="obligatorio">*</span></label>
+          <input id="documento-a" value="28333444">
+          <span class="mensaje-error">Ya existe un cliente con el documento 28333444.</span>
+        </div>
+        <div class="botones">
+          <a href="#" class="boton">Guardar</a>
+          <a href="clientes-listado.html" class="boton secundario">Cancelar</a>
+        </div>
+      </form>
+    </section>
+
+    <!-- Variante B: el documento es de un cliente inactivo (RF52, RN16). Se ofrece reactivar
+         en vez de rechazar sin más. -->
+    <section class="tarjeta">
+      <h2>Nuevo cliente</h2>
+      <div class="aviso advertencia">
+        Ya existe un cliente con el documento 27777888, pero está inactivo.
+        ¿Querés reactivarlo en vez de crear uno nuevo?
+      </div>
+      <form>
+        <div class="campo error">
+          <label for="documento-b">Documento <span class="obligatorio">*</span></label>
+          <input id="documento-b" value="27777888">
+          <span class="mensaje-error">Documento de un cliente inactivo — no se puede duplicar (RN16).</span>
+        </div>
+        <div class="botones">
+          <a href="clientes-reactivar.html" class="boton">Reactivar cliente 27777888</a>
+          <a href="clientes-listado.html" class="boton secundario">Cancelar</a>
+        </div>
+      </form>
+    </section>
+
+  </main>
+</div>
+</body>
+</html>
