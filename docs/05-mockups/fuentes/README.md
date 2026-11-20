@@ -13,13 +13,14 @@ Cada integrante completa solo la tabla de su parte.
 
 | Diagrama | Fuente | Documento |
 |---|---|---|
-| *(pendiente)* | | `../01-johann-tafur-vehiculos-clientes.md` |
+| Navegación Vehículos + Clientes | `parte1-navegacion-vehiculos-clientes.mmd` | `../01-johann-tafur-vehiculos-clientes.md` |
 
 ## Parte 2 — chaarlyez (Reservas + formulario público)
 
 | Diagrama | Fuente | Documento |
 |---|---|---|
-| *(pendiente)* | | `../02-chaarlyez-reservas.md` |
+| Navegación del formulario público | [`parte2-navegacion-formulario-publico.mmd`](parte2-navegacion-formulario-publico.mmd) | `../02-chaarlyez-reservas.md` §3.1 |
+| Navegación de reservas en el back-office | [`parte2-navegacion-reservas-backoffice.mmd`](parte2-navegacion-reservas-backoffice.mmd) | `../02-chaarlyez-reservas.md` §3.2 |
 
 ## Parte 3 — mariocardona970546 (Alquileres + navegación completa)
 

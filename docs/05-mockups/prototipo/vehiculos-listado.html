@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vehículos · Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html" class="activo">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <div class="titulo-pantalla">
+      <h1>Vehículos</h1>
+      <a href="vehiculos-alta.html" class="boton">Nuevo vehículo</a>
+    </div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="filtro-estado">Estado</label>
+        <select id="filtro-estado">
+          <option>Todos menos Retirados</option>
+          <option>Disponible</option>
+          <option>Alquilado</option>
+          <option>Mantenimiento</option>
+          <option>Retirado</option>
+        </select>
+      </div>
+      <a href="vehiculos-disponibilidad.html" class="boton secundario">Buscar disponibles por fecha</a>
+      <a href="#" class="boton secundario">Filtrar</a>
+    </form>
+
+    <table class="tabla">
+      <thead>
+        <tr><th>Patente</th><th>Vehículo</th><th>Precio por día</th><th>Estado</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Patente">AB123CD</td>
+          <td data-label="Vehículo">Fiat Cronos 2023</td>
+          <td data-label="Precio por día">$ 80.000</td>
+          <td data-label="Estado"><span class="estado ok">Disponible</span></td>
+          <td data-label="Acciones">
+            <span class="acciones">
+              <a href="vehiculos-alta.html" class="boton secundario">Editar</a>
+              <a href="#" class="boton secundario">Marcar mantenimiento</a>
+              <a href="vehiculos-baja.html" class="boton peligro">Dar de baja</a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Patente">AC456EF</td>
+          <td data-label="Vehículo">Toyota Yaris 2022</td>
+          <td data-label="Precio por día">$ 85.000</td>
+          <td data-label="Estado"><span class="estado espera">Alquilado</span></td>
+          <td data-label="Acciones">
+            <!-- Alquilado: tiene un alquiler ACTIVO, así que no se ofrecen "mantenimiento" (RF15)
+                 ni "dar de baja" (RF11) hasta que el alquiler termine. -->
+            <span class="acciones"><a href="vehiculos-alta.html" class="boton secundario">Editar</a></span>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Patente">AD789GH</td>
+          <td data-label="Vehículo">Toyota Hilux 2024</td>
+          <td data-label="Precio por día">$ 200.000</td>
+          <td data-label="Estado"><span class="estado ok">Disponible</span></td>
+          <td data-label="Acciones">
+            <!-- Tiene una reserva Pendiente: eso bloquea "dar de baja" (RF46), pero no el
+                 mantenimiento (RF15 solo mira el alquiler activo, no las reservas). -->
+            <span class="acciones">
+              <a href="vehiculos-alta.html" class="boton secundario">Editar</a>
+              <a href="#" class="boton secundario">Marcar mantenimiento</a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Patente">AE012IJ</td>
+          <td data-label="Vehículo">Ford Ranger 2021</td>
+          <td data-label="Precio por día">$ 195.000</td>
+          <td data-label="Estado"><span class="estado espera">Mantenimiento</span></td>
+          <td data-label="Acciones">
+            <span class="acciones">
+              <a href="vehiculos-alta.html" class="boton secundario">Editar</a>
+              <a href="#" class="boton secundario">Desmarcar mantenimiento</a>
+              <a href="vehiculos-baja.html" class="boton peligro">Dar de baja</a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><a href="vehiculos-listado-vacio.html">Ver variante: listado sin resultados</a></p>
+
+  </main>
+</div>
+</body>
+</html>

@@ -295,5 +295,8 @@ Hecho:
   `index.html`) ya está creada, y cada integrante trabaja en su rama `<integrante>-fase5-mockups`
   con PR a `main`. Detalle en `docs/05-mockups/00-asignacion.md`.
 
-Próximo paso: cada integrante arma su parte de la Fase 5 (chaarlyez ya arrancó la Parte 2;
-Johann-Tafur y mariocardona970546 todavía no arrancaron la propia).
+Próximo paso: las 3 partes de la Fase 5 ya están entregadas. La Parte 2 (chaarlyez,
+`docs/05-mockups/02-chaarlyez-reservas.md`) ya está en `main`; falta mergear la Parte 1
+(Johann-Tafur, PR abierto) y la Parte 3 (mariocardona970546, en su rama). Cuando las 3 estén en
+`main`, sigue la integración final del prototipo (mariocardona970546) y la revisión de
+integración (`04-revision-integracion.md`).

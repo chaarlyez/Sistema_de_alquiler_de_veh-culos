@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clientes (sin resultados) · Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html" class="activo">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+
+    <div class="titulo-pantalla">
+      <h1>Clientes</h1>
+      <a href="clientes-alta.html" class="boton">Nuevo cliente</a>
+    </div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="busqueda">Documento o apellido</label>
+        <input id="busqueda" value="99999999">
+      </div>
+      <div class="campo">
+        <label for="incluir-inactivos">
+          <input type="checkbox" id="incluir-inactivos"> Incluir inactivos
+        </label>
+      </div>
+      <a href="#" class="boton secundario">Buscar</a>
+    </form>
+
+    <section class="tarjeta">
+      <p>No se encontraron clientes con ese documento o apellido.</p>
+    </section>
+
+    <p><a href="clientes-listado.html">Volver al listado</a></p>
+
+  </main>
+</div>
+</body>
+</html>
