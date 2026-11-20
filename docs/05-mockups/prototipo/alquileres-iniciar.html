@@ -37,14 +37,14 @@
     </section>
 
     <section class="tarjeta">
-      <form>
+      <form data-validar action="alquileres-listado-iniciado.html" method="get" novalidate>
         <div class="campo">
           <label for="retiro">Fecha y hora de retiro <span class="obligatorio">*</span></label>
-          <input id="retiro" type="datetime-local" value="2026-11-20T10:00">
-          <span>El alquiler se cobra por períodos de 24 horas desde este momento.</span>
+          <input id="retiro" type="datetime-local" required value="2026-11-20T10:00">
+          <span class="ayuda">El alquiler se cobra por períodos de 24 horas desde este momento.</span>
         </div>
         <div class="botones">
-          <a href="alquileres-listado-iniciado.html" class="boton">Iniciar alquiler</a>
+          <button type="submit" class="boton">Iniciar alquiler</button>
           <a href="reservas-listado.html" class="boton secundario">Volver a reservas</a>
         </div>
       </form>
@@ -54,5 +54,6 @@
       directo</a></p>
   </main>
 </div>
+<script src="validacion.js"></script>
 </body>
 </html>

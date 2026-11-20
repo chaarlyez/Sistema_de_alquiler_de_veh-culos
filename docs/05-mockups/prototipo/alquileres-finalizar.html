@@ -36,26 +36,32 @@
     </section>
 
     <section class="tarjeta">
-      <form>
+      <form data-validar action="alquileres-finalizar-confirmar.html" method="get" novalidate>
+        <!-- El retiro no se edita acá; está para que validacion.js compare la devolución contra él. -->
+        <div class="campo">
+          <label for="retiro">Retiro</label>
+          <input id="retiro" type="datetime-local" readonly value="2026-04-01T10:00">
+        </div>
         <div class="campo">
           <label for="devolucion">Fecha y hora de devolución <span class="obligatorio">*</span></label>
-          <input id="devolucion" type="datetime-local" value="2026-04-05T10:40">
-          <span>Hay 1 hora de tolerancia: si se pasa, se cobra un día más.</span>
+          <input id="devolucion" type="datetime-local" required data-no-antes-de="retiro" value="2026-04-05T10:40">
+          <span class="ayuda">Hay 1 hora de tolerancia: si se pasa, se cobra un día más.</span>
         </div>
         <div class="campo">
           <label for="estado-vehiculo">Estado del vehículo al volver <span class="obligatorio">*</span></label>
-          <select id="estado-vehiculo">
-            <option selected>Disponible (listo para alquilar)</option>
-            <option>Mantenimiento (necesita revisión o limpieza)</option>
+          <select id="estado-vehiculo" required>
+            <option value="DISPONIBLE" selected>Disponible (listo para alquilar)</option>
+            <option value="MANTENIMIENTO">Mantenimiento (necesita revisión o limpieza)</option>
           </select>
         </div>
         <div class="botones">
-          <a href="alquileres-finalizar-confirmar.html" class="boton">Calcular monto</a>
+          <button type="submit" class="boton">Calcular monto</button>
           <a href="alquileres-listado.html" class="boton secundario">Volver</a>
         </div>
       </form>
     </section>
   </main>
 </div>
+<script src="validacion.js"></script>
 </body>
 </html>

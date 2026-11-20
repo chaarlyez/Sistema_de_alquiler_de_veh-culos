@@ -29,12 +29,12 @@
       <a href="alquileres-listado.html" class="boton secundario">Volver a alquileres</a>
     </div>
 
-    <form class="filtros">
+    <form class="filtros" data-validar action="alquileres-historial.html" method="get" novalidate>
       <div class="campo">
         <label for="documento">Documento del cliente <span class="obligatorio">*</span></label>
-        <input id="documento" inputmode="numeric" value="28333444">
+        <input id="documento" inputmode="numeric" required data-numerico value="28333444">
       </div>
-      <a href="#" class="boton secundario">Buscar</a>
+      <button type="submit" class="boton secundario">Buscar</button>
     </form>
 
     <section class="tarjeta">
@@ -60,5 +60,6 @@
     </table>
   </main>
 </div>
+<script src="validacion.js"></script>
 </body>
 </html>

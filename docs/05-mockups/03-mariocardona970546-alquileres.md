@@ -45,6 +45,12 @@ confirmación (`00-asignacion.md` sección 3).
   mismas acciones son iguales y no llevan a ningún lado.
 - **Después de iniciar, finalizar o anular** se vuelve al listado con un aviso de éxito arriba,
   igual que en reservas.
+- **Validación en el mockup**: los formularios (iniciar, nuevo alquiler directo, finalizar e
+  historial) usan `validacion.js` de la base común, como pide la guía de estilo de la Parte 2:
+  si falta un obligatorio, el documento tiene letras o la devolución es anterior al retiro, el
+  error aparece en el momento y no se pasa a la pantalla siguiente. Las reglas de negocio
+  (vehículo alquilado, cliente inactivo) no las puede saber el mockup, por eso se muestran en
+  pantallas de error fijas (2.6, 2.9).
 
 ## 2. Pantallas
 
@@ -95,7 +101,7 @@ confirmación (`00-asignacion.md` sección 3).
 | **Objetivo** | Alquilarle un vehículo a un cliente que llega sin reserva previa. |
 | **Cubre** | US4.1, RF34, RF35, RN04, RN11 |
 | **Campos** | Documento del cliente `*`, vehículo `*`, fecha y hora de retiro `*`. En la lista de vehículos no aparecen los Retirados (RN17); los que no se pueden alquilar lo dicen entre paréntesis (*alquilado*, *en mantenimiento*), igual que en *Nueva reserva* (Parte 2). |
-| **Acciones** | *Iniciar alquiler* → listado con aviso *"Alquiler N° 5 iniciado. El … pasó a Alquilado."* o 2.6 si se rechaza (en el prototipo lleva siempre a 2.6, para mostrar el error) · *Cancelar* → 2.1 · *Registralo en Clientes* → Parte 1. |
+| **Acciones** | *Iniciar alquiler* → listado con aviso *"Alquiler N° 5 iniciado. El … pasó a Alquilado."* o 2.6 si se rechaza (en el prototipo, con los campos completos lleva siempre a 2.6, para mostrar el error; con campos vacíos, `validacion.js` marca el error sin salir de la pantalla) · *Cancelar* → 2.1 · *Registralo en Clientes* → Parte 1. |
 | **Móvil** | Estándar. El documento usa `inputmode="numeric"` para que el celular muestre el teclado numérico. |
 
 ### 2.6 Alquiler rechazado — `alquileres-iniciar-error.html`
@@ -116,7 +122,8 @@ Mensajes al iniciar un alquiler (directo o desde reserva), todos con el aviso ge
 | Cliente inactivo (RF54, RN17) — *en el mockup* | Bajo *Documento*: *"Diego Ramírez está dado de baja. Reactivalo desde Clientes para poder alquilarle."* (mismo texto que en reservas, Parte 2) |
 | Vehículo Retirado (RF54, RN17) | Bajo *Vehículo*: *"El Fiat Argo (AF345KL) está dado de baja. Reactivalo desde Vehículos para poder alquilarlo."* No debería pasar desde la pantalla, porque la lista no muestra los Retirados; queda para la API o por si otro empleado lo da de baja mientras tanto. |
 | Cliente inexistente | Bajo *Documento*: *"No hay ningún cliente con ese documento. Registralo en Clientes."* |
-| Falta un obligatorio | Bajo el campo: *"Completá este campo."* |
+| Falta un obligatorio | Bajo el campo, con el nombre del campo: *"Completá documento del cliente."* (lo arma `validacion.js`) |
+| Documento con letras o puntos | Bajo *Documento*: *"El documento debe tener solo números, sin puntos ni letras."* (`validacion.js`) |
 | Reserva que dejó de estar Confirmada (desde 2.4) | Aviso general: *"La reserva N° 4 ya no está confirmada (fue cancelada). No se puede iniciar el alquiler desde ella."* Pasa si otro empleado la canceló mientras tanto. |
 
 ### 2.7 Listado después de iniciar — `alquileres-listado-iniciado.html`
@@ -133,7 +140,7 @@ Mensajes al iniciar un alquiler (directo o desde reserva), todos con el aviso ge
 | **Objetivo** | Registrar la devolución del vehículo. |
 | **Cubre** | US4.2, RF37, RF39 |
 | **Muestra** | Datos del alquiler N° 1: cliente, vehículo con precio por día, retiro y origen. |
-| **Campos** | Fecha y hora de devolución `*` (con la ayuda *"Hay 1 hora de tolerancia: si se pasa, se cobra un día más."*), estado del vehículo al volver `*`: *Disponible (listo para alquilar)*, el valor por defecto, o *Mantenimiento (necesita revisión o limpieza)* (RF39). |
+| **Campos** | Retiro (solo lectura, de referencia), fecha y hora de devolución `*` (con la ayuda *"Hay 1 hora de tolerancia: si se pasa, se cobra un día más."*), estado del vehículo al volver `*`: *Disponible (listo para alquilar)*, el valor por defecto, o *Mantenimiento (necesita revisión o limpieza)* (RF39). |
 | **Acciones** | *Calcular monto* → 2.10 (o 2.9 si hay error) · *Volver* → 2.1. |
 | **Móvil** | Estándar. |
 
@@ -143,7 +150,7 @@ Mensajes al iniciar un alquiler (directo o desde reserva), todos con el aviso ge
 |---|---|
 | **Cuándo** | La fecha y hora de devolución es anterior al retiro. |
 | **Cubre** | RF37, RNF01 |
-| **Mensajes** | Aviso general: *"No se pudo calcular el monto: revisá los campos marcados."* Bajo la devolución: *"La devolución no puede ser anterior al retiro (01/04/2026 10:00)."* Si falta un obligatorio: *"Completá este campo."* |
+| **Mensajes** | Aviso general: *"No se pudo calcular el monto: revisá los campos marcados."* Bajo la devolución: *"La devolución no puede ser anterior al retiro (01/04/2026 10:00)."* Si falta un obligatorio: *"Completá fecha y hora de devolución."* En el mockup, `validacion.js` muestra este error en vivo con su texto genérico: *"Esta fecha no puede ser anterior a la de retiro."* Por eso el paso 1 muestra el retiro como campo de solo lectura. |
 | **Móvil** | Estándar. |
 
 ### 2.10 Finalizar alquiler, paso 2: días y monto — `alquileres-finalizar-confirmar.html`
@@ -260,10 +267,15 @@ Se hace cuando las Partes 1 y 2 estén en `main` (`00-asignacion.md` sección 7)
       / *Ir al alquiler* de la Parte 2, que hoy apuntan a `alquileres-listado.html`.
 - [ ] Diagrama de navegación completo del sistema, uniendo los de las 3 partes.
 
-Pendiente aparte: las pantallas de esta parte usan el `estilos.css` de `main`. La Parte 2 trae un
-tema visual nuevo en su rama; como esta parte no agrega estilos ni cambia los existentes, las
-pantallas toman el tema solas cuando se integre. Las capturas se rehacen en ese momento si el
-cambio de aspecto es grande.
+Pendiente aparte: esta parte depende de dos cosas que trae la Parte 2 (PR #1) y que todavía no
+están en `main`:
+
+- **Tema visual "VeloRent"** (`estilos.css`): como esta parte no agrega estilos ni cambia los
+  existentes, las pantallas toman el tema solas. Ya se probó con el CSS de la rama de la Parte 2,
+  en 375 px y 1280 px, y se ven bien. Las capturas de `capturas/` están con el tema anterior; se
+  rehacen en la integración.
+- **`validacion.js`** y la clase `.ayuda`: hasta que se una el PR #1, los formularios de esta
+  parte navegan sin validar y los textos de ayuda se ven sin estilo propio. No rompe nada.
 
 ## 5. Qué falta validar
 
