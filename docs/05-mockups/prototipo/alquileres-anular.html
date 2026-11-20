@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anular alquiler — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Confirmación de anulación (US4.5, RF55, RF56, RN18). Nunca dice "eliminar":
+  el alquiler se conserva como Anulado (RN15). Ejemplo: el N° 1, que viene de la reserva N° 1,
+  por eso avisa que la reserva pasa a Cancelada. En un alquiler directo esa línea no aparece.
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html" class="activo">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <section class="tarjeta">
+      <h2>¿Anular el alquiler N° 1?</h2>
+      <p><strong>Cliente:</strong> Lucía Fernández · DNI 30111222<br>
+        <strong>Vehículo:</strong> AC456EF · Toyota Yaris 2022<br>
+        <strong>Retiro:</strong> 01/04/2026 10:00</p>
+
+      <p>Anulá solo si el alquiler se registró por error (por ejemplo, el cliente no se llevó el
+        vehículo o se eligió mal la unidad). Si el cliente devolvió el vehículo, usá
+        <a href="alquileres-finalizar.html">Finalizar</a>.</p>
+
+      <p>Al anular:</p>
+      <ul>
+        <li>El alquiler pasa a <span class="estado baja">Anulado</span>, sin monto ni fecha de
+          devolución.</li>
+        <li>El Toyota Yaris (AC456EF) vuelve a <span class="estado ok">Disponible</span>.</li>
+        <li>La reserva N° 1, de la que salió este alquiler, pasa a
+          <span class="estado baja">Cancelada</span>.</li>
+        <li>No se borra nada: el alquiler sigue en el historial y se ve en el listado filtrando por
+          estado "Anulado".</li>
+      </ul>
+      <div class="aviso advertencia">La anulación no se puede deshacer.</div>
+
+      <div class="botones">
+        <a href="alquileres-listado-anulado.html" class="boton peligro">Sí, anular</a>
+        <a href="alquileres-listado.html" class="boton secundario">Volver</a>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

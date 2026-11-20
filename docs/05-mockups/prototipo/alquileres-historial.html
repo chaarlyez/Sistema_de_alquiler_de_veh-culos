@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Historial de alquileres — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Historial de alquileres de un cliente por documento (US4.4, RF41).
+  Muestra todos sus alquileres (activos, finalizados y anulados): es un historial, no oculta
+  nada (RNF09). Se llega desde el listado de alquileres o desde un cliente (Parte 1).
+  Ejemplo: Martín Gómez, con el alquiler N° 2 de 02-dml.sql.
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html" class="activo">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <div class="titulo-pantalla">
+      <h1>Historial de alquileres</h1>
+      <a href="alquileres-listado.html" class="boton secundario">Volver a alquileres</a>
+    </div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="documento">Documento del cliente <span class="obligatorio">*</span></label>
+        <input id="documento" inputmode="numeric" value="28333444">
+      </div>
+      <a href="#" class="boton secundario">Buscar</a>
+    </form>
+
+    <section class="tarjeta">
+      <h2>Martín Gómez · DNI 28333444 <span class="estado ok">Activo</span></h2>
+      <p>martin.gomez@example.com · 1155550102</p>
+    </section>
+
+    <table class="tabla">
+      <thead>
+        <tr><th>N°</th><th>Vehículo</th><th>Retiro</th><th>Devolución</th><th>Días</th><th>Estado</th><th>Monto</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="N°">2</td>
+          <td data-label="Vehículo">AB123CD · Fiat Cronos 2023</td>
+          <td data-label="Retiro">01/03/2026 09:00</td>
+          <td data-label="Devolución">04/03/2026 09:30</td>
+          <td data-label="Días">3</td>
+          <td data-label="Estado"><span class="estado baja">Finalizado</span></td>
+          <td data-label="Monto">$ 240.000</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+</body>
+</html>

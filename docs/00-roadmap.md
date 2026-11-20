@@ -102,7 +102,7 @@ demás. Ver alcance, base común, organización del equipo y entregables de cada
 |---|---|---|---|
 | 1 | Johann-Tafur | E1 Vehículos + E2 Clientes | ⬜ Pendiente |
 | 2 | chaarlyez | Base común (estilos y plantillas, ✅ hecha) + E3 Reservas + E5 formulario público de reserva | 🟡 En curso |
-| 3 | mariocardona970546 | E4 Alquileres + integración final del prototipo | ⬜ Pendiente |
+| 3 | mariocardona970546 | E4 Alquileres + integración final del prototipo | 🟡 Alquileres entregados, pendiente de validar; integración final pendiente |
 
 ## Cambios posteriores al cierre de fases
 

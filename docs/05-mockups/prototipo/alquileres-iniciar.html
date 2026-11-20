@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciar alquiler — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Iniciar alquiler desde una reserva Confirmada (US4.1, RF34, RN04).
+  Se llega desde el botón "Iniciar alquiler" del listado de reservas (Parte 2).
+  Ejemplo: reserva N° 4 de Valentina Ruiz, creada en el formulario público.
+  Cliente y vehículo salen de la reserva: solo se completa la fecha y hora real de retiro.
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html">Reservas</a>
+    <a href="alquileres-listado.html" class="activo">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <div class="titulo-pantalla">
+      <h1>Iniciar alquiler</h1>
+    </div>
+
+    <section class="tarjeta">
+      <h2>Desde la reserva N° 4 <span class="estado ok">Confirmada</span></h2>
+      <p><strong>Cliente:</strong> Valentina Ruiz · DNI 40333444<br>
+        <strong>Vehículo:</strong> AB123CD · Fiat Cronos 2023 · $ 80.000 por día<br>
+        <strong>Fechas reservadas:</strong> 20/11/2026 al 23/11/2026</p>
+      <p>El cliente y el vehículo salen de la reserva y no se cambian acá.</p>
+    </section>
+
+    <section class="tarjeta">
+      <form>
+        <div class="campo">
+          <label for="retiro">Fecha y hora de retiro <span class="obligatorio">*</span></label>
+          <input id="retiro" type="datetime-local" value="2026-11-20T10:00">
+          <span>El alquiler se cobra por períodos de 24 horas desde este momento.</span>
+        </div>
+        <div class="botones">
+          <a href="alquileres-listado-iniciado.html" class="boton">Iniciar alquiler</a>
+          <a href="reservas-listado.html" class="boton secundario">Volver a reservas</a>
+        </div>
+      </form>
+    </section>
+
+    <p>¿El cliente no tiene reserva? <a href="alquileres-iniciar-directo.html">Iniciar un alquiler
+      directo</a></p>
+  </main>
+</div>
+</body>
+</html>
