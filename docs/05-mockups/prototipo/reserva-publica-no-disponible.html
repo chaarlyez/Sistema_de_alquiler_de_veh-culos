@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vehículo no disponible — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Formulario público · Paso 2, al confirmar: otra persona reservó el mismo vehículo
+  mientras se completaban los datos. Se vuelve a validar la disponibilidad al guardar
+  (RF45, RN12, RN14), igual que en una reserva del empleado.
+-->
+<header class="encabezado">Alquiler de Vehículos</header>
+
+<main class="publico">
+  <ol class="pasos">
+    <li>1. Vehículo</li>
+    <li class="actual">2. Tus datos</li>
+    <li>3. Listo</li>
+  </ol>
+
+  <section class="tarjeta">
+    <h1>Este vehículo ya no está disponible</h1>
+    <div class="aviso error">El <strong>Fiat Cronos 2023</strong> se reservó para esas fechas
+      mientras completabas tus datos. Tu reserva no se registró.</div>
+    <p>Podés elegir otro de los vehículos disponibles o buscar con otras fechas.</p>
+
+    <div class="botones">
+      <a href="reserva-publica-resultados.html" class="boton">Ver vehículos disponibles</a>
+      <a href="reserva-publica-buscar.html" class="boton secundario">Cambiar fechas</a>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">¿Ya tenés una reserva? Para consultarla o cancelarla llamanos al 11 5555-0000.</footer>
+</body>
+</html>

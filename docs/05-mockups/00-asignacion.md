@@ -97,6 +97,10 @@ Otras convenciones:
   | `reservas-listado.html`, `reserva-publica-buscar.html` | 2 |
   | `alquileres-listado.html` | 3 |
 
+  También tienen nombre fijo las pantallas que se enlazan desde otra parte:
+  `alquileres-iniciar.html` (desde una reserva Confirmada, Parte 2) y
+  `alquileres-historial.html` (desde un cliente, Parte 1).
+
 ## 4. Organización del equipo
 
 Las 3 partes son independientes entre sí (cada una tiene sus propios archivos), así que cada

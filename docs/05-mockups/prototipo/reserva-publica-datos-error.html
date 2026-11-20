@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tus datos — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!-- Formulario público · Paso 2 con errores: falta el documento y no hay ningún dato de contacto (RF43, RNF01). -->
+<header class="encabezado">Alquiler de Vehículos</header>
+
+<main class="publico">
+  <ol class="pasos">
+    <li>1. Vehículo</li>
+    <li class="actual">2. Tus datos</li>
+    <li>3. Listo</li>
+  </ol>
+
+  <section class="tarjeta">
+    <h2>Tu reserva</h2>
+    <dl class="resumen">
+      <dt>Vehículo</dt><dd>Fiat Cronos 2023</dd>
+      <dt>Retiro</dt><dd>20/11/2026</dd>
+      <dt>Devolución</dt><dd>23/11/2026</dd>
+      <dt>Precio por día</dt><dd>$ 80.000</dd>
+    </dl>
+    <a href="reserva-publica-resultados.html">Cambiar vehículo o fechas</a>
+  </section>
+
+  <section class="tarjeta">
+    <h1>Tus datos</h1>
+    <div class="aviso error">No pudimos registrar la reserva: revisá los campos marcados.</div>
+
+    <form>
+      <div class="campo">
+        <label for="nombre">Nombre <span class="obligatorio">*</span></label>
+        <input id="nombre" autocomplete="given-name" value="Valentina">
+      </div>
+      <div class="campo">
+        <label for="apellido">Apellido <span class="obligatorio">*</span></label>
+        <input id="apellido" autocomplete="family-name" value="Ruiz">
+      </div>
+      <div class="campo error">
+        <label for="documento">Documento (DNI) <span class="obligatorio">*</span></label>
+        <input id="documento" inputmode="numeric">
+        <span class="mensaje-error">Ingresá tu número de documento.</span>
+      </div>
+
+      <p class="ayuda">Completá al menos uno de estos dos datos para que podamos contactarte.</p>
+      <div class="campo error">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email">
+      </div>
+      <div class="campo error">
+        <label for="telefono">Teléfono</label>
+        <input id="telefono" type="tel" autocomplete="tel">
+        <span class="mensaje-error">Ingresá un email o un teléfono.</span>
+      </div>
+
+      <div class="botones">
+        <a href="reserva-publica-confirmacion.html" class="boton">Confirmar reserva</a>
+        <a href="reserva-publica-resultados.html" class="boton secundario">Volver</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer class="pie">¿Ya tenés una reserva? Para consultarla o cancelarla llamanos al 11 5555-0000.</footer>
+</body>
+</html>

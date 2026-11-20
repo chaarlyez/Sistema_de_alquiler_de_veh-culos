@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cancelar reserva — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!-- Back-office · Cancelar una reserva (US3.4, RF30, RF53). Nunca dice "eliminar": la reserva no se borra (RN15). -->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html" class="activo">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <section class="tarjeta">
+      <h1>¿Cancelar la reserva N° 2?</h1>
+      <dl class="resumen">
+        <dt>Cliente</dt><dd>Martín Gómez (28333444)</dd>
+        <dt>Vehículo</dt><dd>AD789GH · Toyota Hilux 2024</dd>
+        <dt>Fechas</dt><dd>10/05/2026 al 15/05/2026</dd>
+        <dt>Estado actual</dt><dd><span class="estado espera">Pendiente</span></dd>
+      </dl>
+      <p>La reserva pasa a <span class="estado baja">Cancelada</span>: el vehículo queda libre en
+        esas fechas y la reserva deja de aparecer en el listado, pero no se borra. Se puede ver
+        filtrando por estado "Cancelada". Una reserva cancelada no se puede volver a activar: si
+        el cliente cambia de idea, se crea una nueva.</p>
+      <div class="botones">
+        <a href="reservas-listado.html" class="boton peligro">Sí, cancelar reserva</a>
+        <a href="reservas-listado.html" class="boton secundario">Volver</a>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

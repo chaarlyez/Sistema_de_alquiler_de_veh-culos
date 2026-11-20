@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cancelar reserva — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Cancelación rechazada: la reserva N° 1 ya derivó en el alquiler 1, que está
+  activo (RF31). El listado no ofrece "Cancelar" en ese caso; este mensaje aparece si la
+  reserva se convirtió en alquiler mientras tanto (otro empleado inició el alquiler) o si
+  se pide por API. Si fue un error, se anula el alquiler y la reserva se cancela sola (US4.5, RF56).
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html" class="activo">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <section class="tarjeta">
+      <h1>No se puede cancelar la reserva N° 1</h1>
+      <div class="aviso error">La reserva ya se convirtió en un alquiler (iniciado el
+        01/04/2026, <span class="estado espera">Activo</span>). Una reserva que derivó en un
+        alquiler no se puede cancelar.</div>
+      <p>Si el alquiler se registró por error, anulalo desde Alquileres: al anularlo, esta
+        reserva pasa a Cancelada automáticamente.</p>
+      <div class="botones">
+        <a href="alquileres-listado.html" class="boton">Ir al alquiler</a>
+        <a href="reservas-listado.html" class="boton secundario">Volver a reservas</a>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

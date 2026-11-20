@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nueva reserva — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Crear reserva rechazada por solapamiento (US3.2, RF28, RN12): el Cronos ya
+  tiene la reserva N° 4 (Pendiente) del 20 al 23/11/2026, y el 22 y el 23 se superponen.
+  El mensaje dice con qué reserva choca. Los demás mensajes de este formulario están en
+  02-chaarlyez-reservas.md, sección 2.4.
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html" class="activo">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <section class="tarjeta">
+      <h1>Nueva reserva</h1>
+      <div class="aviso error">No se puede reservar el <strong>Fiat Cronos (AB123CD)</strong>
+        del 22/11/2026 al 25/11/2026: se superpone con la <strong>reserva N° 4</strong>
+        (Pendiente) del 20/11/2026 al 23/11/2026. Elegí otras fechas u otro vehículo.</div>
+
+      <form>
+        <div class="campo">
+          <label for="documento">Documento del cliente <span class="obligatorio">*</span></label>
+          <input id="documento" inputmode="numeric" value="28333444">
+          <span class="ayuda">Cliente: <strong>Martín Gómez</strong></span>
+        </div>
+
+        <div class="campo error">
+          <label for="vehiculo">Vehículo <span class="obligatorio">*</span></label>
+          <select id="vehiculo">
+            <option selected>AB123CD · Fiat Cronos 2023</option>
+            <option>AC456EF · Toyota Yaris 2022 (alquilado)</option>
+            <option>AD789GH · Toyota Hilux 2024</option>
+            <option>AE012IJ · Ford Ranger 2021 (en mantenimiento)</option>
+          </select>
+        </div>
+
+        <div class="campo error">
+          <label for="inicio">Fecha de inicio <span class="obligatorio">*</span></label>
+          <input id="inicio" type="date" value="2026-11-22">
+        </div>
+        <div class="campo error">
+          <label for="fin">Fecha de fin <span class="obligatorio">*</span></label>
+          <input id="fin" type="date" value="2026-11-25">
+          <span class="mensaje-error">Estas fechas se superponen con la reserva N° 4.</span>
+        </div>
+
+        <div class="botones">
+          <a href="reservas-listado.html" class="boton">Guardar reserva</a>
+          <a href="reservas-listado.html" class="boton secundario">Cancelar</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+</body>
+</html>

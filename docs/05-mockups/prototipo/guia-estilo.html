@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guía de estilo — VeloRent</title>
+  <link rel="stylesheet" href="estilos.css">
+  <!--
+    Página de referencia del estilo visual del prototipo (tema "VeloRent").
+    Usa el MISMO estilos.css que las pantallas, así que si el tema cambia, esta
+    guía se actualiza sola. El único <style> de abajo es para mostrar las muestras
+    de color; no define colores nuevos, lee los tokens (variables) del CSS.
+  -->
+  <style>
+    .paleta { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    .muestra { border: 1px solid var(--color-borde); border-radius: var(--radio); overflow: hidden; }
+    .muestra .color { height: 64px; }
+    .muestra .dato { padding: 8px 10px; font-size: 0.85rem; }
+    .muestra .dato strong { display: block; }
+    .muestra .dato code { color: var(--color-texto-suave); }
+    .seccion { margin-bottom: 28px; }
+    .fila { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  </style>
+</head>
+<body>
+<header class="encabezado">VeloRent · Guía de estilo (Fase 5)</header>
+
+<main class="publico" style="max-width: 900px;">
+
+  <section class="tarjeta seccion">
+    <h1>Estilo visual del proyecto</h1>
+    <p>Tema <strong>“VeloRent — oscuro de lujo”</strong>: fondo casi negro, acentos dorados,
+      texto claro y títulos con tipografía serif elegante. Esta página es la referencia
+      para todo el equipo.</p>
+    <div class="aviso">
+      <strong>Regla de equipo:</strong> todas las pantallas usan solo las clases y los
+      <em>tokens</em> (variables) de <code>estilos.css</code>. No se escriben colores a mano
+      en el HTML. Si falta un estilo, se agrega al CSS y se avisa en el PR.
+    </div>
+  </section>
+
+  <section class="tarjeta seccion">
+    <h2>1. Colores (tokens)</h2>
+    <p class="ayuda">Se usan como <code>var(--nombre)</code> en el CSS. No usar códigos hex sueltos.</p>
+    <div class="paleta">
+      <div class="muestra"><div class="color" style="background: var(--color-fondo);"></div>
+        <div class="dato"><strong>Fondo</strong><code>--color-fondo · #0f0f12</code></div></div>
+      <div class="muestra"><div class="color" style="background: var(--color-superficie);"></div>
+        <div class="dato"><strong>Superficie</strong><code>--color-superficie · #1a1a1f</code></div></div>
+      <div class="muestra"><div class="color" style="background: var(--color-superficie-2);"></div>
+        <div class="dato"><strong>Superficie 2 (campos)</strong><code>--color-superficie-2 · #141418</code></div></div>
+      <div class="muestra"><div class="color" style="background: var(--color-primario);"></div>
+        <div class="dato"><strong>Dorado (acento)</strong><code>--color-primario · #c9a24e</code></div></div>
+      <div class="muestra"><div class="color" style="background: var(--color-primario-oscuro);"></div>
+        <div class="dato"><strong>Dorado oscuro (hover)</strong><code>--color-primario-oscuro · #b1883a</code></div></div>
+      <div class="muestra"><div class="color" style="background: var(--color-texto);"></div>
+        <div class="dato"><strong>Texto</strong><code>--color-texto · #f3f1ec</code></div></div>
+      <div class="muestra"><div class="color" style="background: var(--color-texto-suave);"></div>
+        <div class="dato"><strong>Texto suave</strong><code>--color-texto-suave · #a5a39c</code></div></div>
+      <div class="muestra"><div class="color" style="background: var(--color-peligro);"></div>
+        <div class="dato"><strong>Peligro / error</strong><code>--color-peligro · #e5736a</code></div></div>
+      <div class="muestra"><div class="color" style="background: var(--color-exito);"></div>
+        <div class="dato"><strong>Éxito</strong><code>--color-exito · #5fb97e</code></div></div>
+      <div class="muestra"><div class="color" style="background: var(--color-aviso);"></div>
+        <div class="dato"><strong>Aviso</strong><code>--color-aviso · #d9a441</code></div></div>
+    </div>
+  </section>
+
+  <section class="tarjeta seccion">
+    <h2>2. Tipografía</h2>
+    <h1>Título con serif (Playfair Display)</h1>
+    <h2>Subtítulo con serif</h2>
+    <p>Texto de párrafo con la tipografía del sistema (sans-serif). Legible y neutra para
+      formularios y tablas. <a href="#">Un enlace se ve dorado</a>.</p>
+    <p class="ayuda">Títulos: <code>--fuente-titulo</code> (serif). Texto: <code>--fuente-texto</code> (sans).</p>
+  </section>
+
+  <section class="tarjeta seccion">
+    <h2>3. Botones</h2>
+    <div class="fila">
+      <a href="#" class="boton">Principal (dorado)</a>
+      <a href="#" class="boton secundario">Secundario (fantasma)</a>
+      <a href="#" class="boton peligro">Peligro</a>
+    </div>
+    <p class="ayuda">Clases: <code>.boton</code>, <code>.boton.secundario</code>, <code>.boton.peligro</code>.
+      El principal es la acción destacada de la pantalla (una sola por pantalla).</p>
+  </section>
+
+  <section class="tarjeta seccion">
+    <h2>4. Campos de formulario</h2>
+    <div class="campo">
+      <label>Campo normal <span class="obligatorio">*</span></label>
+      <input value="Texto de ejemplo">
+    </div>
+    <div class="campo error">
+      <label>Campo con error <span class="obligatorio">*</span></label>
+      <input value="">
+      <span class="mensaje-error">Completá este campo.</span>
+    </div>
+    <p class="ayuda">El asterisk dorado marca obligatorio. El error usa <code>.campo.error</code>
+      + <code>.mensaje-error</code> (ver validacion.js).</p>
+  </section>
+
+  <section class="tarjeta seccion">
+    <h2>5. Etiquetas de estado</h2>
+    <div class="fila">
+      <span class="estado ok">Disponible</span>
+      <span class="estado ok">Confirmada</span>
+      <span class="estado espera">Pendiente</span>
+      <span class="estado espera">Mantenimiento</span>
+      <span class="estado baja">Retirado</span>
+      <span class="estado baja">Cancelada</span>
+    </div>
+    <p class="ayuda">Clases: <code>.estado.ok</code> (verde), <code>.estado.espera</code> (ámbar),
+      <code>.estado.baja</code> (gris, para lo dado de baja).</p>
+  </section>
+
+  <section class="tarjeta seccion">
+    <h2>6. Avisos</h2>
+    <div class="aviso">Aviso informativo (dorado).</div>
+    <div class="aviso exito">Operación realizada con éxito.</div>
+    <div class="aviso advertencia">Atención: revisá este dato.</div>
+    <div class="aviso error">No se pudo completar la acción.</div>
+    <p class="ayuda">Clases: <code>.aviso</code>, <code>.aviso.exito</code>,
+      <code>.aviso.advertencia</code>, <code>.aviso.error</code>.</p>
+  </section>
+
+  <section class="tarjeta seccion">
+    <h2>7. Cómo armar una pantalla nueva</h2>
+    <p>Partí de <a href="plantilla.html">plantilla.html</a> (back-office) o
+      <a href="plantilla-publica.html">plantilla-publica.html</a> (formulario público).
+      Enlazá siempre <code>estilos.css</code> y, si tiene formulario con validación,
+      <code>validacion.js</code>. Usá solo las clases de esta guía.</p>
+    <p><a href="index.html" class="boton secundario">← Volver al prototipo</a></p>
+  </section>
+
+</main>
+</body>
+</html>

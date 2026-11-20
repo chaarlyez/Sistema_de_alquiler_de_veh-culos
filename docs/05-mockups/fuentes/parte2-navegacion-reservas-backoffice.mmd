@@ -1,0 +1,30 @@
+flowchart TD
+    L["Listado de reservas<br/>reservas-listado"] -->|Filtrar sin resultados| LV["Sin resultados<br/>reservas-listado-vacio"]
+    LV -->|Filtrar| L
+    L -->|Nueva reserva| N["Nueva reserva<br/>reservas-nueva"]
+    N -->|Guardar reserva| VN{"¿Fechas válidas, cliente activo,<br/>vehículo libre?"}
+    VN -->|No| NE["Reserva rechazada<br/>reservas-nueva-error"]
+    NE -->|Corregir y guardar| VN
+    VN -->|Sí: nace Pendiente| L
+    N -->|Cliente nuevo| CL["Clientes<br/>clientes-listado · Parte 1"]
+    L -->|Confirmar · solo Pendiente| C["¿Confirmar reserva?<br/>reservas-confirmar"]
+    C -->|Sí, confirmar| LC["Listado con reserva Confirmada<br/>reservas-listado-confirmada"]
+    C -->|Volver| L
+    LC -->|Iniciar alquiler| IA["Iniciar alquiler<br/>alquileres-iniciar · Parte 3"]
+    L -->|Cancelar · Pendiente o Confirmada| K["¿Cancelar reserva?<br/>reservas-cancelar"]
+    K -->|Volver| L
+    K -->|Sí, cancelar reserva| VK{"¿Ya derivó en<br/>un alquiler?"}
+    VK -->|No: pasa a Cancelada| L
+    VK -->|Sí| KB["Cancelación bloqueada<br/>reservas-cancelar-bloqueada"]
+    KB -->|Volver a reservas| L
+    KB -->|Ir al alquiler| AL["Alquileres<br/>alquileres-listado · Parte 3"]
+    L -->|Ver alquiler · reserva con alquiler| AL
+
+    classDef pantalla fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef error fill:#fdecea,stroke:#b42318,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef otraParte fill:#f1f1f1,stroke:#8a8a8a,color:#1a1a1a,stroke-dasharray: 4 3
+    class L,N,C,LC,K pantalla
+    class LV,NE,KB error
+    class VN,VK decision
+    class CL,IA,AL otraParte

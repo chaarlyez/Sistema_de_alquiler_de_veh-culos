@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reservas — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!--
+  Back-office · Listado de reservas (US3.3, RF29). Por defecto oculta las Canceladas (RN15, RF53).
+  Datos: reservas 1 y 2 de 02-dml.sql, más la N° 4 creada desde el formulario público.
+  La N° 3 (Cancelada) solo aparece filtrando por estado.
+  En el prototipo están conectadas las acciones de la N° 4 (Confirmar) y la N° 2 (Cancelar).
+-->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html" class="activo">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <div class="titulo-pantalla">
+      <h1>Reservas</h1>
+      <a href="reservas-nueva.html" class="boton">Nueva reserva</a>
+    </div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="filtro-cliente">Cliente</label>
+        <input id="filtro-cliente" placeholder="Documento o apellido">
+      </div>
+      <div class="campo">
+        <label for="filtro-vehiculo">Vehículo</label>
+        <input id="filtro-vehiculo" placeholder="Patente">
+      </div>
+      <div class="campo">
+        <label for="filtro-estado">Estado</label>
+        <select id="filtro-estado">
+          <option>Pendientes y confirmadas</option>
+          <option>Pendiente</option>
+          <option>Confirmada</option>
+          <option>Cancelada</option>
+          <option>Todas</option>
+        </select>
+      </div>
+      <a href="reservas-listado-vacio.html" class="boton secundario">Filtrar</a>
+    </form>
+
+    <table class="tabla">
+      <thead>
+        <tr><th>N°</th><th>Cliente</th><th>Vehículo</th><th>Retiro</th><th>Devolución</th><th>Estado</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="N°">4</td>
+          <td data-label="Cliente">Valentina Ruiz</td>
+          <td data-label="Vehículo">AB123CD · Fiat Cronos</td>
+          <td data-label="Retiro">20/11/2026</td>
+          <td data-label="Devolución">23/11/2026</td>
+          <td data-label="Estado"><span class="estado espera">Pendiente</span></td>
+          <td data-label="Acciones">
+            <span class="acciones">
+              <a href="reservas-confirmar.html" class="boton">Confirmar</a>
+              <a href="#" class="boton peligro">Cancelar</a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="N°">2</td>
+          <td data-label="Cliente">Martín Gómez</td>
+          <td data-label="Vehículo">AD789GH · Toyota Hilux</td>
+          <td data-label="Retiro">10/05/2026</td>
+          <td data-label="Devolución">15/05/2026</td>
+          <td data-label="Estado"><span class="estado espera">Pendiente</span></td>
+          <td data-label="Acciones">
+            <span class="acciones">
+              <a href="#" class="boton">Confirmar</a>
+              <a href="reservas-cancelar.html" class="boton peligro">Cancelar</a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <!-- Ya derivó en el alquiler 1 (activo): no se ofrece cancelar (RF31). -->
+          <td data-label="N°">1</td>
+          <td data-label="Cliente">Lucía Fernández</td>
+          <td data-label="Vehículo">AC456EF · Toyota Yaris</td>
+          <td data-label="Retiro">01/04/2026</td>
+          <td data-label="Devolución">05/04/2026</td>
+          <td data-label="Estado"><span class="estado ok">Confirmada</span></td>
+          <td data-label="Acciones">
+            <span class="acciones">
+              <a href="alquileres-listado.html" class="boton secundario">Ver alquiler</a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Ejemplos de otros estados de esta sección, para navegar el prototipo: -->
+    <p class="ayuda">Ver en el prototipo:
+      <a href="reservas-listado-vacio.html">filtro sin resultados</a> ·
+      <a href="reservas-nueva-error.html">reserva con fechas superpuestas</a> ·
+      <a href="reservas-cancelar-bloqueada.html">cancelación bloqueada</a></p>
+  </main>
+</div>
+</body>
+</html>

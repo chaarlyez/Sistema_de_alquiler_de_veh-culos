@@ -1,0 +1,29 @@
+flowchart TD
+    A["Paso 1 · Elegir fechas<br/>reserva-publica-buscar"] -->|Buscar vehículos| V{"¿Fechas válidas?"}
+    V -->|No| AE["Error de fechas<br/>reserva-publica-buscar-error"]
+    AE -->|Corregir y buscar| V
+    V -->|Sí| D{"¿Hay vehículos<br/>disponibles?"}
+    D -->|No| SR["Sin vehículos disponibles<br/>reserva-publica-sin-resultados"]
+    SR -->|Cambiar fechas| A
+    D -->|Sí| R["Vehículos disponibles<br/>reserva-publica-resultados"]
+    R -->|Cambiar fechas| A
+    R -->|Elegir este vehículo| B["Paso 2 · Tus datos<br/>reserva-publica-datos"]
+    B -->|Volver / Cambiar vehículo o fechas| R
+    B -->|Confirmar reserva| C{"¿Datos<br/>completos?"}
+    C -->|No| BE["Datos incompletos<br/>reserva-publica-datos-error"]
+    BE -->|Corregir y confirmar| C
+    C -->|Sí| E{"¿El vehículo sigue<br/>disponible?"}
+    E -->|No| ND["Vehículo no disponible<br/>reserva-publica-no-disponible"]
+    ND -->|Ver vehículos disponibles| R
+    ND -->|Cambiar fechas| A
+    E -->|Sí| F["Paso 3 · Comprobante<br/>reserva-publica-confirmacion"]
+    F -->|Hacer otra reserva| A
+
+    classDef pantalla fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    classDef error fill:#fdecea,stroke:#b42318,color:#1a1a1a
+    classDef decision fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef fin fill:#e6f4ec,stroke:#1e7a46,color:#1a1a1a
+    class A,R,B pantalla
+    class AE,SR,BE,ND error
+    class V,D,C,E decision
+    class F fin

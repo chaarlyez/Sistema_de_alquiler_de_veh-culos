@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reservas — Alquiler de Vehículos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<!-- Back-office · Listado de reservas sin resultados para los filtros elegidos (US3.3). -->
+<div class="app">
+  <header class="encabezado">Alquiler de Vehículos · Back-office</header>
+
+  <nav class="menu">
+    <a href="vehiculos-listado.html">Vehículos</a>
+    <a href="clientes-listado.html">Clientes</a>
+    <a href="reservas-listado.html" class="activo">Reservas</a>
+    <a href="alquileres-listado.html">Alquileres</a>
+  </nav>
+
+  <main class="contenido">
+    <div class="titulo-pantalla">
+      <h1>Reservas</h1>
+      <a href="reservas-nueva.html" class="boton">Nueva reserva</a>
+    </div>
+
+    <form class="filtros">
+      <div class="campo">
+        <label for="filtro-cliente">Cliente</label>
+        <input id="filtro-cliente" placeholder="Documento o apellido" value="Pereyra">
+      </div>
+      <div class="campo">
+        <label for="filtro-vehiculo">Vehículo</label>
+        <input id="filtro-vehiculo" placeholder="Patente">
+      </div>
+      <div class="campo">
+        <label for="filtro-estado">Estado</label>
+        <select id="filtro-estado">
+          <option>Pendientes y confirmadas</option>
+          <option>Pendiente</option>
+          <option>Confirmada</option>
+          <option>Cancelada</option>
+          <option>Todas</option>
+        </select>
+      </div>
+      <a href="reservas-listado.html" class="boton secundario">Filtrar</a>
+    </form>
+
+    <!-- Sofía Pereyra solo tiene la reserva N° 3, que está Cancelada y el filtro por defecto la oculta. -->
+    <div class="aviso">No hay reservas que coincidan con los filtros. Las reservas canceladas no se
+      muestran: elegí "Cancelada" o "Todas" en Estado para verlas.</div>
+  </main>
+</div>
+</body>
+</html>
