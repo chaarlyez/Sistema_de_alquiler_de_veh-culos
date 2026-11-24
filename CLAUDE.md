@@ -298,5 +298,5 @@ Hecho:
 Próximo paso: las 3 partes de la Fase 5 ya están en `main`. La integración final del prototipo
 (mariocardona970546, sección 4 de `docs/05-mockups/03-mariocardona970546-alquileres.md`) está
 entregada y pendiente de validar. Falta resolver en grupo los puntos de su sección 4.5 (nombre
-VeloRent, `inicio.html`, capturas de la Parte 1) y armar la revisión de integración
+VeloRent, `inicio.html`, capturas de la Parte 1) y validar la revisión de integración
 (`docs/05-mockups/04-revision-integracion.md`) para cerrar la fase.

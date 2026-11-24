@@ -286,6 +286,7 @@ en el PR):
 | `vehiculos-alta.html`, `clientes-alta.html`, `vehiculos-disponibilidad.html` (Parte 1) | Usan `validacion.js`: `data-validar`, `required` en los obligatorios, `data-numerico` en el documento, orden de fechas en la disponibilidad, y botón de envío en vez de link fijo. | La guía de estilo pide enlazarlo en toda pantalla con formulario. Los obligatorios son los de US1.1 y US2.1 (en el alta de clientes del back-office, email y teléfono son opcionales; la regla de "al menos uno" es solo del formulario público). |
 | `vehiculos-disponibilidad.html` (Parte 1) | *Reservar* lleva a `reservas-nueva.html` en vez de al listado de reservas. | Desde un vehículo disponible, lo esperable es crear la reserva. |
 | `clientes-listado.html` (Parte 1) | El *Historial* de Diego Ramírez lleva a `alquileres-historial-vacio.html`. | Esa pantalla muestra justo a Diego, inactivo y sin alquileres (RF41); antes abría el historial de Martín Gómez. |
+| `01-johann-tafur-vehiculos-clientes.md` y `parte1-navegacion-vehiculos-clientes.mmd` (Parte 1) | Descripción y diagrama actualizados con los dos links anteriores. | La fuente y el bloque embebido tienen que coincidir con las pantallas. |
 | `index.html` | Se ordenó (había una sección repetida y un comentario viejo) y se agregaron **recorridos guiados** para presentar el prototipo. | Ver 4.3. |
 
 ### 4.3 Recorridos guiados (`index.html`)
@@ -380,7 +381,7 @@ flowchart TD
       `02-dml.sql`. ¿Se pasan los estilos a `estilos.css` y se usan los vehículos de los datos
       de ejemplo, o se acepta la página de inicio como pieza de marketing?
 - [ ] **Capturas de la Parte 1**: en el roadmap figuran como pendientes.
-- [ ] Armar `04-revision-integracion.md` entre los 3 y cerrar la fase.
+- [ ] Validar `04-revision-integracion.md` entre los 3 y cerrar la fase.
 
 ## 5. Qué falta validar
 
