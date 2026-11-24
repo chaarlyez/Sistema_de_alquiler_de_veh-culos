@@ -21,22 +21,22 @@
 
     <section class="tarjeta">
       <h2>Nuevo vehículo</h2>
-      <form>
+      <form data-validar action="vehiculos-listado.html" method="get" novalidate>
         <div class="campo">
           <label for="patente">Patente <span class="obligatorio">*</span></label>
-          <input id="patente" placeholder="AB123CD">
+          <input id="patente" required placeholder="AB123CD">
         </div>
         <div class="campo">
           <label for="marca">Marca <span class="obligatorio">*</span></label>
-          <input id="marca" placeholder="Fiat">
+          <input id="marca" required placeholder="Fiat">
         </div>
         <div class="campo">
           <label for="modelo">Modelo <span class="obligatorio">*</span></label>
-          <input id="modelo" placeholder="Cronos">
+          <input id="modelo" required placeholder="Cronos">
         </div>
         <div class="campo">
           <label for="anio">Año</label>
-          <input id="anio" placeholder="2023">
+          <input id="anio" inputmode="numeric" placeholder="2023">
         </div>
         <div class="campo">
           <label for="tipo">Tipo</label>
@@ -44,10 +44,10 @@
         </div>
         <div class="campo">
           <label for="precio">Precio por día <span class="obligatorio">*</span></label>
-          <input id="precio" placeholder="80000">
+          <input id="precio" inputmode="numeric" required placeholder="80000">
         </div>
         <div class="botones">
-          <a href="vehiculos-listado.html" class="boton">Guardar</a>
+          <button type="submit" class="boton">Guardar</button>
           <a href="vehiculos-listado.html" class="boton secundario">Cancelar</a>
         </div>
       </form>
@@ -57,5 +57,6 @@
 
   </main>
 </div>
+<script src="validacion.js"></script>
 </body>
 </html>

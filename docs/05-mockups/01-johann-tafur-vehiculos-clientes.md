@@ -69,7 +69,7 @@ dado de baja (RN16).
 - **Historias / RF**: US1.5 (RF12, RF13).
 - **Campos obligatorios**: fecha desde, fecha hasta.
 - **Resultado**: lista de vehículos sin solapamiento de reserva/alquiler y sin estar Retirados ni
-  en Mantenimiento, con una acción "Reservar" que lleva a `reservas-listado.html` (Parte 2).
+  en Mantenimiento, con una acción "Reservar" que lleva a `reservas-nueva.html` (Parte 2).
 - **Estado especial**: `vehiculos-disponibilidad-vacia.html` — "No hay unidades disponibles para
   el rango de fechas pedido" (criterio de aceptación de US1.5).
 - **Móvil**: estándar.
@@ -91,8 +91,9 @@ dado de baja (RN16).
   - `35555666` Sofía Pereyra (Activo, sin actividad pendiente): Editar, Desactivar, Historial.
   - `27777888` Diego Ramírez (Inactivo, solo visible con "Incluir inactivos"): Reactivar,
     Historial.
-  - El link "Historial" de cada fila lleva a `alquileres-historial.html` (Parte 3, US4.4): el
-    historial se puede consultar aunque el cliente esté inactivo.
+  - El link "Historial" de cada fila lleva a `alquileres-historial.html` (Parte 3, US4.4); el de
+    Diego Ramírez, a `alquileres-historial-vacio.html`: el historial se puede consultar aunque el
+    cliente esté inactivo.
 - **Estado especial**: `clientes-listado-vacio.html` — búsqueda sin resultados.
 - **Móvil**: estándar.
 
@@ -166,8 +167,9 @@ flowchart TD
         CLV["clientes-listado-vacio.html"]
     end
 
-    RL[["reservas-listado.html (Parte 2)"]]
+    RN[["reservas-nueva.html (Parte 2)"]]
     AH[["alquileres-historial.html (Parte 3)"]]
+    AHV[["alquileres-historial-vacio.html (Parte 3)"]]
 
     VL --> VA
     VL --> VB
@@ -175,7 +177,7 @@ flowchart TD
     VL -.-> VLV
     VA -.-> VAE
     VAE --> VR
-    VD --> RL
+    VD --> RN
     VD -.-> VDV
     VB --> VL
     VR --> VL
@@ -184,6 +186,7 @@ flowchart TD
     CL --> CB
     CL --> CR
     CL --> AH
+    CL --> AHV
     CL -.-> CLV
     CA -.-> CAE
     CAE --> CR
@@ -194,14 +197,13 @@ flowchart TD
     style C fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
 
     classDef externo fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
-    class RL,AH externo
+    class RN,AH,AHV externo
 ```
 
 Fuente editable: `docs/05-mockups/fuentes/parte1-navegacion-vehiculos-clientes.mmd`. Las flechas
 punteadas son los links a una variante de estado especial (listado vacío, error); las sólidas son
-el flujo principal. `reservas-listado.html` y `alquileres-historial.html` son de otras partes:
-mientras no estén en `main`, esos links dan "archivo no encontrado" (igual que aclara
-`prototipo/index.html`).
+el flujo principal. `reservas-nueva.html`, `alquileres-historial.html` y `alquileres-historial-vacio.html` son de
+otras partes.
 
 ## 5. Qué falta validar
 

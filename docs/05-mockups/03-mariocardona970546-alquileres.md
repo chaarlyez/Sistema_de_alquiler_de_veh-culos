@@ -6,7 +6,7 @@ del prototipo.
 | Bloque | Estado |
 |---|---|
 | Alquileres en el back-office (E4) — secciones 1 a 3 | ✅ Mockups, capturas y diagrama de navegación |
-| Integración final del prototipo — sección 4 | ⬜ Pendiente: se hace cuando las 3 partes estén en `main` |
+| Integración final del prototipo — sección 4 | ✅ Revisión de las 50 pantallas, recorridos guiados y diagrama de navegación completo |
 
 Para ver el prototipo: abrir `prototipo/alquileres-listado.html` en el navegador (doble clic
 alcanza) y navegar con los botones. Las capturas de cada pantalla principal en móvil (375 px) y
@@ -256,26 +256,132 @@ flowchart TD
     H -->|Volver a alquileres| L
 ```
 
-## 4. Integración final (pendiente)
+## 4. Integración final
 
-Se hace cuando las Partes 1 y 2 estén en `main` (`00-asignacion.md` sección 7):
+Se hizo con las 3 partes ya en `main` (PR #1, #3 y #2), según `00-asignacion.md` sección 7.
+El prototipo completo tiene **50 pantallas**.
 
-- [ ] Completar `prototipo/index.html` si hace falta y revisar que todas las pantallas usen las
-      plantillas, los estilos y los patrones comunes.
-- [ ] Recorrer el prototipo entero en 375 px y en 1280 px, revisando los links entre secciones:
-      reserva Confirmada → *Iniciar alquiler* (2.4), cliente → historial (2.13), y *Ver alquiler*
-      / *Ir al alquiler* de la Parte 2, que hoy apuntan a `alquileres-listado.html`.
-- [ ] Diagrama de navegación completo del sistema, uniendo los de las 3 partes.
+### 4.1 Qué se revisó
 
-Pendiente aparte: esta parte depende de dos cosas que trae la Parte 2 (PR #1) y que todavía no
-están en `main`:
+- [x] **Links**: se revisaron todos los links de las 50 pantallas y ninguno lleva a un archivo
+      que no existe. Los cruces entre partes funcionan: reserva Confirmada → *Iniciar alquiler*
+      (2.4); *Ver alquiler* / *Ir al alquiler* → listado de alquileres; cliente → historial
+      (2.13); disponibilidad de vehículos → nueva reserva.
+- [x] **Menú**: en las 38 pantallas del back-office, la sección marcada en el menú coincide con
+      la pantalla.
+- [x] **Web y móvil**: las 50 pantallas se abrieron en 375 px y en 1280 px (100 revisiones) y
+      ninguna se desborda hacia el costado.
+- [x] **Validación de formularios** (`validacion.js`, guía de estilo): se probaron los 8
+      formularios de alta y búsqueda enviándolos vacíos o con datos inválidos, y todos marcan
+      el error sin pasar de pantalla.
+- [x] **Capturas** de esta parte rehechas con el tema VeloRent.
 
-- **Tema visual "VeloRent"** (`estilos.css`): como esta parte no agrega estilos ni cambia los
-  existentes, las pantallas toman el tema solas. Ya se probó con el CSS de la rama de la Parte 2,
-  en 375 px y 1280 px, y se ven bien. Las capturas de `capturas/` están con el tema anterior; se
-  rehacen en la integración.
-- **`validacion.js`** y la clase `.ayuda`: hasta que se una el PR #1, los formularios de esta
-  parte navegan sin validar y los textos de ayuda se ven sin estilo propio. No rompe nada.
+### 4.2 Correcciones hechas en la integración
+
+Cambios chicos sobre pantallas de otras partes, para que el prototipo quede parejo (se avisan
+en el PR):
+
+| Pantalla | Cambio | Por qué |
+|---|---|---|
+| `vehiculos-alta.html`, `clientes-alta.html`, `vehiculos-disponibilidad.html` (Parte 1) | Usan `validacion.js`: `data-validar`, `required` en los obligatorios, `data-numerico` en el documento, orden de fechas en la disponibilidad, y botón de envío en vez de link fijo. | La guía de estilo pide enlazarlo en toda pantalla con formulario. Los obligatorios son los de US1.1 y US2.1 (en el alta de clientes del back-office, email y teléfono son opcionales; la regla de "al menos uno" es solo del formulario público). |
+| `vehiculos-disponibilidad.html` (Parte 1) | *Reservar* lleva a `reservas-nueva.html` en vez de al listado de reservas. | Desde un vehículo disponible, lo esperable es crear la reserva. |
+| `clientes-listado.html` (Parte 1) | El *Historial* de Diego Ramírez lleva a `alquileres-historial-vacio.html`. | Esa pantalla muestra justo a Diego, inactivo y sin alquileres (RF41); antes abría el historial de Martín Gómez. |
+| `01-johann-tafur-vehiculos-clientes.md` y `parte1-navegacion-vehiculos-clientes.mmd` (Parte 1) | Descripción y diagrama actualizados con los dos links anteriores. | La fuente y el bloque embebido tienen que coincidir con las pantallas. |
+| `index.html` | Se ordenó (había una sección repetida y un comentario viejo) y se agregaron **recorridos guiados** para presentar el prototipo. | Ver 4.3. |
+
+### 4.3 Recorridos guiados (`index.html`)
+
+Cuatro recorridos que cruzan las 3 partes con los mismos datos de ejemplo:
+
+1. **De la reserva al alquiler**: Valentina Ruiz reserva desde el sitio público (Parte 2), el
+   empleado confirma la reserva N° 4 (Parte 2) e inicia el alquiler N° 4 (Parte 3).
+2. **Devolución y cobro**: finalizar el alquiler N° 1 con el cálculo de RN13 (Parte 3).
+3. **Bajas sin borrar nada**: baja y reactivación de vehículos y clientes (Parte 1), cancelación
+   de reservas (Parte 2), anulación de alquileres e historial de un cliente inactivo (Parte 3).
+4. **Errores y validaciones**: un ejemplo de mensaje de error por sección.
+
+### 4.4 Diagrama de navegación completo
+
+Fuente editable: [`fuentes/integracion-navegacion-completa.mmd`](fuentes/integracion-navegacion-completa.mmd).
+Muestra cada sección como un bloque con sus pantallas principales y todos los links que cruzan
+de una parte a otra. El detalle de cada sección (errores, estados vacíos, confirmaciones) está en
+el diagrama de su parte: `parte1-navegacion-vehiculos-clientes.mmd`,
+`parte2-navegacion-formulario-publico.mmd`, `parte2-navegacion-reservas-backoffice.mmd` y el de
+la sección 3 de este documento. La flecha punteada no es un link: indica que la reserva creada
+en el sitio público aparece en el back-office.
+
+```mermaid
+flowchart TD
+    IDX(["index.html<br/>entrada del prototipo"])
+    IDX --> INI
+    IDX --> MENU
+
+    subgraph PUB["Sitio público (cliente) · Parte 2"]
+        INI["Página de inicio<br/>inicio"] -->|Reservar| PB["1 · Fechas<br/>reserva-publica-buscar"]
+        PB --> PR["Vehículos disponibles<br/>reserva-publica-resultados"]
+        PR --> PD["2 · Tus datos<br/>reserva-publica-datos"]
+        PD --> PC["3 · Comprobante<br/>reserva-publica-confirmacion"]
+    end
+
+    MENU{{"Menú del back-office<br/>(en todas las pantallas)"}}
+    MENU --> VL
+    MENU --> CL
+    MENU --> RL
+    MENU --> AL
+
+    subgraph VEH["Vehículos · Parte 1"]
+        VL["Listado<br/>vehiculos-listado"] --> VA["Alta / edición<br/>vehiculos-alta"]
+        VL --> VB["Baja · reactivar<br/>vehiculos-baja · vehiculos-reactivar"]
+        VL --> VD["Disponibles por fechas<br/>vehiculos-disponibilidad"]
+    end
+
+    subgraph CLI["Clientes · Parte 1"]
+        CL["Listado<br/>clientes-listado"] --> CA["Alta / edición<br/>clientes-alta"]
+        CL --> CB["Desactivar · reactivar<br/>clientes-baja · clientes-reactivar"]
+    end
+
+    subgraph RES["Reservas · Parte 2"]
+        RL["Listado<br/>reservas-listado"] --> RN["Nueva reserva<br/>reservas-nueva"]
+        RL --> RC["Confirmar<br/>reservas-confirmar"]
+        RC --> RLC["Reserva Confirmada<br/>reservas-listado-confirmada"]
+        RL --> RK["Cancelar<br/>reservas-cancelar"]
+    end
+
+    subgraph ALQ["Alquileres · Parte 3"]
+        AL["Listado<br/>alquileres-listado"] --> AID["Alquiler directo<br/>alquileres-iniciar-directo"]
+        AI["Iniciar desde reserva<br/>alquileres-iniciar"]
+        AL --> AF["Finalizar: devolución y monto<br/>alquileres-finalizar"]
+        AL --> AA["Anular<br/>alquileres-anular"]
+        AL --> AH["Historial de un cliente<br/>alquileres-historial"]
+    end
+
+    PC -.->|la reserva aparece Pendiente| RL
+    VD -->|Reservar| RN
+    RN -->|Cliente nuevo| CL
+    RLC -->|Iniciar alquiler| AI
+    RLC -->|Ver alquiler| AL
+    RK -->|Ir al alquiler · si ya derivó en uno| AL
+    AI -->|Alquiler directo| AID
+    AI -->|Volver a reservas| RL
+    CL -->|Historial| AH
+    AID -->|Cliente no registrado| CL
+
+    classDef entrada fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef pantalla fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    class IDX,MENU entrada
+    class INI,PB,PR,PD,PC,VL,VA,VB,VD,CL,CA,CB,RL,RN,RC,RLC,RK,AL,AID,AI,AF,AA,AH pantalla
+```
+
+### 4.5 Para resolver en la revisión de integración
+
+- [ ] **Nombre en los encabezados**: la página de inicio dice "VeloRent" y el resto
+      "Alquiler de Vehículos". Decidir cuál queda (pedido de chaarlyez en el PR #1).
+- [ ] **`inicio.html`** (Parte 2) tiene estilos escritos en el HTML (`style="..."`), que la guía
+      de estilo no permite, y muestra vehículos (BMW Serie 3, Porsche 911…) que no están en
+      `02-dml.sql`. ¿Se pasan los estilos a `estilos.css` y se usan los vehículos de los datos
+      de ejemplo, o se acepta la página de inicio como pieza de marketing?
+- [ ] **Capturas de la Parte 1**: en el roadmap figuran como pendientes.
+- [ ] Validar `04-revision-integracion.md` entre los 3 y cerrar la fase.
 
 ## 5. Qué falta validar
 

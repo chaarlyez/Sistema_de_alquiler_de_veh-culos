@@ -21,18 +21,18 @@
 
     <section class="tarjeta">
       <h2>Nuevo cliente</h2>
-      <form>
+      <form data-validar action="clientes-listado.html" method="get" novalidate>
         <div class="campo">
           <label for="nombre">Nombre <span class="obligatorio">*</span></label>
-          <input id="nombre" placeholder="Lucía">
+          <input id="nombre" required placeholder="Lucía">
         </div>
         <div class="campo">
           <label for="apellido">Apellido <span class="obligatorio">*</span></label>
-          <input id="apellido" placeholder="Fernández">
+          <input id="apellido" required placeholder="Fernández">
         </div>
         <div class="campo">
           <label for="documento">Documento <span class="obligatorio">*</span></label>
-          <input id="documento" placeholder="30111222">
+          <input id="documento" inputmode="numeric" required data-numerico placeholder="30111222">
         </div>
         <div class="campo">
           <label for="email">Email</label>
@@ -43,7 +43,7 @@
           <input id="telefono" type="tel" placeholder="1155550101">
         </div>
         <div class="botones">
-          <a href="clientes-listado.html" class="boton">Guardar</a>
+          <button type="submit" class="boton">Guardar</button>
           <a href="clientes-listado.html" class="boton secundario">Cancelar</a>
         </div>
       </form>
@@ -53,5 +53,6 @@
 
   </main>
 </div>
+<script src="validacion.js"></script>
 </body>
 </html>
