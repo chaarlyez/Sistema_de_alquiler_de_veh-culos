@@ -102,7 +102,7 @@ demás. Ver alcance, base común, organización del equipo y entregables de cada
 |---|---|---|---|
 | 1 | Johann-Tafur | E1 Vehículos + E2 Clientes | ✅ Entregada en `main` (falta tomar capturas) |
 | 2 | chaarlyez | Base común (estilos y plantillas, ✅ hecha) + E3 Reservas + E5 formulario público de reserva | 🟡 Entregada en `main`, pendiente de validar |
-| 3 | mariocardona970546 | E4 Alquileres + integración final del prototipo | 🟡 Alquileres entregados en su rama, pendiente de mergear; integración final pendiente |
+| 3 | mariocardona970546 | E4 Alquileres + integración final del prototipo | 🟡 Alquileres en `main`; integración final entregada, pendiente de validar |
 
 ## Cambios posteriores al cierre de fases
 
