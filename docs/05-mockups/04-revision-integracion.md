@@ -48,8 +48,8 @@ Las propuestas son un punto de partida para decidir rápido; ninguna está aplic
 
 | # | Tema | Propuesta | Decisión |
 |---|---|---|---|
-| 1 | **Nombre en los encabezados**: la página de inicio dice "VeloRent" y el resto "Alquiler de Vehículos". | Usar uno solo en todas las pantallas. | |
-| 2 | **`inicio.html`** tiene estilos dentro del HTML y muestra vehículos que no están en `02-dml.sql`. | Pasar los estilos a `estilos.css` y mostrar los vehículos de los datos de ejemplo. | |
+| 1 | **Nombre en los encabezados**: la página de inicio dice "VeloRent" y el resto "Alquiler de Vehículos". | Usar uno solo en todas las pantallas. | ✅ **Resuelto**: "VeloRent" en todas las pantallas (encabezados y `<title>`). |
+| 2 | **`inicio.html`** tiene estilos dentro del HTML y muestra vehículos que no están en `02-dml.sql`. | Pasar los estilos a `estilos.css` y mostrar los vehículos de los datos de ejemplo. | ✅ **Resuelto**: estilos inline movidos a `estilos.css`; la flota muestra los vehículos de `02-dml.sql` (Fiat Cronos, Toyota Yaris, Toyota Hilux, Ford Ranger; el Fiat Argo RETIRED se oculta por RN15). |
 | 3 | **Capturas de la Parte 1**: faltan las de sus pantallas principales (`00-asignacion.md`, sección 2). | Johann-Tafur las agrega, o las toma quien integra. | |
 
 ### Reglas para definir antes de programar (Fase 6)
