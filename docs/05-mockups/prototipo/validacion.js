@@ -119,3 +119,27 @@ function etiquetaDe(campo) {
   if (!label) return 'este campo';
   return label.textContent.replace('*', '').trim().toLowerCase();
 }
+
+/*
+  Mejora de los campos de fecha (feedback del instructor, Fase 5):
+    - Al tocar el campo se abre directo el calendario (showPicker), no solo al
+      hacer clic en el ícono.
+    - En los campos marcados con data-futura (ej. fechas de reserva en la
+      landing) se bloquean las fechas pasadas poniendo min = hoy. No se aplica a
+      todos los campos para no romper fechas históricas del back-office.
+*/
+document.addEventListener('DOMContentLoaded', function () {
+  var hoy = new Date().toISOString().slice(0, 10); // AAAA-MM-DD
+
+  document.querySelectorAll('input[type="date"]').forEach(function (campo) {
+    if (campo.hasAttribute('data-futura') && !campo.hasAttribute('min')) {
+      campo.setAttribute('min', hoy);
+    }
+    // Abrir el calendario al tocar el campo (donde el navegador lo permita).
+    campo.addEventListener('click', function () {
+      if (typeof campo.showPicker === 'function') {
+        try { campo.showPicker(); } catch (e) { /* algunos navegadores lo bloquean */ }
+      }
+    });
+  });
+});
