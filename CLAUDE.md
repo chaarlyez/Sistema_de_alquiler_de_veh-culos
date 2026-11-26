@@ -295,8 +295,8 @@ Hecho:
   `index.html`) ya está creada, y cada integrante trabaja en su rama `<integrante>-fase5-mockups`
   con PR a `main`. Detalle en `docs/05-mockups/00-asignacion.md`.
 
-Próximo paso: las 3 partes de la Fase 5 ya están entregadas. La Parte 2 (chaarlyez,
-`docs/05-mockups/02-chaarlyez-reservas.md`) ya está en `main`; falta mergear la Parte 1
-(Johann-Tafur, PR abierto) y la Parte 3 (mariocardona970546, en su rama). Cuando las 3 estén en
-`main`, sigue la integración final del prototipo (mariocardona970546) y la revisión de
-integración (`04-revision-integracion.md`).
+Próximo paso: las 3 partes de la Fase 5 ya están en `main`. La integración final del prototipo
+(mariocardona970546, sección 4 de `docs/05-mockups/03-mariocardona970546-alquileres.md`) está
+entregada y pendiente de validar. Falta resolver en grupo los puntos de su sección 4.5 (nombre
+VeloRent, `inicio.html`, capturas de la Parte 1) y validar la revisión de integración
+(`docs/05-mockups/04-revision-integracion.md`) para cerrar la fase.

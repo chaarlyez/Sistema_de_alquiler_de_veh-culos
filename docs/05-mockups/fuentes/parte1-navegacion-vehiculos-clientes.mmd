@@ -29,8 +29,9 @@ flowchart TD
         CLV["clientes-listado-vacio.html"]
     end
 
-    RL[["reservas-listado.html (Parte 2)"]]
+    RN[["reservas-nueva.html (Parte 2)"]]
     AH[["alquileres-historial.html (Parte 3)"]]
+    AHV[["alquileres-historial-vacio.html (Parte 3)"]]
 
     VL --> VA
     VL --> VB
@@ -38,7 +39,7 @@ flowchart TD
     VL -.-> VLV
     VA -.-> VAE
     VAE --> VR
-    VD --> RL
+    VD --> RN
     VD -.-> VDV
     VB --> VL
     VR --> VL
@@ -47,6 +48,7 @@ flowchart TD
     CL --> CB
     CL --> CR
     CL --> AH
+    CL --> AHV
     CL -.-> CLV
     CA -.-> CAE
     CAE --> CR
@@ -57,4 +59,4 @@ flowchart TD
     style C fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
 
     classDef externo fill:#f0f0f0,stroke:#9aa5b1,color:#5a5a5a
-    class RL,AH externo
+    class RN,AH,AHV externo

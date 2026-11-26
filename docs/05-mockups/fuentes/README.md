@@ -27,4 +27,4 @@ Cada integrante completa solo la tabla de su parte.
 | Diagrama | Fuente | Documento |
 |---|---|---|
 | Navegación de alquileres en el back-office | [`parte3-navegacion-alquileres.mmd`](parte3-navegacion-alquileres.mmd) | `../03-mariocardona970546-alquileres.md` §3 |
-| Navegación completa del sistema | *(pendiente: integración final)* | `../03-mariocardona970546-alquileres.md` §4 |
+| Navegación completa del sistema | [`integracion-navegacion-completa.mmd`](integracion-navegacion-completa.mmd) | `../03-mariocardona970546-alquileres.md` §4 |

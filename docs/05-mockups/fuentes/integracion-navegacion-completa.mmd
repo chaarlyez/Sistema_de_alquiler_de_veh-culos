@@ -1,0 +1,59 @@
+flowchart TD
+    IDX(["index.html<br/>entrada del prototipo"])
+    IDX --> INI
+    IDX --> MENU
+
+    subgraph PUB["Sitio público (cliente) · Parte 2"]
+        INI["Página de inicio<br/>inicio"] -->|Reservar| PB["1 · Fechas<br/>reserva-publica-buscar"]
+        PB --> PR["Vehículos disponibles<br/>reserva-publica-resultados"]
+        PR --> PD["2 · Tus datos<br/>reserva-publica-datos"]
+        PD --> PC["3 · Comprobante<br/>reserva-publica-confirmacion"]
+    end
+
+    MENU{{"Menú del back-office<br/>(en todas las pantallas)"}}
+    MENU --> VL
+    MENU --> CL
+    MENU --> RL
+    MENU --> AL
+
+    subgraph VEH["Vehículos · Parte 1"]
+        VL["Listado<br/>vehiculos-listado"] --> VA["Alta / edición<br/>vehiculos-alta"]
+        VL --> VB["Baja · reactivar<br/>vehiculos-baja · vehiculos-reactivar"]
+        VL --> VD["Disponibles por fechas<br/>vehiculos-disponibilidad"]
+    end
+
+    subgraph CLI["Clientes · Parte 1"]
+        CL["Listado<br/>clientes-listado"] --> CA["Alta / edición<br/>clientes-alta"]
+        CL --> CB["Desactivar · reactivar<br/>clientes-baja · clientes-reactivar"]
+    end
+
+    subgraph RES["Reservas · Parte 2"]
+        RL["Listado<br/>reservas-listado"] --> RN["Nueva reserva<br/>reservas-nueva"]
+        RL --> RC["Confirmar<br/>reservas-confirmar"]
+        RC --> RLC["Reserva Confirmada<br/>reservas-listado-confirmada"]
+        RL --> RK["Cancelar<br/>reservas-cancelar"]
+    end
+
+    subgraph ALQ["Alquileres · Parte 3"]
+        AL["Listado<br/>alquileres-listado"] --> AID["Alquiler directo<br/>alquileres-iniciar-directo"]
+        AI["Iniciar desde reserva<br/>alquileres-iniciar"]
+        AL --> AF["Finalizar: devolución y monto<br/>alquileres-finalizar"]
+        AL --> AA["Anular<br/>alquileres-anular"]
+        AL --> AH["Historial de un cliente<br/>alquileres-historial"]
+    end
+
+    PC -.->|la reserva aparece Pendiente| RL
+    VD -->|Reservar| RN
+    RN -->|Cliente nuevo| CL
+    RLC -->|Iniciar alquiler| AI
+    RLC -->|Ver alquiler| AL
+    RK -->|Ir al alquiler · si ya derivó en uno| AL
+    AI -->|Alquiler directo| AID
+    AI -->|Volver a reservas| RL
+    CL -->|Historial| AH
+    AID -->|Cliente no registrado| CL
+
+    classDef entrada fill:#fff4e0,stroke:#c97a1e,color:#1a1a1a
+    classDef pantalla fill:#eef6ff,stroke:#2a6fb0,color:#1a1a1a
+    class IDX,MENU entrada
+    class INI,PB,PR,PD,PC,VL,VA,VB,VD,CL,CA,CB,RL,RN,RC,RLC,RK,AL,AID,AI,AF,AA,AH pantalla
